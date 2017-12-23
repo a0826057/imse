@@ -5,8 +5,10 @@ public class Manufacturer {
 	String name;
 	String country;
 	
-	public Manufacturer(){
-		
+	public Manufacturer(String nam, String co){
+		//ID MISSING!!
+		this.name = nam;
+		this.country = co;
 	}
 	
 	public int getManufacturer_ID() {
