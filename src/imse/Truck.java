@@ -1,6 +1,6 @@
 package imse;
 
-public class Truck {
+public class Truck extends Vehicle {
 	int lenght;
 	int height;
 	int loading_limit;

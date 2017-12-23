@@ -1,6 +1,6 @@
 package imse;
 
-public class Car {
+public class Car extends Vehicle {
 	int doors;
 	int passenger_limit;
 	
