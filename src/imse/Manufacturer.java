@@ -1,5 +1,7 @@
 package imse;
 
+//written by a01349198 - IB
+
 public class Manufacturer {
 	int manufacturer_ID;
 	String name;

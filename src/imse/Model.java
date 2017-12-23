@@ -1,5 +1,7 @@
 package imse;
 
+//written by a01349198 - IB
+
 public class Model {
 	int model_ID;
 	Manufacturer manufacturer;

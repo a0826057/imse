@@ -1,5 +1,7 @@
 package management;
 
+//written by a01349198 - IB
+
 import java.util.ArrayList;
 import java.util.List;
 import imse.Color;

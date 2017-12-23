@@ -1,5 +1,7 @@
 package imse;
 
+//written by a01349198 - IB
+
 public class Color {
 	int color_ID;
 	String description;

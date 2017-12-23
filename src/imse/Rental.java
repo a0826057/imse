@@ -1,5 +1,7 @@
 package imse;
 
+//written by a01349198 - IB
+
 import java.util.Date;
 
 public class Rental {
