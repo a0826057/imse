@@ -9,16 +9,21 @@ import imse.Rental;
 import imse.Vehicle;
 
 public class RentalManagement {
-	List<Rental> rentals;
-
+	private List<Rental> rentals;
+	private static RentalManagement rentalInstance = null;
+	
 	public RentalManagement(){
 		this.rentals = new ArrayList<Rental>();
 	}
 	
-	public RentalManagement(List<Rental> ls){
-		this.rentals = ls;
+	public RentalManagement getInstance(){
+		if(rentalInstance == null){
+			rentalInstance = new RentalManagement();
+		}
+		
+		return rentalInstance;
 	}
-	
+
 	public List<Rental> getRentalList() {
 		return rentals;
 	}

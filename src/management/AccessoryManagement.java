@@ -7,12 +7,21 @@ import java.util.List;
 import imse.Accessory;
 
 public class AccessoryManagement {
-	List<Accessory> accessory;
+	private List<Accessory> accessory;
+	private static AccessoryManagement accessoryInstance = null;
 	
-	public AccessoryManagement(){
+	private AccessoryManagement(){
 		accessory = new ArrayList<Accessory>();
 	}
 
+	public static AccessoryManagement getInstanace(){
+		if(accessoryInstance == null){
+			accessoryInstance = new AccessoryManagement();
+		}
+		
+		return accessoryInstance;
+	}	
+	
 	public List<Accessory> getAccessory() {
 		return accessory;
 	}

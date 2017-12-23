@@ -7,15 +7,22 @@ import java.util.List;
 import imse.Color;
 
 public class ColorManagement {
-	List<Color> colors;
+	private List<Color> colors;
+	public static ColorManagement colorInstance = null;
 
-	public ColorManagement(){
+	private ColorManagement(){
 		this.colors = new ArrayList<Color>();
 	}
 	
-	public ColorManagement(List<Color> ls){
-		this.colors = ls;
+	public ColorManagement getInstance(){
+		if(colorInstance == null){
+			colorInstance = new ColorManagement();
+		}
+		
+		return colorInstance;
 	}
+	
+	
 	public List<Color> getColorList() {
 		return colors;
 	}

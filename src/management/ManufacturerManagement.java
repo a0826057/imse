@@ -7,14 +7,19 @@ import java.util.List;
 import imse.Manufacturer;
 
 public class ManufacturerManagement {
-	List<Manufacturer> manufacturers;
+	private List<Manufacturer> manufacturers;
+	private static ManufacturerManagement manufacturerInstance = null;
 
-	public ManufacturerManagement(){
+	private ManufacturerManagement(){
 		this.manufacturers = new ArrayList<Manufacturer>();
 	}
 	
-	public ManufacturerManagement(List<Manufacturer> man){
-		this.manufacturers = man;
+	public ManufacturerManagement getInstance(){
+		if(manufacturerInstance == null){
+			manufacturerInstance = new ManufacturerManagement();
+		}
+		
+		return manufacturerInstance;
 	}
 	
 	public List<Manufacturer> getManufacturerList() {

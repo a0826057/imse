@@ -8,14 +8,19 @@ import imse.Manufacturer;
 import imse.Model;
 
 public class ModelManagement {
-	List<Model> models;
-
+	private List<Model> models;
+	private static ModelManagement modelInstance = null;
+	
 	public ModelManagement(){
 		models = new ArrayList<Model>(); 
 	}
 	
-	public ModelManagement(List<Model> ls){
-		this.models = ls;
+	public ModelManagement getInstance(){
+		if(modelInstance == null){
+			modelInstance = new ModelManagement();
+		}
+		
+		return modelInstance;
 	}
 	
 	public List<Model> getModelList() {
