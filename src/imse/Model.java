@@ -5,7 +5,10 @@ public class Model {
 	Manufacturer manufacturer;
 	double price;
 	
-	public Model(){
+	public Model(Manufacturer man, double pr){
+		// ID MISSING!!
+		this.manufacturer = man;
+		this.price = pr;
 	}
 
 	public int getModel_ID() {
