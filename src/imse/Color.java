@@ -5,8 +5,10 @@ public class Color {
 	String description;
 	String manufacturer_color_code;
 	
-	public Color(){
-		
+	public Color(String des, String man){
+		//ID MISSING!!
+		this.description = des;
+		this.manufacturer_color_code = man;
 	}
 	
 	public int getColor_ID() {
