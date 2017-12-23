@@ -63,13 +63,7 @@ public class Vehicle {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	public List<Vehicle> getVehicleList(){
-		List<Vehicle> list= null;
-		return list;
-	}
-	public int getVehicleListById(int vehicle_ID) {
-		return vehicle_ID;
-	}
+
 	
 	
 	
