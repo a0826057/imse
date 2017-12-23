@@ -5,8 +5,10 @@ public class Accessory {
 	String name;
 	String description;
 	
-	public Accessory(){
-		
+	public Accessory(String na, String des){
+		//ID MISSING!!
+		this.name = na;
+		this.description = des;
 	}
 	
 	public int getAccessory_ID() {

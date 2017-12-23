@@ -1,5 +1,6 @@
 package management;
 
+import java.util.ArrayList;
 import java.util.List;
 import imse.Accessory;
 
@@ -7,7 +8,7 @@ public class AccessoryManagement {
 	List<Accessory> accessory;
 	
 	public AccessoryManagement(){
-		//accessory = new List<Accessory>();
+		accessory = new ArrayList<Accessory>();
 	}
 
 	public List<Accessory> getAccessory() {
@@ -28,9 +29,8 @@ public class AccessoryManagement {
 	}
 	
 	public void addAccessory(String name, String description){
-		//CHECK IF THE SAME ACCESSORY IS THERE BY NAME
-		//Accessory acc = new Accessory(name,description);
-		//accessory
+		Accessory acc = new Accessory(name,description);
+		accessory.add(acc);
 	}
 	
 	public void changeAccessory(String name, String description){
