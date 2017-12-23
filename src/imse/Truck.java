@@ -5,8 +5,8 @@ public class Truck extends Vehicle {
 	int height;
 	int loading_limit;
 	
-	public Truck() {
-		
+	public Truck(int lenght, int heigtht, int loading_limit) {
+		super();
 	}
 	public int getLenght() {
 		return lenght;

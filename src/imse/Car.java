@@ -4,8 +4,8 @@ public class Car extends Vehicle {
 	int doors;
 	int passenger_limit;
 	
-	public Car() {
-		
+	public Car(int doors, int passenger_limit) {
+		super();
 	}
 	public int getDoors() {
 		return doors;

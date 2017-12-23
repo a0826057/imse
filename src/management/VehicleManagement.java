@@ -1,34 +1,81 @@
 package management;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import imse.Accessory;
+
 import imse.Color;
 import imse.Manufacturer;
 import imse.Model;
+
 import imse.Vehicle;
 
 public class VehicleManagement {
-	List<Vehicle> Vehicles;
+	List<Vehicle> vehicleList;
 	Vehicle vehicle;
+	private static VehicleManagement vehicleInstance = null;
 	
+	private VehicleManagement(){
+		vehicleList = new ArrayList<Vehicle>();
+	}
+	public VehicleManagement getInstance(){
+		if(vehicleInstance == null){
+			vehicleInstance = new VehicleManagement();
+		}
+		
+		return vehicleInstance;
+	}
+	public List<Vehicle> getVehicle() {
+		return vehicleList;
+	}
+
+	public void setVehicle(List<Vehicle> vehicleList) {
+		this.vehicleList = vehicleList;
+	}
 	
 	public List<Vehicle> getVehicleList(){
-		return Vehicles;
+		return vehicleList;
 	}
 	public Vehicle getVehicleListById(int vehicle_ID) {
-		//return vehicle
-		return vehicle;
+		for(Vehicle veh : vehicleList){
+			if(veh.getVehicle_ID() == vehicle_ID){
+				vehicle=veh;
+				return vehicle;
+			}
+		}
+		return null;
 	}
 	public List<Vehicle> getVehicleListByType(String type) {
-		List<Vehicle> typeList= null;
-		return typeList; 
+	/*	List<Vehicle> typeList= null;
+		for(Vehicle veh : vehicleList){
+			if(type== "Car") {
+				if(veh instanceof Car){
+				//needs to add here
+				 typeList.add(veh);
+			}
+			}
+			if(type == "Truck") {
+				if(veh instanceof Truck){
+				//needs to add here
+				typeList.add(veh);
+			}
+			}
+			
+		}
+		if(typeList!=null) {
+			return typeList; 
+		}*/		
+		return null;
+		
 	}
 	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit) {
-		
+		Vehicle veh= new Vehicle(plate,color,model,accessory,mileage,year,active,doors,pass_limit);
+		vehicleList.add(veh);
 	}
 	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit) {
-		
+		Vehicle veh= new Vehicle(plate,color,model,accessory,mileage,year,active,length,height,load_limit);
+		vehicleList.add(veh);
 	}
 	public void changeCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit) {
 		
