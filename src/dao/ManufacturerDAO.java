@@ -13,6 +13,6 @@ public interface ManufacturerDAO {
 	public void changeManufacturer(int manufacturer_ID, String name, String country);
 	public void deleteManufacturer(int manufacturer_id);
 	public int getManufacturerCount();
-	public List<Manufacturer> getManufacturersByName(String name);
+	public Manufacturer getManufacturerByName(String name);
 	public List<Manufacturer> getManufacturersByCountry(String country);
 }

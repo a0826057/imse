@@ -180,8 +180,7 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 	}
 	
 	@Override
-	public List<Manufacturer> getManufacturersByName(String name){
-		manufacturers = new ArrayList<Manufacturer>();
+	public Manufacturer getManufacturerByName(String name){
 		Connection con = null;
 		Manufacturer ac = null;
 		try{
@@ -194,7 +193,6 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			while(result.next()){
 				 ac = new Manufacturer(result.getInt("manufacturer_ID"), result.getString("name"), result.getString("country"));
-				 manufacturers.add(ac);
 			}
 		
 		}catch(Exception e){
@@ -207,7 +205,7 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 				System.err.println(e);
 			}
 		}
-		return manufacturers;
+		return ac;
 	}
 	
 	public List<Manufacturer> getManufacturersByCountry(String country){
