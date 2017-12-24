@@ -7,8 +7,8 @@ public class Accessory {
 	String name;
 	String description;
 	
-	public Accessory(String na, String des){
-		//ID MISSING!!
+	public Accessory(int id, String na, String des){
+		this.accessory_ID = id;
 		this.name = na;
 		this.description = des;
 	}
