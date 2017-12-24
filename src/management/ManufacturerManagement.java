@@ -40,8 +40,8 @@ public class ManufacturerManagement {
 	}
 	
 	public void addManufacturer(String name,  String country){
-		Manufacturer man = new Manufacturer(name, country);
-		manufacturers.add(man);
+		//Manufacturer man = new Manufacturer(name, country);
+		//manufacturers.add(man);
 	}
 	
 	public void changeManufacturer(String name, String country){

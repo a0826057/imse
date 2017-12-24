@@ -41,8 +41,8 @@ public class ModelManagement {
 	}
 	
 	public void addModel(Manufacturer manufacturer, double price){
-		Model mod = new Model(manufacturer, price);
-		models.add(mod);
+		//Model mod = new Model(manufacturer, price);
+		//models.add(mod);
 	}
 	
 	public void changeModel(Manufacturer manufacturer, double price){

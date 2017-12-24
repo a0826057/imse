@@ -41,8 +41,8 @@ public class ColorManagement {
 	}
 	
 	public void addColor(String description, String color_code){
-		Color col = new Color(description, color_code);
-		colors.add(col);
+		//Color col = new Color(description, color_code);
+		//colors.add(col);
 	}
 	
 	public void changeColor(String description, String color_code){

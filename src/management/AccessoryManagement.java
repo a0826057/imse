@@ -40,8 +40,8 @@ public class AccessoryManagement {
 	}
 	
 	public void addAccessory(String name, String description){
-		Accessory acc = new Accessory(name,description);
-		accessory.add(acc);
+		//Accessory acc = new Accessory(name,description);
+		//accessory.add(acc);
 	}
 	
 	public void changeAccessory(String name, String description){
