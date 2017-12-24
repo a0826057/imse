@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Date;
 
 import dao.EmployeeDAOI;
+import dao.EmployeeDAO;
 import imse.Employee;
 
 public class EmployeeGenerator {
