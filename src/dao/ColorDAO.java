@@ -10,8 +10,8 @@ public interface ColorDAO {
 	public List<Color> getColorList();
 	public Color getColorById(int color_id);
 	public void addColor(String description, String color_code);
-	public void changeColor(String description, String color_code);
+	public void changeColor(int color_ID, String description, String color_code);
 	public void deleteColor(int color_id);
 	public int getColorCount();
-	public Color getColorByDescription(String description);
+	public List<Color> getColorsByDescription(String description);
 }

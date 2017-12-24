@@ -7,8 +7,8 @@ public class Color {
 	String description;
 	String manufacturer_color_code;
 	
-	public Color(String des, String man){
-		//ID MISSING!!
+	public Color(int id, String des, String man){
+		this.color_ID = id;
 		this.description = des;
 		this.manufacturer_color_code = man;
 	}

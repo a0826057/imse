@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Random;
+import dao.ColorDAOI;
 
 //written by a01349198 - IB
 
@@ -91,13 +93,24 @@ public class ColorGenerator {
 	}
 	
 	public static void fillTable(){
+		ColorDAOI ad = new ColorDAOI();
+		Random rand = new Random(); 
 		
+		String[] descriptions = {"'red'","'green'","'blue'","'red'","'yellow'"};
+		String[] manufacturer_color_code = {"'4645sdfgs'","'345sdfgsdg'","'sdfg435'","'sdfg54'","'sdfsg435'"};
+		
+		int index1, index2;
+		for(int i = 0; i < 10; i ++){
+			index1 = rand.nextInt(5);
+			index2 = rand.nextInt(5); 
+			ad.addColor(descriptions[index1], manufacturer_color_code[index2]);
+		}
 	}
 	
 	public static void main (String [] args){
 		//dropDB();
 		//createDB();
-		createColorTable();
+		//createColorTable();
 		fillTable();
 	}
 }
