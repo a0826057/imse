@@ -20,11 +20,10 @@ public class EmployeeDAOI implements EmployeeDAO {
 		try {
 		      Class.forName("com.mysql.jdbc.Driver");
 		      connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
-		      
 
-		      // establish connection to database 
 		      Statement stmt = con.createStatement();
 		      statement.setQueryTimeout(30);
+
 		      ResultSet epl = stmt.executeQuery("SELECT * FROM EMPLOYEE");
 		      try {
 		    	  while(epl.next()){
