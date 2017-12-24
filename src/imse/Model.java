@@ -5,11 +5,13 @@ package imse;
 public class Model {
 	int model_ID;
 	Manufacturer manufacturer;
+	String description;
 	double price;
 	
-	public Model(Manufacturer man, double pr){
-		// ID MISSING!!
+	public Model(int id, Manufacturer man, String des, double pr){
+		this.model_ID = id;
 		this.manufacturer = man;
+		this.description = des;
 		this.price = pr;
 	}
 
@@ -21,15 +23,14 @@ public class Model {
 		this.model_ID = model_ID;
 	}
 
+
 	public Manufacturer getManufacturer() {
 		return manufacturer;
 	}
 
-
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
 	}
-
 
 	public double getPrice() {
 		return price;
@@ -38,6 +39,14 @@ public class Model {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
