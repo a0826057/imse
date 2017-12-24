@@ -23,7 +23,7 @@ public class EmployeeDAOI implements EmployeeDAO {
 		      statement.setQueryTimeout(30);
 
 		      // establish connection to database 
-		      Statement stmt = con.createStatement();
+		      Statement stmt = connection.createStatement();
 		      ResultSet epl = stmt.executeQuery("SELECT * FROM EMPLOYEE");
 		      try {
 		    	  while(epl.next()){

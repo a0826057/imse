@@ -109,7 +109,7 @@ public class EmployeeGenerator {
 		createCostumer();
 		fillCostumer();
 		EmployeeDAO empl = new EmployeeDAOI();
-		System.out.println(empl.getCostumerList().toString());
+		System.out.println(empl.getEmployeeList().toString());
 	}
 
 }
