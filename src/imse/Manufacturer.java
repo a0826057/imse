@@ -7,8 +7,8 @@ public class Manufacturer {
 	String name;
 	String country;
 	
-	public Manufacturer(String nam, String co){
-		//ID MISSING!!
+	public Manufacturer(int id, String nam, String co){
+		this.manufacturer_ID = id;
 		this.name = nam;
 		this.country = co;
 	}

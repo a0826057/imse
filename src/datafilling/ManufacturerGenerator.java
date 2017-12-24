@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Random;
+import dao.ManufacturerDAOI;
 
 //written by a01349198 - IB
 
@@ -91,13 +93,24 @@ public class ManufacturerGenerator {
 	}
 	
 	public static void fillTable(){
+		ManufacturerDAOI ad = new ManufacturerDAOI();
+		Random rand = new Random(); 
 		
+		String[] names = {"'BOW'","'Continentals'","'MDs'","'Helloween'","'NDS'"};
+		String[] countries = {"'Bosnia'","'Croatia'","'Serbia'","'Slovenia'","'Kosovo'"};
+		
+		int index1, index2;
+		for(int i = 0; i < 10; i ++){
+			index1 = rand.nextInt(5);
+			index2 = rand.nextInt(5); 
+			ad.addManufacturer(names[index1], countries[index2]);
+		}
 	}
 	
 	public static void main (String [] args){
 		//dropDB();
 		//createDB();
-		createManufacturerTable();
+		//createManufacturerTable();
 		fillTable();
 	}
 }
