@@ -20,10 +20,11 @@ public class EmployeeDAOI implements EmployeeDAO {
 		try {
 		      Class.forName("com.mysql.jdbc.Driver");
 		      connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
-		      statement.setQueryTimeout(30);
+		      
 
 		      // establish connection to database 
 		      Statement stmt = con.createStatement();
+		      statement.setQueryTimeout(30);
 		      ResultSet epl = stmt.executeQuery("SELECT * FROM EMPLOYEE");
 		      try {
 		    	  while(epl.next()){
@@ -74,10 +75,11 @@ public class EmployeeDAOI implements EmployeeDAO {
 		try {
 			  Class.forName("com.mysql.jdbc.Driver");
 		      connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
-		      statement.setQueryTimeout(30);
+		      
 
 		      // establish connection to database 
 		      Statement stmt = con.createStatement();
+		      statement.setQueryTimeout(30);
 		      try {
 		    	  String insertSql = null;
 		    	  if(ToAdd.getSuperior_ID() == -1){
@@ -117,10 +119,11 @@ public class EmployeeDAOI implements EmployeeDAO {
 		try {
 			  Class.forName("com.mysql.jdbc.Driver");
 		      connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
-		      statement.setQueryTimeout(30);
+		      
 
 		      // establish connection to database 
 		      Statement stmt = con.createStatement();
+		      statement.setQueryTimeout(30);
 		      try {
 		    	  String insertSql = null;
 		    	  
@@ -159,10 +162,11 @@ public class EmployeeDAOI implements EmployeeDAO {
 		try {
 			  Class.forName("com.mysql.jdbc.Driver");
 		      connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
-		      statement.setQueryTimeout(30);
+		     
 
 		      // establish connection to database 
 		      Statement stmt = con.createStatement();
+		      statement.setQueryTimeout(30);
 		      try {
 		    	  String insertSql = null;
 		    	  
