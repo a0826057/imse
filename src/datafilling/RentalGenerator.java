@@ -101,8 +101,8 @@ public class RentalGenerator {
 	}
 	
 	public static void main (String [] args){
-		dropDB();
-		createDB();
+		//dropDB();
+		//createDB();
 		createRentalsTable();
 		fillTable();
 	}

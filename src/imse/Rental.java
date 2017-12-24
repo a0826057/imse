@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class Rental {
 	Vehicle vehicle;
-	//Customer customer;
-	//Employee employee;
+	//Costumer costumer;
+	Employee employee;
 	Date date_from;
 	Date date_to;
 	String rating;
@@ -22,6 +22,14 @@ public class Rental {
 	
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
+	}
+	
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 	public Date getDate_from() {
