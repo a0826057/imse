@@ -1,8 +1,8 @@
 package imse;
 
 import java.util.List;
-
-public class Vehicle {
+import imse.Accessory;
+public class Vehicle{
 	int vehicle_ID;
 	String license_plate_number;
 	Color color;
@@ -11,6 +11,7 @@ public class Vehicle {
 	int mileage;
 	int manufacture_year;
 	Boolean active;
+	
 
 	public Vehicle(){
 		
@@ -18,6 +19,7 @@ public class Vehicle {
 	public Vehicle(String plate, Color color2, Model model2, Accessory accessory2, int mileage2, int year,
 			Boolean active2, int doors, int pass_limit) {
 		
+	
 	}
 	public Vehicle(String plate, Color color2, Model model2, Accessory accessory2, int mileage2, int year,
 			Boolean active2, int length, int height, int load_limit) {
