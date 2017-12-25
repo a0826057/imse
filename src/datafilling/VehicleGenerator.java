@@ -105,17 +105,23 @@ public class VehicleGenerator {
 		VehicleDAOI ad = new VehicleDAOI();
 		Random rand = new Random(); 
 		
-		String[] names = {"'Tire'","'Seat Covers'","'LED Lights'","'Color Spray'","'Nitro'"};
-		String[] descriptions = {"'Very nice and comfy'","'Not so great'","'Wooohoo'","'Cool thing'","'Not so bad'"};
+		String[] plates = {"'W 15234'","'W 16 AEY'","'W 342 BC'","'W 90706 M'","'W SS1'"};
+		String[] miles = {"10","160","45","3","13"};
+		String[] manufactur= {"2008","2016","2017","2018","2011"};
+		String[] act= {"0","1","0","1","0"};
+		String[] door= {"4","5","4","5","4"};
+		String[] pass= {"5","8","7","4","6"};
 		
 		
-		
-		int index1, index2;
+		int index1, index2, index3, index4, index5, index6;
 		for(int i = 0; i < 10; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(5); 
-			ad.addCar(plate, color, model, accessory, mileage, year, active, doors, pass_limit);
-			/*ad.addAccessory(names[index1], descriptions[index2]);*/
+			index3 = rand.nextInt(5); 
+			index4 = rand.nextInt(5); 
+			index5 = rand.nextInt(5); 
+			index6 = rand.nextInt(5); 
+			ad.addCar(plate[index1], mileage[index2], year[index3], active[index4], doors[index5], pass_limit[index6]);
 		}
 	}
 	public static void fillVehicleTruckTable(){
@@ -124,15 +130,7 @@ public class VehicleGenerator {
 		
 		String[] names = {"'Tire'","'Seat Covers'","'LED Lights'","'Color Spray'","'Nitro'"};
 		String[] descriptions = {"'Very nice and comfy'","'Not so great'","'Wooohoo'","'Cool thing'","'Not so bad'"};
-		/*
-		"lisence_plate_number varchar(120),"+
-		   "color_ID int," +
-		   "model_ID int, " +
-		   "accessory_ID int ,"+
-		   "mileage int,"+
-		   "manufacturer_year int,"+
-		   "active boolean,"+
-		*/
+		
 		int index1, index2;
 		for(int i = 0; i < 10; i ++){
 			index1 = rand.nextInt(5);
