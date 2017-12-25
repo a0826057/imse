@@ -24,18 +24,8 @@ public class Vehicle{
 		this.mileage=mileage;
 		this.manufacture_year=manufacture_year;
 		this.active=active;
-		
 	}	
-	public Vehicle(String plate, Color color2, Model model2, Accessory accessory2, int mileage2, int year,
-			Boolean active2, int doors, int pass_limit) {
-			
-	}
-
-	public Vehicle(String plate, Color color2, Model model2, Accessory accessory2, int mileage2, int year,
-			Boolean active2, int length, int height, int load_limit) {
 		
-	}
-	
 	public int getVehicle_ID() {
 		return vehicle_ID;
 	}

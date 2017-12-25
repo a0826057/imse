@@ -56,7 +56,38 @@ public class VehicleDAOI implements VehicleDAO{
 		return vehicles;
 	}
 	
-	public Vehicle getVehicleListById(int vehicle_ID);
+	public Vehicle getVehicleListById(int vehicle_ID) {
+		Connection con = null;
+		Vehicle vehic = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle WHERE vehicle_ID = " + vehicle_ID + ";");
+			
+			while(result.next()){
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Model m = mod.getModelById(result.getInt("model_id"));
+				vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				
+			}
+		
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		return vehic;
+	}
+	
 	public List<Vehicle> getVehicleListByType(String type);
 	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
 	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);

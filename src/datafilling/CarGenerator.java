@@ -68,10 +68,13 @@ public class CarGenerator {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE t ( " +
+															   "car_ID int,"+
 															   "doors int,"+
-															   "passenger_limit int,"+			
+															   "passenger_limit smallint DEFAULT 4,"+
+															   "PRIMARY KEY (car_ID) REFERENCES vehicle"+
 															   ");"
 															   );
+			
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

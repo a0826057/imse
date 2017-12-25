@@ -73,20 +73,24 @@ public class VehicleGenerator {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE vehicle ("+
 															   "vehicle_ID int AUTO_INCREMENT,"+
-															   "lisence_plate_number varchar(120),"+
+															   "lisence_plate_number varchar(15) NOT NULL UNIQUE,"+
 															   "color_ID int," +
 															   "model_ID int, " +
+															   "manufacturer_ID,"+
 															   "accessory_ID int ,"+
-															   "mileage int,"+
-															   "manufacturer_year int,"+
-															   "active boolean,"+
+															   "mileage int DEFAULT 0,"+
+															   "manufacturer_year smallint,"+
+															   "active boolean DEFAULT true,"+
 															   "PRIMARY KEY (vehicle_ID)"+
-															   "PRIMARY KEY (model_ID, accessory_ID,color_ID),"+
+															   "FOREIGN KEY (color_ID) REFERENCES color (color_ID),"+
 															   "FOREIGN KEY (model_ID) REFERENCES model (model_ID)," +
 															   "FOREIGN KEY (accessory_ID) REFERENCES accessory (accessory_ID)," +
-															   "FOREIGN KEY (color_ID) REFERENCES color (color_ID)" +
+															   "FOREIGN KEY (model_ID, manufacturer_ID) REFERENCES model (model_ID, manufacturer_ID)," +
+															   "CONSTRAINT check_vehicle CHECK (mileage >= 0 AND manufacture_year > 1940)" +
 																");"
 															   );
+			
+
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,7 +124,7 @@ public class VehicleGenerator {
 			index4 = rand.nextInt(5); 
 			index5 = rand.nextInt(5); 
 			index6 = rand.nextInt(5); 
-			ad.addCar(plates[index1], miles[index2], manufactur[index3], act[index4], doors[index5], pass_limit[index6]);
+			//ad.addCar(plates[index1], miles[index2], manufactur[index3], act[index4], doors[index5], pass_limit[index6]);
 		}
 	}
 	public static void fillVehicleTruckTable(){
@@ -131,9 +135,7 @@ public class VehicleGenerator {
 		int[] miles = {10,160,45,3,13};
 		int[] manufactur= {2008,2016,2017,2018,2011};
 		int[] act= {0,1,0,1,0};
-		int[] height= {200,225,300,275,350};
-		int[] length= {300,450,275,450,360};
-		int[] loading_limit= {300,150,100,500,450};
+		
 		
 		int index1, index2, index3, index4, index5, index6, index7;
 		for(int i = 0; i < 10; i ++){
@@ -144,7 +146,7 @@ public class VehicleGenerator {
 			index5 = rand.nextInt(5); 
 			index6 = rand.nextInt(5); 
 			index7 = rand.nextInt(5); 
-			ad.addTruck(plates[index1], miles[index2], manufactur[index3], act[index4], height[index5], length[index6],loading_limit[index7]);
+			//ad.addTruck(plates[index1],ls.get(index3) miles[index2], manufactur[index3], act[index4], height[index5], length[index6],loading_limit[index7]);
 		}
 	}
 	
