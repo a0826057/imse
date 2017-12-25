@@ -90,7 +90,33 @@ public class VehicleDAOI implements VehicleDAO{
 	
 	public List<Vehicle> getVehicleListByType(String type);
 	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
-	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
+	
+	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			statement.executeUpdate("INSERT INTO truck(length, height, loading_limit) VALUES(" +
+															length + "," +
+															height + "," +
+															load_limit +
+															");");
+			
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+	}
+	
 	public void changeCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
 	public void changeTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
 	public void deleteVehicle(int vehicle_id);
