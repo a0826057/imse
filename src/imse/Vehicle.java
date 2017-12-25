@@ -15,7 +15,15 @@ public class Vehicle{
 	Boolean active;
 	
 
-	public Vehicle(){
+	public Vehicle(int vehicle_ID, String license_plate_number,	Color color,Model model, List<Accessory> accessory, int mileage,int manufacture_year,Boolean active){
+		this.vehicle_ID=vehicle_ID;
+		this.license_plate_number=license_plate_number;
+		this.color=color;
+		this.model=model;
+		this.accessory=accessory;
+		this.mileage=mileage;
+		this.manufacture_year=manufacture_year;
+		this.active=active;
 		
 	}	
 	public Vehicle(String plate, Color color2, Model model2, Accessory accessory2, int mileage2, int year,
@@ -27,6 +35,7 @@ public class Vehicle{
 			Boolean active2, int length, int height, int load_limit) {
 		
 	}
+	
 	public int getVehicle_ID() {
 		return vehicle_ID;
 	}

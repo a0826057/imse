@@ -12,11 +12,15 @@ import imse.Accessory;
 import imse.Vehicle;
 import imse.Car;
 import imse.Color;
+import imse.Manufacturer;
 import imse.Model;
 import imse.Truck;
 
 public class VehicleDAOI implements VehicleDAO{
 	private List<Vehicle> vehicles;
+	ColorDAOI can= new ColorDAOI();
+	AccessoryDAOI ac= new AccessoryDAOI();
+	ModelDAOI mod = new ModelDAOI();
 	
 	@Override
 	public List<Vehicle> getVehicleList(){
@@ -31,10 +35,11 @@ public class VehicleDAOI implements VehicleDAO{
 			ResultSet result = statement.executeQuery("SELECT * FROM vehicle");
 			
 			while(result.next()){
-				Vehicle ac = new Vehicle(result.getString("accessory_ID"), result.getString("name"), result.getString("description"));
-				String plate, Color color2, Model model2, Accessory accessory2, int mileage2, int year,
-				Boolean active2, int doors, int pass_limit
-				vehicles.add(ac);
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);			
 			}
 		
 		}catch(Exception e){
@@ -50,6 +55,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		return vehicles;
 	}
+	
 	public Vehicle getVehicleListById(int vehicle_ID);
 	public List<Vehicle> getVehicleListByType(String type);
 	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
@@ -67,180 +73,4 @@ public class VehicleDAOI implements VehicleDAO{
 	public List<Vehicle> getCarByDoors(int doors);
 	public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer);
 	
-	
-	
-	
-	@Override
-	public Accessory getAccessoryById(int accessory_id){
-		Connection con = null;
-		Accessory ac = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM accessory WHERE accessory_ID = " + accessory_id + ";");
-			
-			while(result.next()){
-				 ac = new Accessory(result.getInt("accessory_ID"), result.getString("name"), result.getString("description"));
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		return ac;
-	}
-	
-	@Override
-	public void addAccessory(String name, String description){
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			statement.executeUpdate("INSERT INTO accessory(name,description) VALUES(" +
-													  name + "," +
-													  description +
-													  ");" 
-													  );
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	@Override
-	public void changeAccessory(int accessory_ID, String name, String description){
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			statement.executeUpdate("UPDATE accessory SET name = " + name + 
-														  ", description=" + description +
-													      " WHERE accessory_ID = " + accessory_ID + ";" 
-													      );
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	@Override
-	public void deleteAccessory(int accessory_id){
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			statement.executeQuery("DELETE * FROM accessory WHERE accessory_ID = " + accessory_id + ";");
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	@Override
-	public int getAccessoryCount(){
-		accessories = new ArrayList<Accessory>();
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM accessory");
-			
-			while(result.next()){
-				Accessory ac = new Accessory(result.getInt("accessory_ID"), result.getString("name"), result.getString("description"));
-				accessories.add(ac);
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		
-		return accessories.size();
-	}
-	
-	@Override
-	public List<Accessory> getAccessoriesByName(String name){
-		accessories = new ArrayList<Accessory>();
-		Connection con = null;
-		Accessory ac = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM accessory WHERE name = " + name + ";");
-			
-			while(result.next()){
-				 ac = new Accessory(result.getInt("accessory_ID"), result.getString("name"), result.getString("description"));
-				 accessories.add(ac);
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		return accessories;
-	}
-	public void addCar(String string, int i, int j, int k, int l, int m) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void addTruck(String string, int i, int j, int k, int l, int m, int n) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
