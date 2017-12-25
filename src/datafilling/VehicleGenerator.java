@@ -104,7 +104,7 @@ public class VehicleGenerator {
 		}	
 	}
 	
-	public static void fillVehicleCarTable(){
+	public static void fillVehicleTable(){
 		VehicleDAOI ad = new VehicleDAOI();
 		Random rand = new Random(); 
 		
@@ -127,35 +127,11 @@ public class VehicleGenerator {
 			//ad.addCar(plates[index1], miles[index2], manufactur[index3], act[index4], doors[index5], pass_limit[index6]);
 		}
 	}
-	public static void fillVehicleTruckTable(){
-		VehicleDAOI ad = new VehicleDAOI();
-		Random rand = new Random(); 
 		
-		String[] plates = {"'W 15234'","'W 16 AEY'","'W 342 BC'","'W 90706 M'","'W 223 SS1'"};
-		int[] miles = {10,160,45,3,13};
-		int[] manufactur= {2008,2016,2017,2018,2011};
-		int[] act= {0,1,0,1,0};
-		
-		
-		int index1, index2, index3, index4, index5, index6, index7;
-		for(int i = 0; i < 10; i ++){
-			index1 = rand.nextInt(5);
-			index2 = rand.nextInt(5); 
-			index3 = rand.nextInt(5); 
-			index4 = rand.nextInt(5); 
-			index5 = rand.nextInt(5); 
-			index6 = rand.nextInt(5); 
-			index7 = rand.nextInt(5); 
-			//ad.addTruck(plates[index1],ls.get(index3) miles[index2], manufactur[index3], act[index4], height[index5], length[index6],loading_limit[index7]);
-		}
-	}
-	
 	public static void main (String [] args){
 		//dropDB();
 		//createDB();
 		createVehicleTable();
-		fillVehicleCarTable();
-		fillVehicleTruckTable();
 
 	}
 }

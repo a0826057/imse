@@ -72,7 +72,6 @@ public class VehicleDAOI implements VehicleDAO{
 				List<Accessory> a= ac.getAccessoryList(); 
 				Model m = mod.getModelById(result.getInt("model_id"));
 				vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
-				
 			}
 		
 		}catch(Exception e){
@@ -89,6 +88,7 @@ public class VehicleDAOI implements VehicleDAO{
 	}
 	
 	public List<Vehicle> getVehicleListByType(String type);
+	
 	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
 	
 	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
