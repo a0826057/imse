@@ -234,4 +234,13 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 		return accessories;
 	}
+	public void addCar(String string, int i, int j, int k, int l, int m) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void addTruck(String string, int i, int j, int k, int l, int m, int n) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

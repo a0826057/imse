@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Random;
 
 
@@ -105,13 +104,13 @@ public class VehicleGenerator {
 		VehicleDAOI ad = new VehicleDAOI();
 		Random rand = new Random(); 
 		
-		String[] plates = {"'W 15234'","'W 16 AEY'","'W 342 BC'","'W 90706 M'","'W SS1'"};
-		String[] miles = {"10","160","45","3","13"};
-		String[] manufactur= {"2008","2016","2017","2018","2011"};
-		String[] act= {"0","1","0","1","0"};
-		String[] door= {"4","5","4","5","4"};
-		String[] pass= {"5","8","7","4","6"};
-		
+		String[] plates = {"'W 3457'","'W 162 ACS'","'W 312 AA'","'W 456 VA'","'W 3454 SS1'"};
+		int[] miles = {10,160,45,3,13};
+		int[] manufactur= {2008,2016,2017,2018,2011};
+		int[] act= {0,1,0,1,0};
+		int[] doors= {4,5,4,5,4};
+		int[] pass_limit= {6,4,5,8,5};
+	
 		
 		int index1, index2, index3, index4, index5, index6;
 		for(int i = 0; i < 10; i ++){
@@ -121,22 +120,31 @@ public class VehicleGenerator {
 			index4 = rand.nextInt(5); 
 			index5 = rand.nextInt(5); 
 			index6 = rand.nextInt(5); 
-			ad.addCar(plate[index1], mileage[index2], year[index3], active[index4], doors[index5], pass_limit[index6]);
+			ad.addCar(plates[index1], miles[index2], manufactur[index3], act[index4], doors[index5], pass_limit[index6]);
 		}
 	}
 	public static void fillVehicleTruckTable(){
 		VehicleDAOI ad = new VehicleDAOI();
 		Random rand = new Random(); 
 		
-		String[] names = {"'Tire'","'Seat Covers'","'LED Lights'","'Color Spray'","'Nitro'"};
-		String[] descriptions = {"'Very nice and comfy'","'Not so great'","'Wooohoo'","'Cool thing'","'Not so bad'"};
+		String[] plates = {"'W 15234'","'W 16 AEY'","'W 342 BC'","'W 90706 M'","'W 223 SS1'"};
+		int[] miles = {10,160,45,3,13};
+		int[] manufactur= {2008,2016,2017,2018,2011};
+		int[] act= {0,1,0,1,0};
+		int[] height= {200,225,300,275,350};
+		int[] length= {300,450,275,450,360};
+		int[] loading_limit= {300,150,100,500,450};
 		
-		int index1, index2;
+		int index1, index2, index3, index4, index5, index6, index7;
 		for(int i = 0; i < 10; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(5); 
-			ad.addCar(plate, color, model, accessory, mileage, year, active, doors, pass_limit);
-			/*ad.addAccessory(names[index1], descriptions[index2]);*/
+			index3 = rand.nextInt(5); 
+			index4 = rand.nextInt(5); 
+			index5 = rand.nextInt(5); 
+			index6 = rand.nextInt(5); 
+			index7 = rand.nextInt(5); 
+			ad.addTruck(plates[index1], miles[index2], manufactur[index3], act[index4], height[index5], length[index6],loading_limit[index7]);
 		}
 	}
 	
