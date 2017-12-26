@@ -8,6 +8,7 @@ public class Truck extends Vehicle {
 	int loading_limit;
 	
 	public Truck(int len, int height, int load_limit) {
+		super();
 		this.height=height;
 		this.lenght=len;
 		this.loading_limit=load_limit;

@@ -67,11 +67,11 @@ public class CarGenerator {
 		}
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			PreparedStatement ps = connection.prepareStatement("CREATE TABLE t ( " +
-															   "car_ID int,"+
+			PreparedStatement ps = connection.prepareStatement("CREATE TABLE car ( " +
+															   "car_ID int REFERENCES vehicle,"+
 															   "doors int,"+
 															   "passenger_limit smallint DEFAULT 4,"+
-															   "PRIMARY KEY (car_ID) REFERENCES vehicle"+
+															   "PRIMARY KEY (car_ID)"+
 															   ");"
 															   );
 			
@@ -87,10 +87,11 @@ public class CarGenerator {
 			}
 		}	
 	}
+	
+	
 	public static void main (String [] args){
 		//dropDB();
 		//createDB();
 		createCarTable();
-		//fillTable();
 	}
 }
