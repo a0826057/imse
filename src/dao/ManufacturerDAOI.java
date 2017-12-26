@@ -58,7 +58,7 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			ResultSet result = statement.executeQuery("SELECT * FROM manufacturer WHERE manufacturer_ID = " + manufacturer_id + ";");
 			
 			while(result.next()){
-				 ac = new Manufacturer(result.getInt("accessory_ID"), result.getString("name"), result.getString("country"));
+				 ac = new Manufacturer(result.getInt("manufacturer_ID"), result.getString("name"), result.getString("country"));
 			}
 		
 		}catch(Exception e){
@@ -111,7 +111,7 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			statement.setQueryTimeout(60);
 			statement.executeUpdate("UPDATE manufacturer SET name = " + name + 
 														  ", description=" + country +
-													      " WHERE accessory_ID = " + manufacturer_ID + ";" 
+													      " WHERE manufacturer_ID = " + manufacturer_ID + ";" 
 													      );
 		}catch(Exception e){
 			System.err.println(e);
@@ -134,7 +134,7 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeQuery("DELETE * FROM manufacturer WHERE accessory_ID = " + manufacturer_ID + ";");
+			statement.executeQuery("DELETE * FROM manufacturer WHERE manufacturer_ID = " + manufacturer_ID + ";");
 		
 		}catch(Exception e){
 			System.err.println(e);

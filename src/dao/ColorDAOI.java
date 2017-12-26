@@ -111,7 +111,7 @@ public class ColorDAOI implements ColorDAO{
 			statement.setQueryTimeout(60);
 			statement.executeUpdate("UPDATE accessory SET name = " + description + 
 														  ", description=" + manufacturer_color_code +
-													      " WHERE accessory_ID = " + color_ID + ";" 
+													      " WHERE color_ID = " + color_ID + ";" 
 													      );
 		}catch(Exception e){
 			System.err.println(e);

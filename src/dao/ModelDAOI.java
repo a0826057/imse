@@ -31,7 +31,7 @@ public class ModelDAOI implements ModelDAO {
 			ResultSet result = statement.executeQuery("SELECT * FROM model");
 			
 			while(result.next()){
-				Manufacturer m = man.getManufacturerById( result.getInt("manufaacturer_ID"));
+				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
 				Model ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("price"));
 				models.add(ac);
 			}
@@ -60,10 +60,10 @@ public class ModelDAOI implements ModelDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM model WHERE accessory_ID = " + model_id + ";");
+			ResultSet result = statement.executeQuery("SELECT * FROM model WHERE model_ID = " + model_id + ";");
 			
 			while(result.next()){
-				Manufacturer m = man.getManufacturerById( result.getInt("manufaacturer_ID"));
+				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
 				ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("price"));
 			}
 		
@@ -169,7 +169,7 @@ public class ModelDAOI implements ModelDAO {
 			ResultSet result = statement.executeQuery("SELECT * FROM model");
 			
 			while(result.next()){
-				Manufacturer m = man.getManufacturerById( result.getInt("manufaacturer_ID"));
+				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
 				Model ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("price"));
 				models.add(ac);
 			}
@@ -203,7 +203,7 @@ public class ModelDAOI implements ModelDAO {
 			ResultSet result = statement.executeQuery("SELECT * FROM model WHERE manufacturer_ID = " + m.getManufacturer_ID() + ";");
 			
 			while(result.next()){
-				 ac = new Model(result.getInt("accessory_ID"), m, result.getString("description"), result.getDouble("description"));
+				 ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("description"));
 				 models.add(ac);
 			}
 		
