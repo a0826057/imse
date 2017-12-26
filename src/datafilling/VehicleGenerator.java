@@ -159,7 +159,7 @@ public class VehicleGenerator {
 	public static void main (String [] args){
 		//dropDB();
 		//createDB();
-		createVehicleTable();
+		//createVehicleTable();
 		fillVehicleTable();
 	}
 }

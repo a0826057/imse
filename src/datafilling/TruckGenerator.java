@@ -67,12 +67,12 @@ public class TruckGenerator {
 		}
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
-			PreparedStatement ps = connection.prepareStatement("CREATE TABLE t ( " +
-															   "truck_ID int"+
+			PreparedStatement ps = connection.prepareStatement("CREATE TABLE truck (" +
+															   "truck_ID int REFERENCES vehicle,"+
 															   "length int,"+
 															   "height int,"+
-															   "loading_limit"+
-															   "PRIMARY KEY (truck_ID) REFERENCES vehicle,"+
+															   "loading_limit int,"+
+															   "PRIMARY KEY (truck_ID),"+
 															   "CONSTRAINT check_truck CHECK (loading_limit > 0 AND length > 0 AND height > 0)"+
 															   ");"
 																);
