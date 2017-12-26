@@ -131,8 +131,9 @@ public class VehicleGenerator {
 		int[] manufactur= {2008,2016,2017,2018,2011};
 		int[] doors= {4,5,4,5,4};
 		int[] pass_limit= {6,4,5,8,5};
-	
-		
+		int[] length= {200,250,160,150,255};
+		int[] height= {200,250,260,240,255};
+		int[] load_limit= {100,175,160,150,255};
 		int index1, index2, index3, index4, index5, index6;
 		for(int i = 0; i < 20; i ++){
 			index1 = rand.nextInt(5);
@@ -141,8 +142,17 @@ public class VehicleGenerator {
 			index4 = rand.nextInt(5); 
 			index5 = rand.nextInt(5); 
 			index6 = rand.nextInt(5); 
-			ad.addCar(plates[index1], lsc.get(index2), lso.get(index3), lsm.get(index4), lsa.get(index4), miles[index5], manufactur[index3], false, doors[index5], pass_limit[index6]);
-			//ad.addTruck(plates[index1], lsc.get(index2), lso.get(index3), lsa.get(index4), miles[index5], manufactur[index3], act[index4], doors[index5], pass_limit[index6]);
+			ad.addCar(plates[index1], lsc.get(index2), lso.get(index3), lsm.get(index4), lsa.get(index4), miles[index5], manufactur[index3], true, doors[index5], pass_limit[index6]);
+		}
+		
+		for(int i = 0; i < 20; i ++){
+			index1 = rand.nextInt(5);
+			index2 = rand.nextInt(5); 
+			index3 = rand.nextInt(5); 
+			index4 = rand.nextInt(5); 
+			index5 = rand.nextInt(5); 
+			index6 = rand.nextInt(5); 
+			ad.addTruck(plates[index1], lsc.get(index2), lso.get(index3), lsm.get(index4),  lsa.get(index4), miles[index5], manufactur[index3],true, length[index6], height[index3], load_limit[index5]);
 		}
 	}
 		

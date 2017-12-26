@@ -129,7 +129,7 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 	}
 	
-	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+	public void addTruck(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
 		
 	}
 	
