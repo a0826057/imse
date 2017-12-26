@@ -1,6 +1,10 @@
 package imse;
 
 import java.util.List;
+
+import dao.AccessoryDAOI;
+import dao.ColorDAOI;
+import dao.ManufacturerDAOI;
 import imse.Accessory;
 
 
@@ -8,16 +12,18 @@ public class Vehicle{
 	int vehicle_ID;
 	String license_plate_number;
 	Color color;
-	Model model;																																																																																																						
+	Model model;
+	Manufacturer manufactur;
 	List<Accessory> accessory;
 	int mileage;
 	int manufacture_year;
 	Boolean active;
 	
 
-	public Vehicle(int vehicle_ID, String license_plate_number,	Color color,Model model, List<Accessory> accessory, int mileage,int manufacture_year,Boolean active){
+	public Vehicle(int vehicle_ID, String license_plate_number,	Color color,Model model,Manufacturer manufactur, List<Accessory> accessory, int mileage,int manufacture_year,Boolean active){
 		this.vehicle_ID=vehicle_ID;
 		this.license_plate_number=license_plate_number;
+		this.manufactur= manufactur;
 		this.color=color;
 		this.model=model;
 		this.accessory=accessory;
@@ -26,6 +32,11 @@ public class Vehicle{
 		this.active=active;
 	}	
 		
+	public Vehicle(int int1, String string, ColorDAOI col, ManufacturerDAOI man, AccessoryDAOI acc, int int2, int int3,
+			boolean boolean1) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getVehicle_ID() {
 		return vehicle_ID;
 	}
