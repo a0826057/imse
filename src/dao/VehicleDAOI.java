@@ -213,7 +213,7 @@ public class VehicleDAOI implements VehicleDAO{
 			
 			VehicleDAOI veh = new VehicleDAOI();
 			List<Vehicle> lsv = veh.getVehicleList();
-			statement.executeUpdate("INSERT INTO car(car_ID,doors,passenger_limit) VALUES(" +
+			statement.executeUpdate("INSERT INTO truck(truck_ID,doors,passenger_limit) VALUES(" +
 															lsv.get(lsv.size()-1).getVehicle_ID() + "," +
 															length + "," +
 															height +","+
