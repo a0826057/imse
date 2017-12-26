@@ -12,10 +12,10 @@ public interface VehicleDAO {
 		public List<Vehicle> getVehicleList();
 		public Vehicle getVehicleListById(int vehicle_ID);
 		public List<Vehicle> getVehicleListByType(String type);
-		public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
-		public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
-		public void changeCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
-		public void changeTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
+		public void addCar(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
+		public void addTruck(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
+		public void changeCar(int vehicle_ID, String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
+		public void changeTruck(int vehicle_ID, String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
 		public void deleteVehicle(int vehicle_id);
 		public int getVehicleCount();
 		public int getVehicleCountByType(String type);

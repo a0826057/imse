@@ -370,7 +370,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		return vehicles.size();
 	}
-	//ADD changes
+
 	public int getVehicleCountByType(String type) {
 		Connection con = null;
 		Vehicle vehic = null;
@@ -469,14 +469,15 @@ public class VehicleDAOI implements VehicleDAO{
 		mod2 = new ModelDAOI();
 		AccessoryDAOI acc = new AccessoryDAOI();
 		lsa = acc.getAccessoryList();
-	
+		 
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM vehicle");
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle WHERE color_ID ="+ color.getColor_ID()+ ");");
 			
 			while(result.next()){
 				Color c = can.getColorById( result.getInt("color_ID"));
@@ -500,11 +501,216 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		return vehicles;
 	}
-	public List<Vehicle> getVehicleByAccessory(Accessory accessory);
-	public List<Vehicle> getVehicleByModel(Model mode);
-	public List<Vehicle> getTruckByLoadingLimit(int limit);
-	public List<Vehicle> getCarByDoors(int doors);
-	public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer);
+	public List<Vehicle> getVehicleByAccessory(Accessory accessory){
+		vehicles = new ArrayList<Vehicle>();
+		Connection con = null;
+		ad = new VehicleDAOI();
+		col = new ColorDAOI();
+		man = new ManufacturerDAOI();
+		mod2 = new ModelDAOI();
+		AccessoryDAOI acc = new AccessoryDAOI();
+		lsa = acc.getAccessoryList();
+		 
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle WHERE accessory_ID ="+ accessory.getAccessory_ID()+ ");");
+			
+			while(result.next()){
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);
+			}
+		
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+		return vehicles;
+	}
+	public List<Vehicle> getVehicleByModel(Model mode){
+		vehicles = new ArrayList<Vehicle>();
+		Connection con = null;
+		ad = new VehicleDAOI();
+		col = new ColorDAOI();
+		man = new ManufacturerDAOI();
+		mod2 = new ModelDAOI();
+		AccessoryDAOI acc = new AccessoryDAOI();
+		lsa = acc.getAccessoryList();
+		 
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle WHERE model_ID ="+ mode.getModel_ID()+ ");");
+			
+			while(result.next()){
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);
+			}
+		
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+		return vehicles;
+	}
+	public List<Vehicle> getTruckByLoadingLimit(int limit){
+		vehicles = new ArrayList<Vehicle>();
+		Connection con = null;
+		ad = new VehicleDAOI();
+		col = new ColorDAOI();
+		man = new ManufacturerDAOI();
+		mod2 = new ModelDAOI();
+		AccessoryDAOI acc = new AccessoryDAOI();
+		lsa = acc.getAccessoryList();
+		
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			ResultSet tresult = statement.executeQuery("SELECT * FROM truck WHERE loading_limit = "+limit+";");
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle");
+			while(tresult.next()){
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);
+				Truck trucks = new Truck(tresult.getInt("lenght"),tresult.getInt("height"), tresult.getInt("load_limit"));
+				vehicles.add(trucks);
+			}
+		
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+		return vehicles;		
+	}
+	public List<Vehicle> getCarByDoors(int doors){
+		vehicles = new ArrayList<Vehicle>();
+		Connection con = null;
+		ad = new VehicleDAOI();
+		col = new ColorDAOI();
+		man = new ManufacturerDAOI();
+		mod2 = new ModelDAOI();
+		AccessoryDAOI acc = new AccessoryDAOI();
+		lsa = acc.getAccessoryList();
+		
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			ResultSet tresult = statement.executeQuery("SELECT * FROM car WHERE doors = "+doors+";");
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle");
+			while(tresult.next()){
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);
+				Car cars = new Car(tresult.getInt("doors"),tresult.getInt("passenger_limit"));
+				vehicles.add(cars);
+			}
+		
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+		return vehicles;		
+	}
+	public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer){
+		vehicles = new ArrayList<Vehicle>();
+		Connection con = null;
+		ad = new VehicleDAOI();
+		col = new ColorDAOI();
+		man = new ManufacturerDAOI();
+		mod2 = new ModelDAOI();
+		AccessoryDAOI acc = new AccessoryDAOI();
+		lsa = acc.getAccessoryList();
+		 
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle WHERE manufacturer_ID ="+ manufacturer.getManufacturer_ID()+ ";");
+			
+			while(result.next()){
+				Color c = can.getColorById( result.getInt("color_ID"));
+				List<Accessory> a= ac.getAccessoryList(); 
+				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);
+			}
+		
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+		return vehicles;
+	}
+
 
 	
 }
