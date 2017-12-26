@@ -69,6 +69,7 @@ public class VehicleManagement {
 		return null;
 		
 	}
+	/*
 	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit) {
 		Vehicle veh= new Vehicle(plate,color,model,accessory,mileage,year,active,doors,pass_limit);
 		vehicleList.add(veh);
@@ -77,6 +78,7 @@ public class VehicleManagement {
 		Vehicle veh= new Vehicle(plate,color,model,accessory,mileage,year,active,length,height,load_limit);
 		vehicleList.add(veh);
 	}
+	*/
 	public void changeCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit) {
 		
 	}

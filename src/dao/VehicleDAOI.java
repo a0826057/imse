@@ -89,9 +89,7 @@ public class VehicleDAOI implements VehicleDAO{
 	
 	public List<Vehicle> getVehicleListByType(String type);
 	
-	public void addCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
-	
-	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+	public void addCar(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit){
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -99,10 +97,24 @@ public class VehicleDAOI implements VehicleDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeUpdate("INSERT INTO truck(length, height, loading_limit) VALUES(" +
-															length + "," +
-															height + "," +
-															load_limit +
+			statement.executeUpdate("INSERT INTO vehicle(lisence_plate_number,color_ID,model_ID,manufacturer_ID,accessory_ID,mileage,manufacturer_year,active) VALUES(" +
+									plate + "," +
+									color.getColor_ID() + "," +
+									model.getModel_ID() + "," +
+									manufacturer.getManufacturer_ID() + "," +
+									accessory.getAccessory_ID() + "," +
+									mileage + "," +
+									year + "," +
+									active +
+									");"
+									);
+			
+			VehicleDAOI veh = new VehicleDAOI();
+			List<Vehicle> lsv = veh.getVehicleList();
+			statement.executeUpdate("INSERT INTO car(car_ID,doors,passenger_limit) VALUES(" +
+															lsv.get(lsv.size()-1).getVehicle_ID() + "," +
+															doors + "," +
+															pass_limit +
 															");");
 			
 		}catch(Exception e){
@@ -117,10 +129,21 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 	}
 	
-	public void changeCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
-	public void changeTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
-	public void deleteVehicle(int vehicle_id);
-	public int getVehicleCount();
+	public void addTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+		
+	}
+	
+	public void changeCar(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit){
+		
+	}
+	public void changeTruck(String plate, Color color, Model model, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+		
+	}
+	public void deleteVehicle(int vehicle_id){
+		
+	}
+	public int getVehicleCount(){
+	}
 	public int getVehicleCountByType(String type);
 	public List<Vehicle> getVehicleListByAge(int age);
 	public List<Vehicle> getVehicleByColor(Color color);
