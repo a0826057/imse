@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Random;
 import dao.AccessoryDAOI;
+import dao.VehicleDAOI;
+import imse.Accessory;
+import imse.Vehicle;
 
 //written by a01349198 - IB
 
@@ -140,6 +144,21 @@ public class AccessoryGenerator {
 	}
 	
 	public static void fillAccessoryHasTable(){
+		AccessoryDAOI ad = new AccessoryDAOI();
+		VehicleDAOI veh = new VehicleDAOI();
+		Random rand = new Random();
+		
+		List<Accessory> ac = ad.getAccessoryList();
+		List<Vehicle> ah = veh.getVehicleList();
+		
+		System.out.println(ah.size());
+		
+		int index1, index2;
+		for(int i = 0; i < 10; i ++){
+			index1 = rand.nextInt(5);
+			index2 = rand.nextInt(5); 
+			ad.addHasAccessory(ac.get(index1).getAccessory_ID(), ah.get(index2).getVehicle_ID());
+		}
 		
 	}
 
@@ -148,7 +167,7 @@ public class AccessoryGenerator {
 		//createDB();
 		//createAccessoryTable();
 		//createAccessoryHasTable();
-		fillAccessoryTable();
-		//fillAccessoryHasTable();
+		//fillAccessoryTable();
+		fillAccessoryHasTable();
 	}
 }

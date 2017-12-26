@@ -32,6 +32,14 @@ public class Vehicle{
 		this.active=active;
 	}	
 		
+	public Manufacturer getManufactur() {
+		return manufactur;
+	}
+
+	public void setManufactur(Manufacturer manufactur) {
+		this.manufactur = manufactur;
+	}
+
 	public Vehicle(int int1, String string, ColorDAOI col, ManufacturerDAOI man, AccessoryDAOI acc, int int2, int int3,
 			boolean boolean1) {
 		// TODO Auto-generated constructor stub

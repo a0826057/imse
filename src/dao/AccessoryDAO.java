@@ -13,4 +13,6 @@ public interface AccessoryDAO {
 	public void deleteAccessory(int accessory_id);
 	public int getAccessoryCount();
 	public List<Accessory> getAccessoriesByName(String name);
+	public void addHasAccessory(int accessory_ID, int vehicle_ID);
+	public List<Accessory> getHasAccessory(int vehicle_ID);
 }

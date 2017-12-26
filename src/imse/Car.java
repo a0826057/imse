@@ -9,8 +9,8 @@ public class Car extends Vehicle {
 	int doors;
 	int passenger_limit;
 	
-	public Car(int doors, int pass_limit) {
-		super();
+	public Car(int id, String plate, Color color, Model model, Manufacturer manufacturer, List<Accessory> accessory, int mileage, int year, Boolean active, int doors, int pass_limit) {
+		super(id, plate, color, model,manufacturer,accessory,mileage,year,active);
 		this.doors=doors;
 		this.passenger_limit=pass_limit;
 	}

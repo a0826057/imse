@@ -209,4 +209,61 @@ public class AccessoryDAOI implements AccessoryDAO{
 		}
 		return accessories;
 	}
+	
+	public void addHasAccessory(int accessory_ID, int vehicle_ID){
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root", "Imse1234");
+			
+			Statement stat = con.createStatement();
+			stat.setQueryTimeout(60);
+			stat.executeUpdate("INSERT INTO has_accessory(accessory_ID, vehicle_ID) VALUES(" +
+																	accessory_ID + "," +
+																	vehicle_ID +
+																	");"
+																	);
+		}catch(Exception e){
+			System.err.println(e);
+		}finally{
+			try{
+				if(con != null)
+					con.close();
+			}catch(SQLException e){
+				System.err.println(e);
+			}
+		}
+		
+	}
+	
+	public List<Accessory> getHasAccessory(int vehicle_ID){
+		Connection con = null;
+		AccessoryDAOI ac = new AccessoryDAOI();
+		List<Accessory> list = new ArrayList<Accessory>();
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root", "Imse1234");
+			
+			Statement stat = con.createStatement();
+			stat.setQueryTimeout(60);
+			ResultSet res = stat.executeQuery("SELECT * FROM has_accessory WHERE vehicle_ID = " + vehicle_ID + ";");
+			
+			while(res.next()){
+				 Accessory acc = ac.getAccessoryById(res.getInt("accessory_ID"));
+				 list.add(acc);
+			}
+			
+		}catch(Exception e){
+			System.err.println(e);
+		}finally{
+			try{
+				if(con != null)
+					con.close();
+			}catch(SQLException e){
+				System.err.println(e);
+			}
+		}
+		
+		return list;
+	}
 }

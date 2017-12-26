@@ -4,13 +4,14 @@ import java.util.List;
 import imse.Vehicle;
 import imse.Color;
 import imse.Accessory;
+import imse.Car;
 import imse.Manufacturer;
 import imse.Model;
 
 public interface VehicleDAO {
 		
 		public List<Vehicle> getVehicleList();
-		public Vehicle getVehicleListById(int vehicle_ID);
+		public Vehicle getVehicleById(int vehicle_ID);
 		public List<Vehicle> getVehicleListByType(String type);
 		public void addCar(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit);
 		public void addTruck(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit);
@@ -24,7 +25,7 @@ public interface VehicleDAO {
 		public List<Vehicle> getVehicleByAccessory(Accessory accessory);
 		public List<Vehicle> getVehicleByModel(Model mode);
 		public List<Vehicle> getTruckByLoadingLimit(int limit);
-		public List<Vehicle> getCarByDoors(int doors);
+		public List<Car> getCarByDoors(int doors);
 		public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer);
 
 }

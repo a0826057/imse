@@ -7,10 +7,10 @@ public class Truck extends Vehicle {
 	int height;
 	int loading_limit;
 	
-	public Truck(int len, int height, int load_limit) {
-		super();
+	public Truck(int id, String plate, Color color, Model model, Manufacturer manufacturer, List<Accessory> accessory, int mileage, int year, Boolean active, int length, int height, int load_limit) {
+		super(id, plate, color, model, manufacturer, accessory, mileage, year, active);
 		this.height=height;
-		this.lenght=len;
+		this.lenght=length;
 		this.loading_limit=load_limit;
 	}
 	public int getLenght() {
