@@ -21,7 +21,7 @@ public class EmployeeDAOI implements EmployeeDAO {
 		      Class.forName("com.mysql.jdbc.Driver");
 		      connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
 
-		      Statement stmt = con.createStatement();
+		      Statement stmt = connection.createStatement();
 		      statement.setQueryTimeout(30);
 
 		      ResultSet epl = stmt.executeQuery("SELECT * FROM EMPLOYEE");
@@ -77,7 +77,7 @@ public class EmployeeDAOI implements EmployeeDAO {
 		      
 
 		      // establish connection to database 
-		      Statement stmt = con.createStatement();
+		      Statement stmt = connection.createStatement();
 		      statement.setQueryTimeout(30);
 		      try {
 		    	  String insertSql = null;
@@ -121,7 +121,7 @@ public class EmployeeDAOI implements EmployeeDAO {
 		      
 
 		      // establish connection to database 
-		      Statement stmt = con.createStatement();
+		      Statement stmt = connection.createStatement();
 		      statement.setQueryTimeout(30);
 		      try {
 		    	  String insertSql = null;
@@ -164,7 +164,7 @@ public class EmployeeDAOI implements EmployeeDAO {
 		     
 
 		      // establish connection to database 
-		      Statement stmt = con.createStatement();
+		      Statement stmt = connection.createStatement();
 		      statement.setQueryTimeout(30);
 		      try {
 		    	  String insertSql = null;
