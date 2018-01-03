@@ -103,13 +103,9 @@ public class EmployeeGenerator {
 		}
 	}
 	
-	public static void main(String[] args) {
-		dropDB();
-		createDB();
+	public static void filler() {
 		createCostumer();
 		fillCostumer();
-		EmployeeDAO empl = new EmployeeDAOI();
-		System.out.println(empl.getEmployeeList().toString());
 	}
 
 }

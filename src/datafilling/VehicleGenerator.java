@@ -28,8 +28,8 @@ public class VehicleGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=Imse1234");
-			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE imsedb");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
+			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE myimsedb");
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,8 +53,8 @@ public class VehicleGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=Imse1234");
-			PreparedStatement ps = connection.prepareStatement("DROP DATABASE imsedb");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
+			PreparedStatement ps = connection.prepareStatement("DROP DATABASE myimsedb");
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,7 +78,7 @@ public class VehicleGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE vehicle ("+
 															   "vehicle_ID int AUTO_INCREMENT,"+
 															   "lisence_plate_number varchar(15) NOT NULL UNIQUE,"+
@@ -156,7 +156,7 @@ public class VehicleGenerator {
 		}
 	}
 		
-	public static void main (String [] args){
+	public static void filler(){
 		//dropDB();
 		//createDB();
 		//createVehicleTable();

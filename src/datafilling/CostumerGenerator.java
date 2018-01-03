@@ -138,12 +138,8 @@ public class CostumerGenerator {
 		}
 	}
 	
-	public static void main(String[] args) {
-		dropDB();
-		createDB();
+	public static void filler() {
 		createCostumer();
 		fillCostumer();
-		CostumerDAOI co = new CostumerDAOI();
-		System.out.println(co.getCostumerList().toString());
 	}
 }

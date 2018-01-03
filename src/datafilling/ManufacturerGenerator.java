@@ -21,8 +21,8 @@ public class ManufacturerGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=Imse1234");
-			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE imsedb");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
+			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE myimsedb");
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -46,8 +46,8 @@ public class ManufacturerGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=Imse1234");
-			PreparedStatement ps = connection.prepareStatement("DROP DATABASE imsedb");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
+			PreparedStatement ps = connection.prepareStatement("DROP DATABASE myimsedb");
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,7 +71,7 @@ public class ManufacturerGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE manufacturer ( " +
 															   "manufacturer_ID int AUTO_INCREMENT," +
 															   "name varchar(120) NOT NULL," +
@@ -107,7 +107,7 @@ public class ManufacturerGenerator {
 		}
 	}
 	
-	public static void main (String [] args){
+	public static void filler(){
 		//dropDB();
 		//createDB();
 		//createManufacturerTable();
