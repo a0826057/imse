@@ -4,7 +4,7 @@ package management;
 
 import java.util.ArrayList;
 import java.util.List;
-import imse.Manufacturer;
+import model.Manufacturer;
 
 public class ManufacturerManagement {
 	private List<Manufacturer> manufacturers;

@@ -3,13 +3,13 @@ package management;
 import java.util.ArrayList;
 import java.util.List;
 
-import imse.Accessory;
+import model.Accessory;
 
-import imse.Color;
-import imse.Manufacturer;
-import imse.Model;
+import model.Color;
+import model.Manufacturer;
+import model.Model;
 
-import imse.Vehicle;
+import model.Vehicle;
 
 public class VehicleManagement {
 	List<Vehicle> vehicleList;

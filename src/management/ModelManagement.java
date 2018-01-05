@@ -4,8 +4,8 @@ package management;
 
 import java.util.ArrayList;
 import java.util.List;
-import imse.Manufacturer;
-import imse.Model;
+import model.Manufacturer;
+import model.Model;
 
 public class ModelManagement {
 	private List<Model> models;

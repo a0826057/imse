@@ -4,7 +4,7 @@ package management;
 
 import java.util.ArrayList;
 import java.util.List;
-import imse.Accessory;
+import model.Accessory;
 
 public class AccessoryManagement {
 	private List<Accessory> accessory;

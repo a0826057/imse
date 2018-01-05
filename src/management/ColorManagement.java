@@ -4,7 +4,7 @@ package management;
 
 import java.util.ArrayList;
 import java.util.List;
-import imse.Color;
+import model.Color;
 
 public class ColorManagement {
 	private List<Color> colors;

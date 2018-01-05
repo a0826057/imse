@@ -5,8 +5,8 @@ package management;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import imse.Rental;
-import imse.Vehicle;
+import model.Rental;
+import model.Vehicle;
 
 public class RentalManagement {
 	private List<Rental> rentals;
