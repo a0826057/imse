@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,7 +61,10 @@ public class ModelDAOI implements ModelDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM model WHERE model_ID = " + model_id + ";");
+			String raw_query = "SELECT * FROM model WHERE model_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, model_id);
+			ResultSet result = prepared.executeQuery();
 			
 			while(result.next()){
 				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
@@ -89,12 +93,12 @@ public class ModelDAOI implements ModelDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeUpdate("INSERT INTO model(manufacturer_ID,description,price) VALUES(" +
-													  man.getManufacturer_ID() + "," +
-													  description + "," +
-													  price +
-													  ");" 
-													  );
+			String raw_query = "INSERT INTO model(manufacturer_ID,description,price) VALUES(?,?,?)";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, man.getManufacturer_ID());
+			prepared.setString(2, description);
+			prepared.setDouble(3, price);
+			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -116,11 +120,13 @@ public class ModelDAOI implements ModelDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeUpdate("UPDATE model SET manufacturer_ID = " + man.getManufacturer_ID() + 
-														  ", description=" + description +
-														  ", price=" + price +
-													      " WHERE model_ID = " + model_ID + ";" 
-													      );
+			String raw_query = "UPDATE model SET manufacturer_ID = ?, description = ?, price = ? WHERE model_ID = ?;"; 
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, man.getManufacturer_ID());
+			prepared.setString(2, description);
+			prepared.setDouble(3, price);
+			prepared.setInt(4, model_ID);
+			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -142,7 +148,10 @@ public class ModelDAOI implements ModelDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeQuery("DELETE * FROM model WHERE model_ID = " + model_id + ";");
+			String raw_query = "DELETE * FROM model WHERE model_ID = " + model_id + ";";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, model_id);
+			prepared.executeQuery();
 		
 		}catch(Exception e){
 			System.err.println(e);
@@ -200,7 +209,10 @@ public class ModelDAOI implements ModelDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM model WHERE manufacturer_ID = " + m.getManufacturer_ID() + ";");
+			String raw_query = "SELECT * FROM model WHERE manufacturer_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, m.getManufacturer_ID());
+			ResultSet result = prepared.executeQuery();
 			
 			while(result.next()){
 				 ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("description"));

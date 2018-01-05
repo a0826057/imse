@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,7 +56,10 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM manufacturer WHERE manufacturer_ID = " + manufacturer_id + ";");
+			String raw_query = "SELECT * FROM manufacturer WHERE manufacturer_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, manufacturer_id);
+			ResultSet result = prepared.executeQuery();
 			
 			while(result.next()){
 				 ac = new Manufacturer(result.getInt("manufacturer_ID"), result.getString("name"), result.getString("country"));
@@ -83,11 +87,11 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeUpdate("INSERT INTO manufacturer(name,country) VALUES(" +
-													  name + "," +
-													  country +
-													  ");" 
-													  );
+			String raw_query = "INSERT INTO manufacturer(name,country) VALUES(?,?);";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setString(1, name);
+			prepared.setString(2, country);
+			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -109,10 +113,12 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeUpdate("UPDATE manufacturer SET name = " + name + 
-														  ", description=" + country +
-													      " WHERE manufacturer_ID = " + manufacturer_ID + ";" 
-													      );
+			String raw_query = "UPDATE manufacturer SET name = ?, country = ? WHERE manufacturer_ID = ?;"; 
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(3, manufacturer_ID);
+			prepared.setString(1, name);
+			prepared.setString(2, country);
+			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -134,7 +140,10 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeQuery("DELETE * FROM manufacturer WHERE manufacturer_ID = " + manufacturer_ID + ";");
+			String raw_query = "DELETE * FROM manufacturer WHERE manufacturer_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, manufacturer_ID);
+			prepared.executeQuery();
 		
 		}catch(Exception e){
 			System.err.println(e);
@@ -189,7 +198,10 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM manufacturer WHERE name = " + name + ";");
+			String raw_query = "SELECT * FROM manufacturer WHERE name = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setString(1, name);
+			ResultSet result = prepared.executeQuery();
 			
 			while(result.next()){
 				 ac = new Manufacturer(result.getInt("manufacturer_ID"), result.getString("name"), result.getString("country"));
@@ -218,7 +230,10 @@ public class ManufacturerDAOI implements ManufacturerDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM manufacturer WHERE name = " + country + ";");
+			String raw_query = "SELECT * FROM manufacturer WHERE name = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setString(1, country);
+			ResultSet result = prepared.executeQuery();
 			
 			while(result.next()){
 				 ac = new Manufacturer(result.getInt("manufacturer_ID"), result.getString("name"), result.getString("country"));

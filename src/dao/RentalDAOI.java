@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -66,14 +67,19 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
+			String raw_query = "INSERT INTO rental(vehicle_ID, costumer_ID, employee_ID, date_from, date_to, rating) VALUES(?,?,?,?,?,?);";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
 			java.util.Date utilDateFrom = r.getDate_from();
 			java.sql.Date sqlDateFrom = new java.sql.Date(utilDateFrom.getTime());
 			java.util.Date utilDateTo = r.getDate_to();
 			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
-			statement.executeUpdate("INSERT INTO rental(vehicle_ID, costumer_ID, employee_ID, date_from, date_to, rating)" + " VALUES(" 
-												+ r.getVehicle().getVehicle_ID() + "," + r.getCostumer().getCostumer_ID() + ","
-												+ r.getEmployee().getEmployee_number() + ",'" + sqlDateFrom + "','" + sqlDateTo + "',"
-												+ r.getRating() + ");");
+			prepared.setInt(1, r.getVehicle().getVehicle_ID());
+			prepared.setInt(2, r.getCostumer().getCostumer_ID());
+			prepared.setInt(3, r.getEmployee().getEmployee_number());
+			prepared.setDate(4, sqlDateFrom);
+			prepared.setDate(5, sqlDateTo);
+			prepared.setString(6, r.getRating());
+			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -95,8 +101,17 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeUpdate("UPDATE rental SET rating = " + rating + " WHERE vehicle_ID = " + vid + " AND costumer_ID = "
-																  + cid + " AND employee_ID = " + eid + " AND date_from = " + date_from + ";");
+			String raw_query = "UPDATE rental SET rating = ? WHERE vehicle_ID = ? AND costumer_ID = ? AND employee_ID = ? AND date_from = ?";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setString(1, rating);
+			prepared.setInt(2, vid);
+			prepared.setInt(3, cid);
+			prepared.setInt(4,eid);
+			java.util.Date utilDateTo = date_from;
+			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
+			prepared.setDate(5, sqlDateTo);
+			
+			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -118,8 +133,16 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			statement.executeQuery("DELETE * FROM rental WHERE vehicle_ID = " + vid + " AND costumer_ID = " + cid + 
-								   " AND employee_ID = " + eid + " AND date_from = " + date_from + ";");
+			String raw_query = "DELETE * FROM rental WHERE vehicle_ID = ? AND costumer_ID = ? AND employee_ID = ? AND date_from = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, vid);
+			prepared.setInt(2, cid);
+			prepared.setInt(3,eid);
+			java.util.Date utilDateTo = date_from;
+			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
+			prepared.setDate(4, sqlDateTo);
+			
+			prepared.executeQuery();
 		
 		}catch(Exception e){
 			System.err.println(e);
@@ -149,7 +172,10 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM rental WHERE costumer_ID = " + cos.getCostumer_ID() + ";");
+			String raw_query = "SELECT * FROM rental WHERE costumer_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, cos.getCostumer_ID());
+			ResultSet result = prepared.executeQuery();
 			
 			VehicleDAOI ad = new VehicleDAOI();
 			CostumerDAOI col = new CostumerDAOI();
@@ -189,7 +215,10 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM rental WHERE employee_ID = " + em.getEmployee_number() + ";");
+			String raw_query = "SELECT * FROM rental WHERE employee_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, em.getEmployee_number());
+			ResultSet result = prepared.executeQuery();
 			
 			VehicleDAOI ad = new VehicleDAOI();
 			CostumerDAOI col = new CostumerDAOI();
@@ -229,7 +258,10 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM rental WHERE vehicle_ID = " + veh.getVehicle_ID() + ";");
+			String raw_query = "SELECT * FROM rental WHERE vehicle_ID = ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setInt(1, veh.getVehicle_ID());
+			ResultSet result = prepared.executeQuery();
 			
 			VehicleDAOI ad = new VehicleDAOI();
 			CostumerDAOI col = new CostumerDAOI();
@@ -269,7 +301,16 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM rental WHERE date_from >= " + date_from + " AND date_to <= " + date_to + ";");
+			String raw_query = "SELECT * FROM rental WHERE date_from >= ? AND date_to <= ?;";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			java.util.Date utilDateTo = date_to;
+			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
+			java.util.Date utilDateFrom = date_from;
+			java.sql.Date sqlDateFrom = new java.sql.Date(utilDateFrom.getTime());
+			prepared.setDate(1, sqlDateFrom);
+			prepared.setDate(2, sqlDateTo);
+			
+			ResultSet result = prepared.executeQuery();
 			
 			VehicleDAOI ad = new VehicleDAOI();
 			CostumerDAOI col = new CostumerDAOI();
