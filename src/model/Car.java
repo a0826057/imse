@@ -1,9 +1,8 @@
-package imse;
-import imse.Vehicle;
+package model;
+import model.Vehicle;
+import model.Accessory;
 
 import java.util.List;
-
-import imse.Accessory;
 
 public class Car extends Vehicle {
 	int doors;

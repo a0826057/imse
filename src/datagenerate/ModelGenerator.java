@@ -1,4 +1,4 @@
-package datafilling;
+package datagenerate;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,61 +9,12 @@ import java.util.Random;
 
 import dao.ManufacturerDAOI;
 import dao.ModelDAOI;
-import imse.Manufacturer;
+import model.Manufacturer;
 
 //written by a01349198 - IB
 
 public class ModelGenerator {
-	public static void createDB() {
-		Connection connection = null;
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
-			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE myimsedb");
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (connection != null)
-					connection.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	public static void dropDB() {
-		Connection connection = null;
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
-			PreparedStatement ps = connection.prepareStatement("DROP DATABASE myimsedb");
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (connection != null)
-					connection.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
 	public static void createModelTable(){
 		Connection connection = null;
 		
@@ -74,7 +25,7 @@ public class ModelGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE model ( " +
 															   "model_ID int auto_increment, " +
 															   "manufacturer_ID int," +
@@ -104,8 +55,8 @@ public class ModelGenerator {
 		List<Manufacturer> ls = m.getManufacturerList();
 		Random rand = new Random(); 
 		
-		String[] descriptions = {"'Very nice and comfy'","'Not so great'","'Wooohoo'","'Cool thing'","'Not so bad'"};
-		String[] prices = {"1.44","5.6","1.44","5.86","7.42"};
+		String[] descriptions = {"'X360'","'Panda'","'Polo'","'Golf'","'Karl'"};
+		String[] prices = {"1044","5006","1004","5086","7042"};
 		
 		int index1, index2, index3;
 		for(int i = 0; i < 10; i ++){
@@ -117,8 +68,6 @@ public class ModelGenerator {
 	}
 	
 	public static void filler(){
-		//dropDB();
-		//createDB();
 		createModelTable();
 		fillTable();
 	}

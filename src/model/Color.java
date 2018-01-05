@@ -1,4 +1,4 @@
-package imse;
+package model;
 
 //written by a01349198 - IB
 

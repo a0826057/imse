@@ -8,13 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import imse.Accessory;
-import imse.Vehicle;
-import imse.Car;
-import imse.Color;
-import imse.Manufacturer;
-import imse.Model;
-import imse.Truck;
+import model.Accessory;
+import model.Vehicle;
+import model.Car;
+import model.Color;
+import model.Manufacturer;
+import model.Model;
+import model.Truck;
 
 public class VehicleDAOI implements VehicleDAO{
 	private List<Vehicle> vehicles;
@@ -29,7 +29,7 @@ public class VehicleDAOI implements VehicleDAO{
 		Connection veh = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			veh = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			veh = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = veh.createStatement();
 			statement.setQueryTimeout(60);
@@ -67,7 +67,7 @@ public class VehicleDAOI implements VehicleDAO{
 		ModelDAOI mod = new ModelDAOI();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -100,7 +100,7 @@ public class VehicleDAOI implements VehicleDAO{
 		VehicleDAOI veh = new VehicleDAOI();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -141,7 +141,7 @@ public class VehicleDAOI implements VehicleDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -156,7 +156,6 @@ public class VehicleDAOI implements VehicleDAO{
 									active +
 									");"
 									);
-			
 			VehicleDAOI veh = new VehicleDAOI();
 			List<Vehicle> lsv = veh.getVehicleList();
 			statement.executeUpdate("INSERT INTO car(car_ID,doors,passenger_limit) VALUES(" +
@@ -164,7 +163,6 @@ public class VehicleDAOI implements VehicleDAO{
 															doors + "," +
 															pass_limit +
 															");");
-			
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -181,7 +179,7 @@ public class VehicleDAOI implements VehicleDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -196,16 +194,14 @@ public class VehicleDAOI implements VehicleDAO{
 									active +
 									");"
 									);
-			
 			VehicleDAOI veh = new VehicleDAOI();
 			List<Vehicle> lsv = veh.getVehicleList();
-			statement.executeUpdate("INSERT INTO truck(truck_ID,doors,passenger_limit) VALUES(" +
+			statement.executeUpdate("INSERT INTO truck(truck_ID, length, height, loading_limit) VALUES(" +
 															lsv.get(lsv.size()-1).getVehicle_ID() + "," +
 															length + "," +
 															height +","+
 															load_limit+
 															");");
-			
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {
@@ -222,7 +218,7 @@ public class VehicleDAOI implements VehicleDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -258,7 +254,7 @@ public class VehicleDAOI implements VehicleDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -294,7 +290,7 @@ public class VehicleDAOI implements VehicleDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -328,7 +324,7 @@ public class VehicleDAOI implements VehicleDAO{
 		ModelDAOI mod = new ModelDAOI();
 		try{ 
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -363,7 +359,7 @@ public class VehicleDAOI implements VehicleDAO{
 		VehicleDAOI veh = new VehicleDAOI();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -409,7 +405,7 @@ public class VehicleDAOI implements VehicleDAO{
 		ModelDAOI mod = new ModelDAOI();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -449,7 +445,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -487,7 +483,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -525,7 +521,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -561,7 +557,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -593,7 +589,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -629,7 +625,7 @@ public class VehicleDAOI implements VehicleDAO{
 		 
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -656,8 +652,5 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 		
 		return vehicles;
-	}
-
-
-	
+	}	
 }

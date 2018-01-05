@@ -4,7 +4,7 @@ package dao;
 
 import java.util.List;
 
-import imse.Color;
+import model.Color;
 
 public interface ColorDAO {
 	public List<Color> getColorList();

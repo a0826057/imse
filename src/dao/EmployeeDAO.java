@@ -2,7 +2,7 @@ package dao;
 
 import java.util.List;
 
-import imse.Employee;
+import model.Employee;
 
 public interface EmployeeDAO {
 	public List<Employee> getEmployeeList();

@@ -2,8 +2,9 @@ package dao;
 
 //written by a01349198 - IB
 
+import model.Accessory;
 import java.util.List;
-import imse.Accessory;
+
 
 public interface AccessoryDAO {
 	public List<Accessory> getAccessoryList();

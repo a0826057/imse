@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import imse.Accessory;
+import model.Accessory;
 
 //written by a01349198 - IB
 
@@ -20,7 +20,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -51,7 +51,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Accessory ac = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -79,7 +79,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -105,7 +105,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -130,7 +130,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -154,7 +154,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -186,7 +186,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Accessory ac = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root","Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
@@ -214,7 +214,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root", "Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root", "MySQLrp");
 			
 			Statement stat = con.createStatement();
 			stat.setQueryTimeout(60);
@@ -242,7 +242,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 		List<Accessory> list = new ArrayList<Accessory>();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/imsedb","root", "Imse1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root", "MySQLrp");
 			
 			Statement stat = con.createStatement();
 			stat.setQueryTimeout(60);

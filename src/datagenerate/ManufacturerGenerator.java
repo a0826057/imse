@@ -1,4 +1,4 @@
-package datafilling;
+package datagenerate;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,56 +11,6 @@ import dao.ManufacturerDAOI;
 
 public class ManufacturerGenerator {
 	
-	public static void createDB() {
-		Connection connection = null;
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
-			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE myimsedb");
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (connection != null)
-					connection.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	public static void dropDB() {
-		Connection connection = null;
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
-			PreparedStatement ps = connection.prepareStatement("DROP DATABASE myimsedb");
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (connection != null)
-					connection.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
 	public static void createManufacturerTable(){
 		Connection connection = null;
 		
@@ -71,7 +21,7 @@ public class ManufacturerGenerator {
 			e1.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE manufacturer ( " +
 															   "manufacturer_ID int AUTO_INCREMENT," +
 															   "name varchar(120) NOT NULL," +
@@ -108,9 +58,7 @@ public class ManufacturerGenerator {
 	}
 	
 	public static void filler(){
-		//dropDB();
-		//createDB();
-		//createManufacturerTable();
+		createManufacturerTable();
 		fillTable();
 	}
 }

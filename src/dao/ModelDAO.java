@@ -4,8 +4,8 @@ package dao;
 
 import java.util.List;
 
-import imse.Manufacturer;
-import imse.Model;
+import model.Manufacturer;
+import model.Model;
 
 public interface ModelDAO {
 	public List<Model> getModelList();

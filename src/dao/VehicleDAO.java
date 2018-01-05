@@ -1,12 +1,12 @@
 package dao;
 import java.util.List;
 
-import imse.Vehicle;
-import imse.Color;
-import imse.Accessory;
-import imse.Car;
-import imse.Manufacturer;
-import imse.Model;
+import model.Vehicle;
+import model.Color;
+import model.Accessory;
+import model.Car;
+import model.Manufacturer;
+import model.Model;
 
 public interface VehicleDAO {
 		

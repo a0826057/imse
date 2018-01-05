@@ -1,4 +1,4 @@
-package imse;
+package model;
 
 import java.util.Date;
 

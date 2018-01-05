@@ -2,7 +2,6 @@ package datagenerate;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
@@ -12,49 +11,12 @@ import model.Costumer;
 
 public class CostumerGenerator {
 	
-	public static void createDB() {
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
-			PreparedStatement ps = connection.prepareStatement("CREATE DATABASE myimsedb");
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (connection != null)
-					connection.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	public static void dropDB() {
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=MySQLrp");
-			PreparedStatement ps = connection.prepareStatement("DROP DATABASE myimsedb");
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (connection != null)
-					connection.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	
-	
 	public static void createCostumer() {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			//DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			String raw_query = "CREATE TABLE costumer (costumer_ID int AUTO_INCREMENT, " + 

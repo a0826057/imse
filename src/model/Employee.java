@@ -1,4 +1,4 @@
-package imse;
+package model;
 
 public class Employee {
  private int employee_number;

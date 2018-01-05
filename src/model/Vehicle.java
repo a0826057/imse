@@ -1,11 +1,13 @@
-package imse;
+package model;
+
+import model.Accessory;
 
 import java.util.List;
 
 import dao.AccessoryDAOI;
 import dao.ColorDAOI;
 import dao.ManufacturerDAOI;
-import imse.Accessory;
+
 
 
 public class Vehicle{

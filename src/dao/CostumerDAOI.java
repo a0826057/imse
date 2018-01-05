@@ -19,7 +19,7 @@ public class CostumerDAOI implements CostumerDAO {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			ResultSet rs = statement.executeQuery("SELECT * FROM costumer");
@@ -63,30 +63,32 @@ public class CostumerDAOI implements CostumerDAO {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			String raw_query = "SELECT * FROM costumer WHERE costumer_ID = ?";
 			PreparedStatement prepared = connection.prepareStatement(raw_query);
 			prepared.setInt(1, ID);
 			ResultSet rs = prepared.executeQuery();
-			Costumer c = new Costumer(rs.getInt("costumer_ID"),
-										  rs.getString("title"),
-										  rs.getString("first_name"),
-										  rs.getString("last_name"),
-										  rs.getString("drivers_license_number"),
-										  rs.getDate("birth_date"),
-										  rs.getString("email"),
-										  rs.getString("post_code"),
-										  rs.getString("street"),
-										  rs.getString("house_number"),
-										  rs.getString("appartment_number"),
-										  rs.getString("town"),
-										  rs.getString("country"),
-										  rs.getString("pwd_hash"),
-										  rs.getString("salt"),
-										  rs.getBoolean("active"));
-			return c;
+			if (rs.next()) {
+				Costumer c = new Costumer(rs.getInt("costumer_ID"),
+					  rs.getString("title"),
+					  rs.getString("first_name"),
+					  rs.getString("last_name"),
+					  rs.getString("drivers_license_number"),
+					  rs.getDate("birth_date"),
+					  rs.getString("email"),
+					  rs.getString("post_code"),
+					  rs.getString("street"),
+					  rs.getString("house_number"),
+					  rs.getString("appartment_number"),
+					  rs.getString("town"),
+					  rs.getString("country"),
+					  rs.getString("pwd_hash"),
+					  rs.getString("salt"),
+					  rs.getBoolean("active"));
+				return c;
+			}
 		}catch (SQLException | ClassNotFoundException e) {
 			System.err.println(e.getMessage());
 		}finally {
@@ -105,7 +107,7 @@ public class CostumerDAOI implements CostumerDAO {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			String raw_query = "INSERT INTO costumer (title, first_name, last_name, drivers_license_number, "
@@ -149,7 +151,7 @@ public class CostumerDAOI implements CostumerDAO {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			String raw_query = "UPDATE costumer SET title = ?, first_name = ? last_name = ?, drivers_license_number = ?, "
@@ -192,7 +194,7 @@ public class CostumerDAOI implements CostumerDAO {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb","root","MySQLrp");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			String raw_query = "SELECT * FROM costumer WHERE costumer_ID = ?";
