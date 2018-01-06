@@ -1,8 +1,9 @@
-
+package servlets;
 import model.Costumer;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -47,7 +48,13 @@ public class SignUp extends HttpServlet {
 			String street = request.getParameter("steet");
 			String hnum = request.getParameter("hnum");
 			String anum = request.getParameter("anum");
-			String bday = request.getParameter("bday");
+			String bday1 = request.getParameter("bday");
+			int year = Integer.parseInt(bday1.substring(7, 11));
+			int month = Integer.parseInt(bday1.substring(4,6));
+			int day = Integer.parseInt(bday1.substring(0,2));
+			//But Date doesn't work anymore
+			Date bdate = new Date(year, month, day);
+			 
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			//Todo licence
@@ -57,6 +64,13 @@ public class SignUp extends HttpServlet {
 		    							  street, hnum, anum, town, country, pwd_hash, "", true);
 		    CostumerDAO cdao = new CostumerDAOI();
 		    cdao.addCostumer(toAdd);
+		    
+		    HttpSession session = request.getSession(true); 
+			session.setAttribute("currentSessionUser", "customer");
+			session.setAttribute("currentSessionEMail", "email");
+			session.setAttribute("currentSessionPassword", "password");
+			
+			response.sendRedirect("rent_vehicle.jsp");
 		}
 	}
 

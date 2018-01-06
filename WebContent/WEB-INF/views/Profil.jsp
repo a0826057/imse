@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SignUp</title>
+<title>Your Profile</title>
 </head>
 <body>
-<form id="SignUp"  action="${pageContext.request.contextPath}/SignUp" method="post">
-      <h3>SignUp</h3>
-      <br>
-       <div>
+Change information here!
+		<form id="ChangeCustomer"  action="${pageContext.request.contextPath}/ChangeCustomer" method="post">
+		<div>
        <label>Title</label>
           <input type="text" name="title" value="Doctor">
         </div>
@@ -52,18 +51,18 @@
         </div>    
         <div>
        <label>EMail</label>
-          <input type="text" name="email" value="a@b.mail">
+          To change your email please contact admin@admin.mail.
         </div>      
         <div>
           <label>Password</label>
-          <input type="password" name="password" value="*******">
+          To change your password please contact admin@admin.mail.
         </div>
         <div>
          <label>Drivers License</label>
-         Please contact us via admin@admin.mail to verify your drivers license.
+         To change your license please contact admin@admin.mail.
         </div>
         <div>
-      <p><button type=submit>SignUp</button></p>
+      <p><button type=submit>Change</button></p>
        </div> 
         
 
