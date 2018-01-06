@@ -7,7 +7,7 @@
 <title>LogIn</title>
 </head>
 <body>
-<form id="LogIn"  action="${pageContext.request.contextPath}/CSignIn" method="post">
+<form id="LogIn"  action="${pageContext.request.contextPath}/ALogIn" method="post">
       <h3>LogIn</h3>
       <br>
       	<div>
