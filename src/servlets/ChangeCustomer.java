@@ -37,7 +37,7 @@ public class ChangeCustomer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CostumerDAO cdao = new CostumerDAOI();
 		List<Costumer> all = new ArrayList<Costumer>();
-		List<Costumer> buff = new ArrayList<Costumer>();
+		
 		HttpSession session = request.getSession(true); 
 		String user = session.getAttribute("currentSessionUser");
 		String email = session.getAttribute("currentSessionEMail");

@@ -43,6 +43,8 @@ public class ALogIn extends HttpServlet {
 				
 						
 				response.sendRedirect("AdminMainPage.jsp");
+			}else{
+				response.sendRedirect("Homepage.jsp");
 			}
 		}
 	}
