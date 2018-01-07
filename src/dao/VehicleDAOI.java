@@ -141,7 +141,7 @@ public class VehicleDAOI implements VehicleDAO{
 		return ls;
 	}
 	
-	public void addCar(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit){
+	public void addCar(String plate, int color, int model, int manufacturer, int accessory, int mileage, int year, Boolean active, int doors, int pass_limit){
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -152,10 +152,10 @@ public class VehicleDAOI implements VehicleDAO{
 			String raw_query = "INSERT INTO vehicle(lisence_plate_number,color_ID,model_ID,manufacturer_ID,accessory_ID,mileage,manufacturer_year,active) VALUES(?,?,?,?,?,?,?,?)";
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setString(1, plate);
-			prepared.setInt(2, color.getColor_ID());
-			prepared.setInt(3,model.getModel_ID());
-			prepared.setInt(4, manufacturer.getManufacturer_ID());
-			prepared.setInt(5, accessory.getAccessory_ID());
+			prepared.setInt(2, color);
+			prepared.setInt(3,model);
+			prepared.setInt(4, manufacturer);
+			prepared.setInt(5, accessory);
 			prepared.setInt(6, mileage);
 			prepared.setInt(7, year);
 			prepared.setBoolean(8, active);
@@ -180,7 +180,7 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 	}
 	
-	public void addTruck(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+	public void addTruck(String plate, int color, int model, int manufacturer, int accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -191,10 +191,10 @@ public class VehicleDAOI implements VehicleDAO{
 			String raw_query = "INSERT INTO vehicle(lisence_plate_number,color_ID,model_ID,manufacturer_ID,accessory_ID,mileage,manufacturer_year,active) VALUES(?,?,?,?,?,?,?,?)";
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setString(1, plate);
-			prepared.setInt(2, color.getColor_ID());
-			prepared.setInt(3,model.getModel_ID());
-			prepared.setInt(4, manufacturer.getManufacturer_ID());
-			prepared.setInt(5, accessory.getAccessory_ID());
+			prepared.setInt(2, color);
+			prepared.setInt(3,model);
+			prepared.setInt(4, manufacturer);
+			prepared.setInt(5, accessory);
 			prepared.setInt(6, mileage);
 			prepared.setInt(7, year);
 			prepared.setBoolean(8, active);

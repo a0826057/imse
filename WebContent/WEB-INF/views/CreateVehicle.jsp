@@ -24,6 +24,18 @@
         
 
         
-    </form>    
+    </form>
+    <form id="DeleteVehicle"  action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
+      <h3>Delete a Vehicle</h3>
+      <br>
+      	<div>
+       <label>ID</label>
+          <input type="text" name="id">
+        </div>     
+        
+        <div>
+      <p><button type=submit>Delete</button></p>
+        </div>
+    </form>       
 </body>
 </html>

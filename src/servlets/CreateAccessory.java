@@ -1,10 +1,9 @@
 package servlets;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +14,13 @@ import javax.servlet.http.HttpSession;
 import dao.AccessoryDAO;
 import dao.AccessoryDAOI;
 
+@WebServlet("/CreateAccessory")
+public class CreateAccessory extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 959672044805514415L;
 
-public class CreateAccessory {
 	/**
      * Default constructor. 
      */
