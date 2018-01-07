@@ -3,7 +3,6 @@ import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import model.Costumer;
 import servlet.RequestDispatcher;
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LogIn
+ * Servlet implementation class Delete
  */
-@WebServlet("/LogIn")
-public class LogIn extends HttpServlet {
+@WebServlet("/Delete")
+public class Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public LogIn() {
+    public Delete() {
         // TODO Auto-generated constructor stub
     }
 
@@ -37,30 +36,18 @@ public class LogIn extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try{			
+		try{
 			CostumerDAO cdao = new CostumerDAOI();
-			List<Costumer> all = new ArrayList<Costumer>();
-			List<Costumer> buff = new ArrayList<Costumer>();
-			
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			
-			for(Costumer c:all){
-				if(c.getEmail()==email){
-					buff.add(c);
-				}
+			Costumer c = cdao.getCostumerById(Integer.Integer.parseInt(request.getParameter("id")));
+			if (request.getParameter("license") != null) {
+				c.setDrivers_licens_number(request.getParameter("license"));
+				cdao.deleteCostumer(Integer.Integer.parseInt(request.getParameter("id")));
+				cdao.addCostumer(c);
+			}else{
+				cdao.deleteCostumer(Integer.Integer.parseInt(request.getParameter("id")));
 			}
-			for(Costumer c:buff){
-				if(BCrypt.checkpw(password, c.getPwd_hash)){
-					HttpSession session = request.getSession(true); 
-					session.setAttribute("currentSessionUser", "customer");
-					session.setAttribute("currentSessionUserPassword", password);
-					session.setAttribute("currentSessionUserString", c.toString());
-					
-					RequestDispatcher rd=getServletContext().getRequestDispatcher("/Profil.jsp");
-					rd.forward(request,response);
-				}
-			}	
+			RequestDispatcher rd=getServletContext().getRequestDispatcher("/Homepage.jsp");
+			rd.forward(request,response);
 			
 		}
 	}

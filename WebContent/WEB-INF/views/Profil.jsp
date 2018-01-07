@@ -63,10 +63,15 @@ Change information here!
         </div>
         <div>
       <p><button type=submit>Change</button></p>
-       </div> 
-        
-
-        
-    </form>    
+       </div>         
+    </form> 
+    Your current Profile:
+    <% String user=(String)request.getAttribute("currentSessionUser"); %>
+    <%=user%>
+    
+    <h2>
+	<a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a>
+	<a href="${pageContext.request.contextPath}/rent_vehicle.jsp">Rent a car</a>
+	</h2>   
 </body>
 </html>

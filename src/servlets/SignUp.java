@@ -3,6 +3,7 @@ import model.Costumer;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -49,15 +50,13 @@ public class SignUp extends HttpServlet {
 			String hnum = request.getParameter("hnum");
 			String anum = request.getParameter("anum");
 			String bday1 = request.getParameter("bday");
-			int year = Integer.parseInt(bday1.substring(7, 11));
-			int month = Integer.parseInt(bday1.substring(4,6));
-			int day = Integer.parseInt(bday1.substring(0,2));
-			//But Date doesn't work anymore
-			Date bdate = new Date(year, month, day);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");		     
+			Date bdate = sdf.parse(bday1);
 			 
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			//Todo licence
+			
 		    String pwd_hash = BCrypt.hashpw(password, BCrypt.gensalt(4));
 
 		    Costumer toAdd = new Costumer(0,title, fname, lname, lnum, bdate, email, pcode, 
