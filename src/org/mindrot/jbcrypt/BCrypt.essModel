@@ -1,0 +1,14 @@
+[Box: ::swe.flugbuchung - ::swe.flugbuchung.dao::ModelDAO]
+X=168
+Y=440
+
+[Box: ::swe.flugbuchung - ::swe.flugbuchung::Management]
+X=32
+Y=40
+
+[Diagram: ::swe.flugbuchung]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=0
+

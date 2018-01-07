@@ -24,6 +24,7 @@ public class EmployeeDAOI implements EmployeeDAO {
 		      stmt.setQueryTimeout(30);
 
 		      ResultSet epl = stmt.executeQuery("SELECT * FROM employee");
+		      allEmployee.clear();
 		      try {
 		    	  while(epl.next()){
 		    	  	Employee e1 = new Employee(	epl.getInt("employee_number"),
