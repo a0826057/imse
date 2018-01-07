@@ -53,20 +53,20 @@ public class ChangeCustomer extends HttpServlet {
 		String hnum = request.getParameter("hnum");
 		String anum = request.getParameter("anum");
 		String bday1 = request.getParameter("bday");
-		int year = Integer.parseInt(bday1.substring(7, 11));
-		int month = Integer.parseInt(bday1.substring(4,6));
-		int day = Integer.parseInt(bday1.substring(0,2));
-		//But Date doesn't work anymore
-		Date bdate = new Date(year, month, day);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");		     
+		Date bdate = sdf.parse(bday1);
 		
 		all = cdao.getCostumerList();
 		
 		for(Costumer c:all){
-			if(c.getEmail()==email && BCrypt.checkpw(password, c.getPwd_hash)){
-				Costumer toAdd = new Costumer(0,title, fname, lname, lnum, bdate, email, pcode, 
-						  street, hnum, anum, town, country, pwd_hash, c.getDrivers_licens_number(), true);
-				cdao.deleteCostumer(c.getCostumer_ID());
-				cdao.addCostumer(toAdd);
+			if(c.getActive()){
+				if(c.getEmail()==email && BCrypt.checkpw(password, c.getPwd_hash)){
+					Costumer toAdd = new Costumer(c.getCostumer_ID(),title, fname, lname, lnum, bdate, email, pcode, 
+							  street, hnum, anum, town, country, pwd_hash, c.getDrivers_licens_number(), true);
+					
+					cdao.changeCostumer(toAdd);
+				}
 			}
 		}
 		response.sendRedirect("rent_vehicle.jsp");

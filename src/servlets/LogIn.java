@@ -46,7 +46,7 @@ public class LogIn extends HttpServlet {
 			String password = request.getParameter("password");
 			
 			for(Costumer c:all){
-				if(c.getEmail()==email){
+				if(c.getEmail()==email && c.getActive()){
 					buff.add(c);
 				}
 			}

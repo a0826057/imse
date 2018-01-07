@@ -39,12 +39,15 @@ public class Delete extends HttpServlet {
 		try{
 			CostumerDAO cdao = new CostumerDAOI();
 			Costumer c = cdao.getCostumerById(Integer.Integer.parseInt(request.getParameter("id")));
-			if (request.getParameter("license") != null) {
-				c.setDrivers_licens_number(request.getParameter("license"));
-				cdao.deleteCostumer(Integer.Integer.parseInt(request.getParameter("id")));
-				cdao.addCostumer(c);
-			}else{
-				cdao.deleteCostumer(Integer.Integer.parseInt(request.getParameter("id")));
+			if(c.getActive()){
+				if (request.getParameter("license") != null) {
+					c.setDrivers_licens_number(request.getParameter("license"));
+					cdao.changeCostumer(c);
+					
+				}else{
+					c.setActive(false);
+					cdao.changeCostumer(c);
+				}
 			}
 			RequestDispatcher rd=getServletContext().getRequestDispatcher("/Homepage.jsp");
 			rd.forward(request,response);
