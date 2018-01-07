@@ -9,16 +9,15 @@
 <form id="CreateAccessory"  action="${pageContext.request.contextPath}/CreateAccessory" method="post">
       <h3>CreateAccessory</h3>
        <div><label>Name:</label>
-        <input type="text" id="title" name="name" required="required"/>
+        <input type="text" id="title" name="name" />
         </div>
       <div><label>Description:</label>
-        <input type="text" id="title" name="description" required="required"/>
+        <input type="text" id="title" name="description"/>
         </div>
     
         <div>
-      <p><button type=submit>Create Vehicle</button></p>
+      <p><button type=submit>Create Accessory</button></p>
        </div> 
-        
 
         
     </form>    
