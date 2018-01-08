@@ -39,7 +39,9 @@ public class Delete extends HttpServlet {
 		try{
 			CostumerDAO cdao = new CostumerDAOI();
 			Costumer c = cdao.getCostumerById(Integer.Integer.parseInt(request.getParameter("id")));
-			if(c.getActive()){
+			HttpSession session = request.getSession(true); 
+			String user = session.getAttribute("currentSessionUser");
+			if(c.getActive() && user.equals("admin")){
 				if (request.getParameter("license") != null) {
 					c.setDrivers_licens_number(request.getParameter("license"));
 					cdao.changeCostumer(c);

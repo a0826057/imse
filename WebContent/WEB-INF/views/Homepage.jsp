@@ -18,6 +18,6 @@ Choose from thousands of different car models and explore various cities.
 </h2>
 
 <br>
-<a href="${pageContext.request.contextPath}/ALogIn.jsp">Employee</a>
+<a href="${pageContext.request.contextPath}/AdminLogIn.jsp">Employee</a>
 </body>
 </html>

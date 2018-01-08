@@ -154,9 +154,9 @@ public class CostumerDAOI implements CostumerDAO {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
-			String raw_query = "UPDATE costumer SET title = ?, first_name = ? last_name = ?, drivers_license_number = ?, "
+			String raw_query = "UPDATE costumer SET title = ?, first_name = ?, last_name = ?, drivers_license_number = ?, "
 						     					 + "birth_date = ?, email = ?, post_code = ?, street = ?, house_number = ?, "
-						     					 + "appartment_number = ?, town = ?, country = ?, pwd_bash = ?, salt = ?, "
+						     					 + "appartment_number = ?, town = ?, country = ?, pwd_hash = ?, salt = ?, "
 						     					 + "active = ? WHERE costumer_ID = ? ";
 			PreparedStatement prepared = connection.prepareStatement(raw_query);
 			prepared.setString(1, c.getTitle());

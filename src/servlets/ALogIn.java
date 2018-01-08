@@ -35,14 +35,14 @@ public class ALogIn extends HttpServlet {
 			String user = request.getParameter("user");
 			String password = request.getParameter("password");
 			
-			if(user == "admin" && password == "Admin"){
+			if(user.equals("admin") && password.equals("admin"){
 				type = "admin";
 				HttpSession session = request.getSession(true); 
 				session.setAttribute("currentSessionUser", type);
 				session.setAttribute("currentSessionUserPassword", password);
 				
 						
-				response.sendRedirect("AdminMainPage.jsp");
+				response.sendRedirect("employee.jsp");
 			}else{
 				response.sendRedirect("Homepage.jsp");
 			}
