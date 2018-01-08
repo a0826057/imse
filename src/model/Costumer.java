@@ -21,6 +21,11 @@ public class Costumer {
 	private String salt;
 	private Boolean active;
 	
+	public String toString(){
+		return getTitle() + getFirst_name()+ getLast_name() + getDrivers_licens_number() +
+			   getBirth_date() + getEmail() + getCountry() + getTown() + getPost_code() + 
+			   getStreet() + getHouse_number() + getAppartment_number();
+	}
 	public int getCostumer_ID() {
 		return costumer_ID;
 	}

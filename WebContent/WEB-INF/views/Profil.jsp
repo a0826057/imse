@@ -66,7 +66,7 @@ Change information here!
        </div>         
     </form> 
     Your current Profile:
-    <% String user=(String)request.getAttribute("currentSessionUser"); %>
+    <% String user=(String)request.getAttribute("currentSessionUserString"); %>
     <%=user%>
     
     <h2>

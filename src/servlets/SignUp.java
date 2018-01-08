@@ -68,6 +68,7 @@ public class SignUp extends HttpServlet {
 			session.setAttribute("currentSessionUser", "customer");
 			session.setAttribute("currentSessionEMail", "email");
 			session.setAttribute("currentSessionPassword", "password");
+			session.setAttribute("currentSessionUserString", toAdd.toString());
 			
 			response.sendRedirect("rent_vehicle.jsp");
 		}

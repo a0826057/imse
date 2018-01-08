@@ -39,7 +39,7 @@ public class LogIn extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{			
 			CostumerDAO cdao = new CostumerDAOI();
-			List<Costumer> all = new ArrayList<Costumer>();
+			List<Costumer> all = cdao.getCostumerList();
 			List<Costumer> buff = new ArrayList<Costumer>();
 			
 			String email = request.getParameter("email");

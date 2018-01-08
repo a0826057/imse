@@ -23,5 +23,7 @@
       <p><button type=submit>LogIn</button></p>
         </div>
     </form>    
+    
+    <a href="${pageContext.request.contextPath}/Profil.jsp">Profile</a>
 </body>
 </html>
