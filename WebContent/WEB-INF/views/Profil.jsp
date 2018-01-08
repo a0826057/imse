@@ -65,10 +65,15 @@ Change information here!
       <p><button type=submit>Change</button></p>
        </div>         
     </form> 
+    
     Your current Profile:
     <% String user=(String)request.getAttribute("currentSessionUserString"); %>
     <%=user%>
-    
+    <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
+        <div>
+      <p><button type=submit>LogOut</button></p>
+        </div>
+    </form>   
     <h2>
 	<a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a>
 	<a href="${pageContext.request.contextPath}/rent_vehicle.jsp">Rent a car</a>

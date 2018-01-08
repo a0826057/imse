@@ -68,6 +68,8 @@
         
 
         
-    </form>    
+    </form> 
+    
+     <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a>   
 </body>
 </html>

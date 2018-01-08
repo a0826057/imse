@@ -63,5 +63,13 @@
 		    </tr>
             <%} %>
    	</table>
+   	
+   	<form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
+        <div>
+      <p><button type=submit>LogOut</button></p>
+        </div>
+    </form>   
+    <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a> 
+    
 </body>
 </html>
