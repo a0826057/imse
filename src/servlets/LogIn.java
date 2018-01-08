@@ -3,6 +3,7 @@ import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import model.Costumer;
 import javax.servlet.RequestDispatcher;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -63,7 +64,9 @@ public class LogIn extends HttpServlet {
 					RequestDispatcher rd=getServletContext().getRequestDispatcher("/Profil.jsp");
 					rd.forward(request,response);
 				}
-			}	
+			}catch(Exception ex){
+				
+			}
 			
 		}
 	}

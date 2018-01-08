@@ -22,9 +22,13 @@ public class Costumer {
 	private Boolean active;
 	
 	public String toString(){
-		return getTitle() + getFirst_name()+ getLast_name() + getDrivers_licens_number() +
-			   getBirth_date() + getEmail() + getCountry() + getTown() + getPost_code() + 
-			   getStreet() + getHouse_number() + getAppartment_number();
+		return "Title: " + getTitle() + "<br>" + 
+				"Name: " + getFirst_name()+ getLast_name() + "<br>" + 
+				"Drivers Licens: " + getDrivers_licens_number() + "<br>" +
+				"Birthdate: " + getBirth_date() + "<br>" + 
+				"EMail: " + getEmail() + "<br>" + 
+				"Addresse: " + getCountry() + ", " + getTown() + ", " + getPost_code() + ", " +
+			   getStreet() + getHouse_number() + "/" + getAppartment_number();
 	}
 	public int getCostumer_ID() {
 		return costumer_ID;

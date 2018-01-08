@@ -67,7 +67,7 @@ Change information here!
     </form> 
     
     Your current Profile:
-    <% String user=(String)request.getAttribute("currentSessionUserString"); %>
+    <% String user=(String)session.getAttribute("currentSessionUserString"); %>
     <%=user%>
     <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
         <div>

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class SignUp
@@ -59,7 +60,7 @@ public class SignUp extends HttpServlet {
 			
 		    String pwd_hash = BCrypt.hashpw(password, BCrypt.gensalt(4));
 
-		    Costumer toAdd = new Costumer(0,title, fname, lname, lnum, bdate, email, pcode, 
+		    Costumer toAdd = new Costumer(0,title, fname, lname, "", bdate, email, pcode, 
 		    							  street, hnum, anum, town, country, pwd_hash, "", true);
 		    CostumerDAO cdao = new CostumerDAOI();
 		    cdao.addCostumer(toAdd);
@@ -71,6 +72,8 @@ public class SignUp extends HttpServlet {
 			session.setAttribute("currentSessionUserString", toAdd.toString());
 			
 			response.sendRedirect("rent_vehicle.jsp");
+		}catch(Exception ex){
+			
 		}
 	}
 

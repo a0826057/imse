@@ -23,11 +23,7 @@
       <p><button type=submit>LogIn</button></p>
         </div>
     </form> 
- <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
-        <div>
-      <p><button type=submit>LOutIn</button></p>
-        </div>
-    </form>       
+       
     <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a> 
     <a href="${pageContext.request.contextPath}/Profil.jsp">Profile</a>
 </body>

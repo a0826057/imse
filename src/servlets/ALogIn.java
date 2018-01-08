@@ -6,8 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import servlet.HttpSession;
 
 /**
  * Servlet implementation class ALogIn
@@ -46,6 +46,8 @@ public class ALogIn extends HttpServlet {
 			}else{
 				response.sendRedirect("Homepage.jsp");
 			}
+		}catch(Exception ex){
+			
 		}
 	}
 
