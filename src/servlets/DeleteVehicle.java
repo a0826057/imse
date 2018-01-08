@@ -13,7 +13,7 @@ import dao.VehicleDAOI;
 /**
  * Servlet implementation class Delete
  */
-@WebServlet("/CreateVehicle")
+@WebServlet("/DeleteVehicle")
 public class DeleteVehicle extends HttpServlet {
 	
 
