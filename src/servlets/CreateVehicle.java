@@ -44,7 +44,7 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			//check the user is admin
 			String vehicleType = request.getParameter("vehicleType");
 			String plate = request.getParameter("plate");
 			String colorId = request.getParameter("colorId");

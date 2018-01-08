@@ -8,26 +8,35 @@
 </head>
 <body>
 <form id="CreateVehicle"  action="${pageContext.request.contextPath}/CreateVehicle" method="post">
-      <h3>CreateVehicle</h3>
-      <label>Vehicle type:</label>
+      <div><h3>CreateVehicle</h3></div>
        <div>
+       <label>Vehicle type:</label>
            <select name="vehicleType">
-         <option value="CAR">Car</option>
-           <option value="TRUCK">Truck</option>         
+         		<option value="CAR">Car</option>
+           		<option value="TRUCK">Truck</option>         
              </select>
           </div>
          <div>
-    
+         	<label>Plate:</label>
+    		<input type="text" name="plate" >
+        </div>
+        <div>
+        	<label>Mileage:</label>
+       		<input type="text" name="mileage">
+        </div>
+         <div>
+        	<label>Year:</label>
+       		<input type="text" name="year">
+        </div>
+        <div>
+        <input type="checkbox" name="active">Active<br>
+        </div>
         <div>
       <p><button type=submit>Create Vehicle</button></p>
        </div> 
-        
-
-        
     </form>
     <form id="DeleteVehicle"  action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-      <h3>Delete a Vehicle</h3>
-      <br>
+      <div></div><h3>Delete a Vehicle</h3></div>
       	<div>
        <label>ID</label>
           <input type="text" name="id">
