@@ -41,13 +41,21 @@ public class DeleteVehicle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-			VehicleDAO veh = new VehicleDAOI();
-			String id1 = request.getParameter("vehicle_id");
-			int vehicle_id = Integer.parseInt(id1);
-			veh.deleteVehicle(vehicle_id);
-			request.getRequestDispatcher("/Homepage.jsp").forward(request, response);
+		try {
+			String user = request.getParameter("user");
+			String password = request.getParameter("password");
 			
+			if(user.equals("admin") && password.equals("admin")){
+				VehicleDAO veh = new VehicleDAOI();
+				String id1 = request.getParameter("vehicle_id");
+				int vehicle_id = Integer.parseInt(id1);
+				veh.deleteVehicle(vehicle_id);
+			}
+			
+			request.getRequestDispatcher("/Homepage.jsp").forward(request, response);
+		}catch (Exception e) {
+				 
+		}
 		}
 	}
 
