@@ -82,9 +82,11 @@ public class DataGenerator {
 		
 		System.out.println("Vehicle");
 		VehicleGenerator.filler();
+		AccessoryGenerator.fillAccessoryHasTable();
 		
 		System.out.println("Rental");
 		RentalGenerator.filler();
+		
 		
 		/*EmployeeDAOI cost = new EmployeeDAOI();
 		Employee c = cost.getEmployeeById(10);

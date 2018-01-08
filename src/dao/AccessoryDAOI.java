@@ -236,7 +236,7 @@ public class AccessoryDAOI implements AccessoryDAO{
 			String raw_query = "INSERT INTO has_accessory(accessory_ID, vehicle_ID) VALUES(?,?);";
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setInt(1, accessory_ID);
-			prepared.setInt(1, vehicle_ID);
+			prepared.setInt(2, vehicle_ID);
 			prepared.executeUpdate();
 		}catch(Exception e){
 			System.err.println(e);
