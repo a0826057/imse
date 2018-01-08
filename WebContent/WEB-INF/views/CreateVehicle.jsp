@@ -11,8 +11,9 @@
 <title>Create Vehicle</title>
 </head>
 <body>
-<form id="CreateVehicle"  action="${pageContext.request.contextPath}/CreateVehicle" method="post">
-      <h1>Create Vehicle</h1>
+
+<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="post">
+      <div><h1>Create Vehicle</h1></div>
        <div>
        <label>Vehicle type:</label>
            <select name="vehicleType">
@@ -66,7 +67,7 @@
   		<% } %>
     	</select>
         </div>
-             <div>
+        <div>
          <% 
           AccessoryDAO accessory = new AccessoryDAOI();
           java.util.ArrayList <Accessory> accessories = new ArrayList<Accessory>();
@@ -123,17 +124,27 @@
         <div>
       	<p><button type=submit>Create Vehicle</button></p>
        	</div> 
-    </form>
+</form>
     
-    <form id="DeleteVehicle"  action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-      <div></div><h1>Delete a Vehicle</h1></div>
+<form id="DeleteVehicle"  action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
+      <div><h1>Delete a Vehicle</h1></div>
       	<div>
-       <label>ID</label>
-          <input type="text" name="id">
+        <% 
+          VehicleDAO vehicle = new VehicleDAOI();
+          java.util.ArrayList <Vehicle> vehicles = new ArrayList<Vehicle>();
+          vehicles = vehicle.getVehicleList();
+  			if ( vehicles!= null){
+  		%>
+  		<label>Select the Vehicle ID you want to delete:</label>
+    	<select name="vehicle_id">         	
+  		<% for (int i = 0; i < vehicles.size(); ++i) { %>
+        <option value="<% vehicles.get(i).getVehicle_ID(); %>" ><%= vehicles.get(i).getVehicle_ID()%></option>
+  		<%} %>
+    	</select>
         </div>     
         
         <div>
-      <p><button type=submit>Delete</button></p>
+      		<p><button type=submit>Delete Vehicle</button></p>
         </div>
     </form>       
 </body>
