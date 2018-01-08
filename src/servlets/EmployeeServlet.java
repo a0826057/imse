@@ -99,13 +99,58 @@ public class EmployeeServlet extends HttpServlet {
                 }
 
                 if(employeeMode.equals("update")) {
+                    employees = new ArrayList(employeeDAO.getEmployeeList());
+                    StringBuilder employeeDropdownString = new StringBuilder();
+                    employeeDropdownString.append("<select name=\"employee_number\">");
+                    employeeDropdownString.append("<option value=\"-1\">None</option>");
 
+                    for(Employee employee : employees) {
+                        if(employee.isActive()) {
+                            employeeDropdownString.append("<option value=\"" + employee.getEmployee_number() + "\">");
+                            employeeDropdownString.append(employee.getEmployee_number() + ": " + employee.getFirst_name().replace("'", "") + " " + employee.getLast_name().replace("'", ""));
+                            employeeDropdownString.append("</option>");
+                        } else {
+                            employeeDropdownString.append("<option value=\"none\">None</option>");
+                        }
+                    }
+
+                    if(!request.getParameter("employee_number").equals("-1")) {
+                        Employee employee = employeeDAO.getEmployeeById(Integer.parseInt(request.getParameter("employee_number")));
+                        request.setAttribute("employee_number", employee.getEmployee_number());
+                        request.setAttribute("first_name", employee.getFirst_name());
+                        request.setAttribute("last_name", employee.getLast_name());
+                        superior_id = employee.getSuperior_ID();
+                        request.setAttribute("superior_id", superior_id);
+                        request.setAttribute("active", employee.isActive());
+                    }
+
+                    StringBuilder superiorDropdownString = new StringBuilder();
+                    superiorDropdownString.append("<select name=\"superior_id\">");
+                    superiorDropdownString.append("<option value=\"-1\">None</option>");
+
+                    for(Employee employee : employees) {
+                        if(employee.isActive()) {
+                            superiorDropdownString.append("<option ");
+                            if(employee.getEmployee_number() == superior_id) {
+                                superiorDropdownString.append("selected ");
+                            }
+                            superiorDropdownString.append("value=\"" + employee.getEmployee_number() + "\">");
+                            superiorDropdownString.append(employee.getEmployee_number() + ": " + employee.getFirst_name().replace("'", "") + " " + employee.getLast_name().replace("'", ""));
+                            superiorDropdownString.append("</option>");
+                        } else {
+                            superiorDropdownString.append("<option value=\"none\">None</option>");
+                        }
+                    }
+                    request.setAttribute("superiorDropdownString", superiorDropdownString.toString());
+                    request.setAttribute("employeeDropdownString", employeeDropdownString.toString());
+                    request.setAttribute("employee_number", request.getParameter("employee_number"));
                     request.setAttribute("employeeMode", employeeMode);
                     request.getRequestDispatcher("employee.jsp").include(request, response);
                 }
 
                 if(employeeMode.equals("delete")) {
-
+                    request.setAttribute("employeeMode", employeeMode);
+                    request.getRequestDispatcher("employee.jsp").include(request, response);
                 }
             } catch(Exception ex) {
                 response.getWriter().print(ex);
