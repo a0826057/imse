@@ -64,11 +64,10 @@ public class LogIn extends HttpServlet {
 					RequestDispatcher rd=getServletContext().getRequestDispatcher("/Profil.jsp");
 					rd.forward(request,response);
 				}
-			}catch(Exception ex){
-				
 			}
-			
-		}
+				
+			}catch(Exception ex){
+			}
 	}
 
 }
