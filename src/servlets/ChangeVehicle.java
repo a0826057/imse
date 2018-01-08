@@ -49,6 +49,8 @@ public class ChangeVehicle extends HttpServlet {
 		*/
 		
 		String vehicleType = request.getParameter("vehicleType");
+		String vId = request.getParameter("id");
+		int vehicleId = Integer.parseInt(vId);
 		String plate = request.getParameter("plate");
 		String colorId = request.getParameter("colorId");
 		int color = Integer.parseInt(colorId);
@@ -64,22 +66,40 @@ public class ChangeVehicle extends HttpServlet {
 		int year = Integer.parseInt(year1);
 		String active1 = request.getParameter("active");
 		Boolean active = Boolean.parseBoolean(active1);
-			     
+		String doors1 = request.getParameter("doors");
+		int doors = Integer.parseInt(doors1);
+		String pass_limit1 = request.getParameter("pass_limit");
+		int pass_limit = Integer.parseInt(pass_limit1);
+		String length1 = request.getParameter("length");
+		int length = Integer.parseInt(length1);
+		String height1 = request.getParameter("height");
+		int height = Integer.parseInt(height1);
+		String load_limit1 = request.getParameter("load_limit");
+		int load_limit = Integer.parseInt(load_limit1);
 			
 		all = vdao.getVehicleList();
 		
 		for(Vehicle c:all){
-			if(c.getActive()){
-				//check if type is car or truck
-				/*
-				if(c.getEmail()==email && BCrypt.checkpw(password, c.getPwd_hash)){
-					Costumer toAdd = new Costumer(c.getCostumer_ID(),title, fname, lname, lnum, bdate, email, pcode, 
-							  street, hnum, anum, town, country, pwd_hash, c.getDrivers_licens_number(), true);
-					
-					cdao.changeCostumer(toAdd);
-					*/
+			
+			if(vehicleType == "CAR") {
+				if(c.getVehicle_ID()== vehicleId){
+					VehicleDAO cdao = new VehicleDAOI();
+					cdao.changeCar(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
+				
+				}
+				else {
+					VehicleDAO tdao = new VehicleDAOI();
+					tdao.changeTruck(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
 				}
 			}
+			
 		}
 		//send page add
+		 HttpSession session = request.getSession(true); 
+		 session.setAttribute("currentSessionUser", "customer");
+		 session.setAttribute("currentSessionEMail", "email");
+		 session.setAttribute("currentSessionPassword", "password");
+			
+		 response.sendRedirect("/Homepage.jsp");
 	}
+}

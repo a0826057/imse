@@ -87,7 +87,7 @@ public class CreateVehicle extends HttpServlet {
 			session.setAttribute("currentSessionEMail", "email");
 			session.setAttribute("currentSessionPassword", "password");
 			
-			response.sendRedirect("rent_vehicle.jsp");
+			response.sendRedirect("/Homepage.jsp");
 		
 	}
 }

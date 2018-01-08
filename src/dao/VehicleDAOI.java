@@ -220,7 +220,7 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 	}
 	
-	public void changeCar(int vehicle_ID,String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int doors, int pass_limit){
+	public void changeCar(int vehicle_ID,String plate, int color, int model, int manufacturer, int accessory, int mileage, int year, Boolean active, int doors, int pass_limit){
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -231,10 +231,10 @@ public class VehicleDAOI implements VehicleDAO{
 			String raw_query = "UPDATE vehicle SET license_plate_number= ?, manufacturer_ID=?,color_ID=?, accessory_ID=?,mileage=?, manufacture_year=?,active=? WHERE vehicle_ID =? "; 
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setString(1, plate);
-			prepared.setInt(2, manufacturer.getManufacturer_ID());
-			prepared.setInt(3, model.getModel_ID());
-			prepared.setInt(4, color.getColor_ID());
-			prepared.setInt(5, accessory.getAccessory_ID());
+			prepared.setInt(2, manufacturer);
+			prepared.setInt(3, model);
+			prepared.setInt(4, color);
+			prepared.setInt(5, accessory);
 			prepared.setInt(6, mileage);
 			prepared.setInt(7, year);
 			prepared.setBoolean(8, active);
@@ -262,7 +262,7 @@ public class VehicleDAOI implements VehicleDAO{
 			}
 		}
 	}
-	public void changeTruck(int vehicle_ID,String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
+	public void changeTruck(int vehicle_ID,String plate, int color, int model, int manufacturer, int accessory, int mileage, int year, Boolean active, int length, int height, int load_limit){
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -273,10 +273,10 @@ public class VehicleDAOI implements VehicleDAO{
 			String raw_query = "UPDATE vehicle SET license_plate_number= ?, manufacturer_ID=?, model_ID=?, color_ID=?, accessory_ID=?,mileage=?, manufacture_year=?,active=? WHERE vehicle_ID =? "; 
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setString(1, plate);
-			prepared.setInt(2, manufacturer.getManufacturer_ID());
-			prepared.setInt(3, model.getModel_ID());
-			prepared.setInt(4, color.getColor_ID());
-			prepared.setInt(5, accessory.getAccessory_ID());
+			prepared.setInt(2, manufacturer);
+			prepared.setInt(3, model);
+			prepared.setInt(4, color);
+			prepared.setInt(5, accessory);
 			prepared.setInt(6, mileage);
 			prepared.setInt(7, year);
 			prepared.setBoolean(8, active);
@@ -701,5 +701,90 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 		
 		return vehicles;
+	}
+
+	public void addCar(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory,
+			int mileage, int year, boolean active, int doors, int pass_limit) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			String raw_query = "INSERT INTO vehicle(lisence_plate_number,color_ID,model_ID,manufacturer_ID,accessory_ID,mileage,manufacturer_year,active) VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setString(1, plate);
+			prepared.setInt(2, color.getColor_ID());
+			prepared.setInt(3,model.getModel_ID());
+			prepared.setInt(4, manufacturer.getManufacturer_ID());
+			prepared.setInt(5, accessory.getAccessory_ID());
+			prepared.setInt(6, mileage);
+			prepared.setInt(7, year);
+			prepared.setBoolean(8, active);
+			prepared.executeUpdate();
+			VehicleDAOI veh = new VehicleDAOI();
+			List<Vehicle> lsv = veh.getVehicleList();
+			String raw_query2 = "INSERT INTO car(car_ID,doors,passenger_limit) VALUES(?,?,?)";
+			PreparedStatement prepared2 = con.prepareStatement(raw_query2);	
+			prepared2.setInt(1, lsv.get(lsv.size()-1).getVehicle_ID());
+			prepared2.setInt(2, doors);
+			prepared2.setInt(3, pass_limit);
+			prepared2.executeUpdate();
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+	}
+
+	public void addTruck(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory,
+			int mileage, int year, boolean active, int length, int height, int load_limit) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			String raw_query = "INSERT INTO vehicle(lisence_plate_number,color_ID,model_ID,manufacturer_ID,accessory_ID,mileage,manufacturer_year,active) VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			prepared.setString(1, plate);
+			prepared.setInt(2, color.getColor_ID());
+			prepared.setInt(3,model.getModel_ID());
+			prepared.setInt(4, manufacturer.getManufacturer_ID());
+			prepared.setInt(5, accessory.getAccessory_ID());
+			prepared.setInt(6, mileage);
+			prepared.setInt(7, year);
+			prepared.setBoolean(8, active);
+			prepared.executeUpdate();					
+			VehicleDAOI veh = new VehicleDAOI();
+			List<Vehicle> lsv = veh.getVehicleList();
+			String raw_query2 = "INSERT INTO truck(truck_ID, length, height, loading_limit) VALUES(?,?,?,?)";
+			PreparedStatement prepared2 = con.prepareStatement(raw_query2);
+			prepared2.setInt(1, lsv.get(lsv.size()-1).getVehicle_ID());
+			prepared2.setInt(2,length);
+			prepared2.setInt(3, height);
+			prepared2.setInt(4,load_limit);
+			prepared2.executeUpdate();												
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
 	}	
 }
