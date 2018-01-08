@@ -145,13 +145,19 @@
     	<select name="vehicle_id">         	
   		<% for (int i = 0; i < vehicles.size(); ++i) { %>
         	<option value="<%= vehicles.get(i).getVehicle_ID()%>" ><%= vehicles.get(i).getVehicle_ID() %></option>
-  		<% }%>
+  		<% }}%>
+  		<% String id = session.getAttribute(vehicles.get(i).getVehicle_ID());
+  		   int vid= Integer.parseInt(id);
+  		   VehicleDAO veh = new VehicleDAOI();
+  		   Vehicle vehic;
+  		   vehic = veh.getVehicleById(vid);
+  		   %>
     	</select>
         </div>
         
          <div>
          	<label>Plate:</label>
-    		<input type="text" name="plate" >
+    		<input type="text" name="plate" value="<% vehic.getLicense_plate_number(); %>" >
         </div>
         <div>
          <% 
@@ -161,7 +167,7 @@
   		<label>Color:</label>
     	<select name="colorId">         	
   		<% for (int i = 0; i < colors.size(); ++i) { %>
-        <option value="<% colors.get(i);%>" ><%= colors.get(i)%></option>
+        	<option value="<% colors.get(i);%>" <%if(colors.get(i).getColor_ID()== vehic.getColor().getColor_ID()){ SELECTED="SELECTED";} %>><%= colors.get(i)%></option>
   		<% }} %>
     	</select>
         </div>
@@ -173,7 +179,7 @@
   		<label>Model:</label>
     	<select name="modelId">         	
   		<% for (int i = 0; i < models.size(); ++i) { %>
-        <option value="<% models.get(i).getModel_ID();%>" ><%= models.get(i)%></option>
+        <option value="<% models.get(i).getModel_ID();%>" <%if(models.get(i).getModel_ID()== vehic.getModel().getModel_ID()){ SELECTED="SELECTED";} %>><%= models.get(i)%></option>
   		<% }} %>
     	</select>
         </div>
@@ -185,7 +191,7 @@
   		<label>Manufacturer:</label>
     	<select name="manufacturerId">         	
   		<% for (int i = 0; i < manufacturers.size(); ++i) { %>
-        <option value="<% manufacturers.get(i).getManufacturer_ID();%>" ><%= manufacturers.get(i)%></option>
+        <option value="<% manufacturers.get(i).getManufacturer_ID();%>" <%if(manufacturers.get(i).getManufacturer_ID()== vehic.getManufactur().getManufacturer_ID()){ SELECTED="SELECTED";} %>><%= manufacturers.get(i)%></option>
   		<% }} %>
     	</select>
         </div>
@@ -197,20 +203,20 @@
   		<label>Manufacturer:</label>
     	<select name="manufacturerId">         	
   		<% for (int i = 0; i < accessories.size(); ++i) { %>
-        <option value="<% accessories.get(i).getAccessory_ID();%>" ><%= accessories.get(i)%></option>
-  		<% }} %>
+        <option value="<% accessories.get(i).getAccessory_ID();%>" <%if(accessories.get(i).getAccessory_ID()== vehic.getAccessory().get(i).getAccessory_ID()){ SELECTED="SELECTED";} %>><%= accessories.get(i)%></option>
+  		<% } %>
     	</select>
         </div>
         <div>
         	<label>Mileage:</label>
-       		<input type="text" name="mileage">
+       		<input type="text" name="mileage" value="<% vehic.getMileage(); %>">
         </div>
          <div>
         	<label>Year:</label>
-       		<input type="text" name="year">
+       		<input type="text" name="year" value="<% vehic.getManufacture_year();%>">
         </div>
         <div>
-        <input type="checkbox" name="active">Active<br>
+        <input type="checkbox" name="active" value="<%vehic.getActive();%>">Active<br>
         </div>
         <c:choose>
         	<c:when test="${session.getAttribute("vehicleType") == 'CAR'}">
@@ -245,24 +251,25 @@
       	<p><button type=submit>Create Vehicle</button></p>
        	</div> 
 </form>
-
+	
 <form id="DeleteVehicle"  action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
       <div><h1>Delete a Vehicle</h1></div>
       	<div>
         <% 
-  		 if (vehicles!= null){
+  		 if(vehicles!= null){
   		%>
   		<label>Select the Vehicle ID you want to delete:</label>
     	<select name="vehicle_id" required>         	
   		<% for (int i = 0; i < vehicles.size(); ++i) { %>
        		 <option value="<% vehicles.get(i).getVehicle_ID();%>" ><%= vehicles.get(i).getVehicle_ID() %></option>
-  		<%}%>
+  		<%}}%>
+  		
     	</select>
         </div>     
         
         <div>
       		<p><button type=submit>Delete Vehicle</button></p>
         </div>
-    </form>       
+ </form>       
 </body>
 </html>
