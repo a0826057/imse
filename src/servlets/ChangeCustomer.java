@@ -58,9 +58,9 @@ public class ChangeCustomer extends HttpServlet {
 		Date bdate = sdf.parse(bday1);
 		
 		all = cdao.getCostumerList();
-		
+		String user = session.getAttribute("currentSessionUser");
 		for(Costumer c:all){
-			if(c.getActive()){
+			if(c.getActive() && user.equals("customer")){
 				if(c.getEmail()==email && BCrypt.checkpw(password, c.getPwd_hash)){
 					Costumer toAdd = new Costumer(c.getCostumer_ID(),title, fname, lname, lnum, bdate, email, pcode, 
 							  street, hnum, anum, town, country, pwd_hash, c.getDrivers_licens_number(), true);
