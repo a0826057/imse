@@ -41,9 +41,10 @@
             <form class="" action="EmployeeServlet" method="post">
                 <input type="hidden" name="employeeMode" value="update">
                 <input type="hidden" name="employee_number" value="-1">
+                <input type="hidden" name="save" value="0">
                 <input type="hidden" name="first_name" value="">
                 <input type="hidden" name="last_name" value="">
-                <input type="hidden" name="superior_id" value="">
+                <input type="hidden" name="superior_id" value="0">
                 <input type="hidden" name="active" value="">
                 <input type="submit" value="Update">
             </form>
@@ -110,9 +111,10 @@
 <p>&nbsp;</p>
 <form action="EmployeeServlet" method="post">
     <input type="hidden" name="employeeMode" value="update">
+    <input type="hidden" name="save" value="0">
     <input type="hidden" name="first_name" value="">
     <input type="hidden" name="last_name" value="">
-    <input type="hidden" name="superior_id" value="">
+    <input type="hidden" name="superior_id" value="0">
     <input type="hidden" name="active" value="">
     <table>
         <tr><td><label for="employee_number">Employee: </label><% out.print((String)request.getAttribute("employeeDropdownString")); %></td><td><button type="submit">Load Employee</button></td></tr>
@@ -120,11 +122,13 @@
 </form>
 
     <% if(!request.getAttribute("employee_number").equals("-1")) {
-            //out.print((String)request.getAttribute("msg"));
+            //out.print((String)request.getAttribute("save"));
     %>
     <p>&nbsp;</p>
     <form action="EmployeeServlet" method="post">
         <input type="hidden" name="employeeMode" value="update">
+        <input type="hidden" name="save" value="1">
+        <input type="hidden" name="employee_number" value="<% out.print((String)request.getAttribute("employee_number").toString().replace("'", "")); %>">
         <table>
             <tr><td><label for="first_name">First Name: </label><input id="first_name" type="text" name="first_name" value="<% out.print((String)request.getAttribute("first_name").toString().replace("'", "")); %>"></td></tr>
             <tr><td><label for="last_name">Last Name: </label><input id="last_name" type="text" name="last_name" value="<% out.print((String)request.getAttribute("last_name").toString().replace("'", "")); %>"></td></tr>

@@ -41,7 +41,7 @@ public class EmployeeServlet extends HttpServlet {
                 boolean active = true;
 
                 try {
-                    if(!first_name.isEmpty() && !last_name.isEmpty()) {
+                    if(!first_name.isEmpty() && !last_name.isEmpty() && employeeMode.equals("create")) {
                         Employee newEmployee = new Employee(0, first_name, last_name, superior_id, active);
                         employeeDAO.addEmployee(newEmployee);
                     }
@@ -114,9 +114,11 @@ public class EmployeeServlet extends HttpServlet {
                         }
                     }
 
+                    superior_id = Integer.parseInt(request.getParameter("superior_id"));
+
                     if(!request.getParameter("employee_number").equals("-1")) {
-                        Employee employee = employeeDAO.getEmployeeById(Integer.parseInt(request.getParameter("employee_number")));
-                        request.setAttribute("employee_number", employee.getEmployee_number());
+                        Employee employee = employeeDAO.getEmployeeById(Integer.parseInt(request.getParameter("employee_number")));//response.getWriter().print("a");
+                        request.setAttribute("employee_number", employee.getEmployee_number());//response.getWriter().print("b");
                         request.setAttribute("first_name", employee.getFirst_name());
                         request.setAttribute("last_name", employee.getLast_name());
                         superior_id = employee.getSuperior_ID();
@@ -141,16 +143,22 @@ public class EmployeeServlet extends HttpServlet {
                             superiorDropdownString.append("<option value=\"none\">None</option>");
                         }
                     }
+                    request.setAttribute("employee_number", request.getParameter("employee_number"));
+                    if(request.getParameter("save").equals("1")) {
+                        Employee updateEmployee = new Employee(Integer.parseInt(request.getParameter("employee_number")), request.getParameter("first_name"), request.getParameter("last_name"), Integer.parseInt(request.getParameter("superior_id")), active);
+                        employeeDAO.changeEmployee(updateEmployee);
+                        request.setAttribute("employee_number", "-1");
+                        request.setAttribute("msg", "Employee updated!");
+                    }
                     request.setAttribute("superiorDropdownString", superiorDropdownString.toString());
                     request.setAttribute("employeeDropdownString", employeeDropdownString.toString());
-                    request.setAttribute("employee_number", request.getParameter("employee_number"));
                     request.setAttribute("employeeMode", employeeMode);
+                    request.setAttribute("save", "0");
                     request.getRequestDispatcher("employee.jsp").include(request, response);
                 }
 
                 if(employeeMode.equals("delete")) {
-                    request.setAttribute("employeeMode", employeeMode);
-                    request.getRequestDispatcher("employee.jsp").include(request, response);
+                    request.getRequestDispatcher("DeleteCustomer.jsp").include(request, response);
                 }
             } catch(Exception ex) {
                 response.getWriter().print(ex);
