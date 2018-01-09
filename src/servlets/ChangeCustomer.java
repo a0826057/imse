@@ -49,7 +49,7 @@ public class ChangeCustomer extends HttpServlet {
 			HttpSession session = request.getSession(true); 
 			String user = (String)session.getAttribute("currentSessionUser");
 			String email = (String)session.getAttribute("currentSessionEMail");
-			String password = session.setAttribute("currentSessionPassword");
+			String password = (String)session.getAttribute("currentSessionPassword");
 			
 			String title = request.getParameter("title");
 			String fname = request.getParameter("fname");
@@ -66,12 +66,12 @@ public class ChangeCustomer extends HttpServlet {
 			Date bdate = sdf.parse(bday1);
 			
 			all = cdao.getCostumerList();
-			String user = session.getAttribute("currentSessionUser");
+			//String user = session.getAttribute("currentSessionUser");
 			for(Costumer c:all){
 				if(c.getActive() && user.equals("customer")){
 					if(c.getEmail().equals(email) && BCrypt.checkpw(password, c.getPwd_hash())){
 						Costumer toAdd = new Costumer(c.getCostumer_ID(),title, fname, lname, c.getDrivers_licens_number(), bdate, email, pcode, 
-								  street, hnum, anum, town, country, pwd_hash, "", true);
+								  street, hnum, anum, town, country, c.getPwd_hash(), "", true);
 						
 						cdao.changeCostumer(toAdd);
 					}

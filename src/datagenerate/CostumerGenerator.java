@@ -32,7 +32,7 @@ public class CostumerGenerator {
 													  "appartment_number varchar(10), " + 
 													  "town	varchar(100), " + 
 													  "country varchar(50), " + 
-													  "pwd_hash	varchar(50), " + 
+													  "pwd_hash	varchar(80), " +
 													  "salt	varchar(20), " + 
 													  "active boolean DEFAULT true, " + 
 													  "PRIMARY KEY (costumer_ID));";
@@ -62,7 +62,7 @@ public class CostumerGenerator {
 	    String[] an = {"'1'", "'43'", "'7'", "'68'", "'123'"};
 	    String[] town = {"'Brixen'", "'Wien'", "'Bozen'", "'New York'", "'Peking'"};
 	    String[] country = {"'Italien'", "'Schweden'", "'USA'", "'Argentinien'", "'Ghana'"};
-	    String[] pwd = {"'pgög'", "'Hahjda'", "'afhaeuf'", "'adf'", "'sdfar'"};
+	    String[] pwd = {"'pgï¿½g'", "'Hahjda'", "'afhaeuf'", "'adf'", "'sdfar'"};
 	    String[] salt = {"'234'", "'467'", "'366'", "'754'", "'460'"};
 	    
 	    int tii = 0;
