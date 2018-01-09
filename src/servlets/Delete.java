@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Delete
@@ -53,6 +54,8 @@ public class Delete extends HttpServlet {
 			}
 			RequestDispatcher rd=getServletContext().getRequestDispatcher("/Homepage.jsp");
 			rd.forward(request,response);
+			
+		}catch(Exception ex){
 			
 		}
 	}
