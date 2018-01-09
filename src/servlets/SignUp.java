@@ -2,6 +2,8 @@ package servlets;
 import model.Costumer;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
