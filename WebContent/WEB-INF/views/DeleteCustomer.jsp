@@ -37,6 +37,14 @@
         <div>
       <p><button type=submit>Add</button></p>
         </div>
-    </form>     
+    </form>
+    <form action="/EmployeeServlet" method="post">
+        <input type="hidden" name="employeeMode" value="fillData">
+        <h3>Generate Data (Data Filling)</h3>
+        <br>
+        <div>
+            <p><button type=submit>Start Datafilling</button></p>
+        </div>
+    </form>
 </body>
 </html>

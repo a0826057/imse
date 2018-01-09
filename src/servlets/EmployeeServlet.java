@@ -2,6 +2,7 @@ package servlets;
 
 import dao.EmployeeDAO;
 import dao.EmployeeDAOI;
+import datagenerate.DataGenerator;
 import model.Employee;
 
 import javax.servlet.ServletException;
@@ -105,13 +106,13 @@ public class EmployeeServlet extends HttpServlet {
                     employeeDropdownString.append("<option value=\"-1\">None</option>");
 
                     for(Employee employee : employees) {
-                        if(employee.isActive()) {
+                        //if(employee.isActive()) {
                             employeeDropdownString.append("<option value=\"" + employee.getEmployee_number() + "\">");
                             employeeDropdownString.append(employee.getEmployee_number() + ": " + employee.getFirst_name().replace("'", "") + " " + employee.getLast_name().replace("'", ""));
                             employeeDropdownString.append("</option>");
-                        } else {
-                            employeeDropdownString.append("<option value=\"none\">None</option>");
-                        }
+                        //} else {
+                        //    employeeDropdownString.append("<option value=\"none\">None</option>");
+                        //}
                     }
 
                     superior_id = Integer.parseInt(request.getParameter("superior_id"));
@@ -140,12 +141,12 @@ public class EmployeeServlet extends HttpServlet {
                             superiorDropdownString.append(employee.getEmployee_number() + ": " + employee.getFirst_name().replace("'", "") + " " + employee.getLast_name().replace("'", ""));
                             superiorDropdownString.append("</option>");
                         } else {
-                            superiorDropdownString.append("<option value=\"none\">None</option>");
+                            //superiorDropdownString.append("<option value=\"none\">None</option>");
                         }
                     }
                     request.setAttribute("employee_number", request.getParameter("employee_number"));
                     if(request.getParameter("save").equals("1")) {
-                        Employee updateEmployee = new Employee(Integer.parseInt(request.getParameter("employee_number")), request.getParameter("first_name"), request.getParameter("last_name"), Integer.parseInt(request.getParameter("superior_id")), active);
+                        Employee updateEmployee = new Employee(Integer.parseInt(request.getParameter("employee_number")), request.getParameter("first_name"), request.getParameter("last_name"), Integer.parseInt(request.getParameter("superior_id")), Boolean.parseBoolean(request.getParameter(("active"))));
                         employeeDAO.changeEmployee(updateEmployee);
                         request.setAttribute("employee_number", "-1");
                         request.setAttribute("msg", "Employee updated!");
@@ -164,6 +165,12 @@ public class EmployeeServlet extends HttpServlet {
                 response.getWriter().print(ex);
             }
         }
+
+        if (request.getParameter("employeeMode").equals("fillData")) {
+            DataGenerator.main(new String[0]);
+            request.setAttribute("msg", "Data loading complete!");
+            request.getRequestDispatcher("Homepage.jsp").include(request, response);
+        }
     }
 
     /**
@@ -176,9 +183,5 @@ public class EmployeeServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("login.jsp").include(request, response);
-    }
-
-    private String generateEmployeeDropdown() {
-        return null;
     }
 }

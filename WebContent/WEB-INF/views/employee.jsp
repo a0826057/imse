@@ -1,9 +1,10 @@
 <%@ page import="model.Employee" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%  // if not logged in, redirect to login page
-    //if(session.getAttribute("auth") == null)
-        //response.sendRedirect("login.jsp");
+<%
+    if(session.getAttribute("currentSessionUser") == null || (!session.getAttribute("currentSessionUser").equals("admin") && !session.getAttribute("currentSessionUserPassword").equals("admin"))) {
+        response.sendRedirect("Homepage.jsp");
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,7 @@
 </head>
 
 <body>
-
+<h2>Employee Management</h2>
 <table>
     <tr>
         <td>
@@ -56,7 +57,7 @@
                 <input type="hidden" name="last_name" value="">
                 <input type="hidden" name="superior_id" value="">
                 <input type="hidden" name="active" value="">
-                <input type="submit" value="Delete">
+                <input type="submit" value="Admin">
             </form>
         </td>
 
@@ -133,6 +134,7 @@
             <tr><td><label for="first_name">First Name: </label><input id="first_name" type="text" name="first_name" value="<% out.print((String)request.getAttribute("first_name").toString().replace("'", "")); %>"></td></tr>
             <tr><td><label for="last_name">Last Name: </label><input id="last_name" type="text" name="last_name" value="<% out.print((String)request.getAttribute("last_name").toString().replace("'", "")); %>"></td></tr>
             <tr><td><label for="superior_id">Superior: </label><% out.print((String)request.getAttribute("superiorDropdownString")); %></td></tr>
+            <tr><td><label for="active"></label>Active: <input type="checkbox" name="active" id="active" <% if((Boolean)request.getAttribute("active")) { out.print("value=\"true\" checked"); } else { out.print("value=\"true\""); } %>></td></tr>
             <tr><td><button type="submit">Update Employee</button></td></tr>
         </table>
     </form>
@@ -143,6 +145,12 @@
 } catch (Exception e) {
 
 } %>
+
+<form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">
+    <div>
+        <p><button type=submit>LogOut</button></p>
+    </div>
+</form>
 
 </body>
 </html>

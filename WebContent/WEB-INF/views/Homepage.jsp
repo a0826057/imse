@@ -7,6 +7,11 @@
 <title>CarRent</title>
 </head>
 <body>
+<%
+  if(request.getAttribute("msg") != null) {
+      out.print(request.getAttribute("msg"));
+  }
+%>
 <h1>Rent a Car</h1>
 
 We are giving You the possibility to rent a car all over the world!

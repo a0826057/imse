@@ -2,7 +2,7 @@ package servlets;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import model.Costumer;
-import servlet.RequestDispatcher;
+import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,9 +39,9 @@ public class Delete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			CostumerDAO cdao = new CostumerDAOI();
-			Costumer c = cdao.getCostumerById(Integer.Integer.parseInt(request.getParameter("id")));
+			Costumer c = cdao.getCostumerById(Integer.parseInt(request.getParameter("id")));
 			HttpSession session = request.getSession(true); 
-			String user = session.getAttribute("currentSessionUser");
+			String user = (String)session.getAttribute("currentSessionUser");
 			if(c.getActive() && user.equals("admin")){
 				if (request.getParameter("license") != null) {
 					c.setDrivers_licens_number(request.getParameter("license"));

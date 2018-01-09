@@ -126,14 +126,15 @@ public class EmployeeDAOI implements EmployeeDAO {
 		      try {
 		    	  String insertSql = null;
 		    	  
-		    	 insertSql = "UPDATE employee SET first_name = ?, last_name = ?, superior_id = ?  WHERE	employee_number = ?";
+		    	 insertSql = "UPDATE employee SET first_name = ?, last_name = ?, superior_id = ?, active = ?  WHERE	employee_number = ?";
 		    	  
 		    	 PreparedStatement prepared = connection.prepareStatement(insertSql);
 					
 		    	  prepared.setString(1, ToChange.getFirst_name());
 		    	  prepared.setString(2, ToChange.getLast_name());
 				  prepared.setInt(3, ToChange.getSuperior_ID());
-		    	  prepared.setInt(4, ToChange.getEmployee_number());
+				  prepared.setBoolean(4, ToChange.isActive());
+		    	  prepared.setInt(5, ToChange.getEmployee_number());
 		    	  
 		    	  prepared.executeUpdate();
 		    		
