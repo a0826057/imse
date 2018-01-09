@@ -30,16 +30,16 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM rental");
+			ResultSet result = statement.executeQuery("SELECT * FROM rental;");
 			
 			VehicleDAOI ad = new VehicleDAOI();
 			CostumerDAOI col = new CostumerDAOI();
 			EmployeeDAOI mod = new EmployeeDAOI();
 			
-			Vehicle v = ad.getVehicleById(result.getInt("vehicle_ID"));
-			Costumer c = col.getCostumerById(result.getInt("costumer_ID"));
-			Employee e = mod.getEmployeeById(result.getInt("employee_ID"));
 			while(result.next()){
+				Vehicle v = ad.getVehicleById(result.getInt("vehicle_ID"));
+				Costumer c = col.getCostumerById(result.getInt("costumer_ID"));
+				Employee e = mod.getEmployeeById(result.getInt("employee_ID"));
 				Rental r = new Rental(v, c, e, result.getDate("date_from"), result.getDate("date_to"), result.getString("rating"));
 				rentals.add(r);
 			}

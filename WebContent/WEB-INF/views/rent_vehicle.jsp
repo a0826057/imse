@@ -10,6 +10,9 @@
 <title>Rent Vehicle</title>
 </head>
 <body>
+	<h2><center>Welcome to Rent Managament!</center></h2>
+	<h3>View My Rents: <a href="view_rents.jsp">View</a></h3>
+	<h3>Search the availability of a vehicle:</h3>
 	<form id="rent"  action="${pageContext.request.contextPath}/RentVehicleServlet" method="get">
          Date From (DD.MM.YYYY): <input type = "text" name = "date_from" value=<%if(session.getAttribute("date_from") != null) out.print(session.getAttribute("date_from").toString()); %>>
          <br/>
