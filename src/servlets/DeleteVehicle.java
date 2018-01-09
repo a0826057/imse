@@ -52,7 +52,7 @@ public class DeleteVehicle extends HttpServlet {
 				veh.deleteVehicle(vehicle_id);
 			}
 			
-			request.getRequestDispatcher("/Homepage.jsp").forward(request, response);
+			request.getRequestDispatcher("/CreateVehicle.jsp").forward(request, response);
 		}catch (Exception e) {
 				 
 		}

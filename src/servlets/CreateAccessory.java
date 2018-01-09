@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 
 
@@ -41,17 +41,22 @@ public class CreateAccessory extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			//check the user is admin
-			String name = request.getParameter("name");
-			String description = request.getParameter("description");
-		    AccessoryDAO adao = new AccessoryDAOI();
-		    adao.addAccessory(name, description);
-		    
-		    HttpSession session = request.getSession(true); 
-			session.setAttribute("currentSessionUser", "customer");
-			session.setAttribute("currentSessionEMail", "email");
-			session.setAttribute("currentSessionPassword", "password");
+		try {
+			String user = request.getParameter("user");
+			String password = request.getParameter("password");
+			if(user.equals("admin") && password.equals("admin")){
+				String name = request.getParameter("name");
+				String description = request.getParameter("description");
+			    AccessoryDAO adao = new AccessoryDAOI();
+			    adao.addAccessory(name, description);
+			}
+			else {
+				response.sendRedirect("Homepage.jsp");
+			}
+			response.sendRedirect("CreateVehicle.jsp");
 			
-			response.sendRedirect("Homepage.jsp");
+			}catch(Exception e) {
+				
+			}
 	}
 }
