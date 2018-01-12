@@ -48,7 +48,7 @@ public class ChangeCustomer extends HttpServlet {
 			
 			HttpSession session = request.getSession(true); 
 			String user = (String)session.getAttribute("currentSessionUser");
-			String id = (String)session.getAttribute("currentSessionUserId");
+			String email = (String)session.getAttribute("currentSessionUserMail");
 			String password = (String)session.getAttribute("currentSessionPassword");
 			
 			String title = request.getParameter("title");
@@ -69,7 +69,7 @@ public class ChangeCustomer extends HttpServlet {
 			//String user = session.getAttribute("currentSessionUser");
 			for(Costumer c:all){
 				if(c.getActive() && user.equals("customer")){
-					if(c.getCostumer_ID().equals(id) && BCrypt.checkpw(password, c.getPwd_hash())){
+					if(c.getEmail().equals(email) && BCrypt.checkpw(password, c.getPwd_hash())){
 						Costumer toAdd = new Costumer(c.getCostumer_ID(),title, fname, lname, c.getDrivers_licens_number(), bdate, c.getEmail(), pcode, 
 								  street, hnum, anum, town, country, c.getPwd_hash(), "", true);
 						

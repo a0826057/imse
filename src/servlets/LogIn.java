@@ -60,7 +60,7 @@ public class LogIn extends HttpServlet {
 					session.setAttribute("currentSessionUser", "customer");
 					session.setAttribute("currentSessionUserPassword", password);
 					session.setAttribute("currentSessionUserString", c.toString());
-					session.setAttribute("currentSessionUserId", c.getCostumer_ID());
+					session.setAttribute("currentSessionUserMail", c.getEmail());
 					RequestDispatcher rd=getServletContext().getRequestDispatcher("/Profil.jsp");
 					rd.forward(request,response);
 				}
