@@ -16,7 +16,7 @@
         </div>
     
         <div>
-      <p><button type=submit>Create Accessory</button></p>
+      <button type=submit>Create Accessory</button>
        </div> 
 
         
