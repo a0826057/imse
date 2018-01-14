@@ -23,7 +23,7 @@
            		<option value="TRUCK">Truck</option>         
             </select>
 		</div>
-		<form id="listVehicle" action="${pageContext.request.contextPath}/ListVehicle" method="GET">
+		<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
      		<%  String type = session.getAttributeNames("vehicleType");
      			java.util.ArrayList<Vehicle> car = new ArrayList<Vehicle>();
      			java.util.ArrayList<Vehicle> truck = new ArrayList<Vehicle>();
@@ -33,7 +33,7 @@
 		    			Vehicle car =  (java.util.ArrayList<Vehicle>) session.getAttribute("carList");
 		    		}else{
 			    		Vehicle truck =  (java.util.ArrayList<Vehicle>) session.getAttribute("truckList");}
-		    		if(request.getParameter("vehicleType")=="CAR"){ %>	
+		    		if(request.getParameter("vehicleType")=="CAR"){  %>	
 		<table>
 			<thead>
 				<tr>
