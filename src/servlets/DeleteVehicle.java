@@ -47,7 +47,7 @@ public class DeleteVehicle extends HttpServlet {
 			
 			if(user.equals("admin") && password.equals("admin")){
 				VehicleDAO veh = new VehicleDAOI();
-				String id1 = request.getParameter("vehicle_id");
+				String id1 = request.getParameter("name");
 				int vehicle_id = Integer.parseInt(id1);
 				veh.deleteVehicle(vehicle_id);
 			}

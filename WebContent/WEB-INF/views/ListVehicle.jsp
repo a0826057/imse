@@ -53,7 +53,7 @@
 			</thead>
 			<tbody>
 				<%for(int i = 0; i < car.size(); i++){
-            		Car cars = (Vehicle)car.get(i);
+            		Car cars = (Car)car.get(i);
             		
             	%>
             <tr>
@@ -105,7 +105,7 @@
 			</thead>
 			<tbody>
 				<%for(int i = 0; i < truck.size(); i++){
-            		Truck trucks = (Vehicle)truck.get(i);
+            		Truck trucks = (Truck)truck.get(i);
             	%>
             <tr>
 		       <td><% out.print(trucks.getVehicle_ID()); %></td>
@@ -117,9 +117,9 @@
 		       <td><% out.print(trucks.getMileage()); %></td>
 		       <td><% out.print(trucks.getManufacture_year()); %></td>
 		       <td><% out.print(trucks.getActive()); %></td>
-		       <td><% out.print(trucks.getLenght(); %></td>
-		       <td><% out.print(trucks.getHeight(); %></td>
-		       <td><% out.print(trucks.getLoading_limit(); %></td>
+		       <td><% out.print(trucks.getLenght()); %></td>
+		       <td><% out.print(trucks.getHeight()); %></td>
+		       <td><% out.print(trucks.getLoading_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
     				<button name="edit" value="<% trucks.getVehicle_ID();%>">Edit</button>
@@ -143,8 +143,7 @@
 	 <div><a href="CreateVehicle.jsp"><button name="create" >Create Vehicle</button></a></div>
 
 <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
-        <div><p><button type=submit>LogOut</button></p></div>
-    </form>   
+        <div><p><button type=submit>LogOut</button></p></div></form>   
     <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a> 	   
 </body>
 </html>
