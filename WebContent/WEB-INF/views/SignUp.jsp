@@ -77,7 +77,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	         Please contact us via admin@admin.mail to verify your drivers license.
 	        </div>
 	        <div>
-	      <p><button type=submit>SignUp</button></p>
+	      <p><button type=submit class="w3-button w3-dark-grey">SignUp</button></p>
 	    </div>
     </form>  
    </div>  
