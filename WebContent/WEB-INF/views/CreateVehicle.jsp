@@ -16,10 +16,10 @@
       <div><h1>Create Vehicle</h1></div>
        <div>
        <label>Vehicle type:</label>
-           <select name="vehicleType" required>
-         		<option value="CAR">Car</option>
-           		<option value="TRUCK">Truck</option>         
-             </select>
+       <select name="vehicleType" required>
+         <option value="CAR">Car</option>
+          <option value="TRUCK">Truck</option>         
+        </select>
           </div>
          <div>
          	<label>Plate:</label>

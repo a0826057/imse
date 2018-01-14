@@ -7,7 +7,7 @@
 </head>
 <body>
 <form id="CreateAccessory"  action="${pageContext.request.contextPath}/CreateAccessory" method="post">
-      <h3>CreateAccessory</h3>
+      <div><h3>CreateAccessory</h3></div>
        <div><label>Name:</label>
         <input type="text" id="title" name="name" />
         </div>
@@ -19,9 +19,8 @@
        </div> 
         
     </form>
- <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
-<div><p><button type=submit>LogOut</button></p></div>
-</form>   
+<form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
+<div><p><button type=submit>LogOut</button></p></div></form>   
  <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a>    
 </body>
 </html>
