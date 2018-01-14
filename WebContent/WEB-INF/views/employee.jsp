@@ -2,8 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    if(session.getAttribute("currentSessionUser") == null || (!session.getAttribute("currentSessionUser").equals("admin") && !session.getAttribute("currentSessionUserPassword").equals("admin"))) {
-        response.sendRedirect("Homepage.jsp");
+   	if(session.getAttribute("currentSessionUser") == null || (!session.getAttribute("currentSessionUser").equals("admin") && !session.getAttribute("currentSessionUserPassword").equals("admin"))) {
+       response.sendRedirect("Homepage.jsp");
     }
 %>
 <!DOCTYPE html>
@@ -11,10 +11,33 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/all.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome.min.css" />
     <title>Employee Administration</title>
 </head>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
+<body class="w3-light-grey">
 
-<body>
+<!-- Navigation Bar -->
+<div class="w3-bar w3-red w3-large">
+  <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
+  <a href="${pageContext.request.contextPath}/Profil.jsp" class="w3-bar-item w3-button w3-right w3-red ">Profil</a>
+  <div class="w3-right w3-dropdown-hover">
+      <button class="w3-bar-item  w3-button">Managament</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="${pageContext.request.contextPath}/employee.jsp" class="w3-bar-item w3-button">Employee Managament</a>
+        <a href="${pageContext.request.contextPath}/CreateAccessory.jsp" class="w3-bar-item w3-button">Create Accessory</a>
+        <a href="${pageContext.request.contextPath}/CreateVehicle.jsp" class="w3-bar-item w3-button">Create Vehicle</a>
+        <a href="${pageContext.request.contextPath}/DeleteCustomer.jsp" class="w3-bar-item w3-button">Delete Customer</a>
+      </div>
+    </div>
+  <a href="${pageContext.request.contextPath}/ListVehicle.jsp" class="w3-bar-item w3-button w3-right w3-red ">Vehicles</a>
+  <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
+</div>
+
+<div class="w3-container w3-white w3-padding-16">
 <h2>Employee Management</h2>
 <table>
     <tr>
@@ -25,7 +48,7 @@
                 <input type="hidden" name="last_name" value="">
                 <input type="hidden" name="superior_id" value="">
                 <input type="hidden" name="active" value="">
-                <input type="submit" value="Create">
+                <input type="submit" class="w3-button w3-dark-grey" value="Create">
             </form>
         </td>
         <td>
@@ -35,7 +58,7 @@
                 <input type="hidden" name="last_name" value="">
                 <input type="hidden" name="superior_id" value="">
                 <input type="hidden" name="active" value="">
-                <input type="submit" value="Read">
+                <input type="submit" class="w3-button w3-dark-grey"value="Read">
             </form>
         </td>
         <td>
@@ -47,7 +70,7 @@
                 <input type="hidden" name="last_name" value="">
                 <input type="hidden" name="superior_id" value="0">
                 <input type="hidden" name="active" value="">
-                <input type="submit" value="Update">
+                <input type="submit" class="w3-button w3-dark-grey" value="Update">
             </form>
         </td>
         <td>
@@ -57,7 +80,7 @@
                 <input type="hidden" name="last_name" value="">
                 <input type="hidden" name="superior_id" value="">
                 <input type="hidden" name="active" value="">
-                <input type="submit" value="Admin">
+                <input type="submit" class="w3-button w3-dark-grey" value="Admin">
             </form>
         </td>
 
@@ -148,9 +171,9 @@
 
 <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">
     <div>
-        <p><button type=submit>LogOut</button></p>
+        <p><button type=submit class="w3-button w3-dark-grey">LogOut</button></p>
     </div>
 </form>
-
+</div>
 </body>
 </html>
