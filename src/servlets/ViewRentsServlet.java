@@ -40,28 +40,40 @@ public class ViewRentsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// HERE MUST BE CHECKED IF THE USER HAS AN ACTIVE ACCOUNT AND IF HE IS LOGGED IN
-				//.............
 				
-		  		HttpSession session = request.getSession();
-		  		CostumerDAOI cos = new CostumerDAOI();
-		  		RentalDAOI rent = new RentalDAOI();
-		  		List<Costumer> list_cos = cos.getCostumerList();
-		  		List<Rental> list_rentals = rent.getRentalList();
-		  		String email = (String) session.getAttribute("currentSessionUserMail");
-		    
-				List<Rental> list = new ArrayList<Rental>();
-				for(int i = 0; i < list_rentals.size(); i++){
-					if(list_rentals.get(i).getCostumer().getCostumer_ID() == 1)
-						list.add(list_rentals.get(i));
-				}
-				
-		      
-		        session.setAttribute("list_rentals", list);
-		        
-		        RequestDispatcher dispatcher = request.getRequestDispatcher("view_rents.jsp");
-		        
-		        dispatcher.forward(request, response);
+  		HttpSession session = request.getSession();
+		String user = (String)session.getAttribute("currentSessionUser");
+  		String email = (String) session.getAttribute("currentSessionUserMail");
+  		CostumerDAOI cos = new CostumerDAOI();
+  		RentalDAOI rent = new RentalDAOI();
+  		
+		if((session.getAttribute("currentSessionUser") != null) && user.equals("customer") && (session.getAttribute("currentSessionUserMail") != null)){
+	  		List<Rental> list_rentals = rent.getRentalList();
+	  		List<Costumer> coss = cos.getCostumerList();
+	        Costumer costumer = null;
+	        
+	        for(Costumer cs : coss){
+	        	if(cs.getEmail().equals(email)){
+	        		costumer = cs;
+	        		break;
+	        	}
+	        }
+	  		
+			List<Rental> list = new ArrayList<Rental>();
+			for(int i = 0; i < list_rentals.size(); i++){
+				if(list_rentals.get(i).getCostumer().getCostumer_ID() == costumer.getCostumer_ID())
+					list.add(list_rentals.get(i));
+			}
+			
+	      
+	        session.setAttribute("list_rentals", list);
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("view_rents.jsp");
+	        dispatcher.forward(request, response);
+		}else{
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Homepage.jsp");
+	        dispatcher.forward(request, response);
+		}
 	}
 
 	/**

@@ -41,7 +41,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	        
 	        <div>
 	          <label>Password</label>
-	          <input type="password" name="password" value="*******">
+	          <input type="password" name="password" value="">
 	        </div>
 	        <div>
 	      <p><button type=submit class="w3-button w3-dark-grey">LogIn</button></p>

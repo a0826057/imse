@@ -54,6 +54,7 @@ public class LogIn extends HttpServlet {
 					buff.add(c);
 				}
 			}
+			
 			for(Costumer c:buff){
 				if(BCrypt.checkpw(password, c.getPwd_hash())){
 					HttpSession session = request.getSession(true); 
@@ -68,6 +69,9 @@ public class LogIn extends HttpServlet {
 				
 			}catch(Exception ex){
 			}
+		
+		RequestDispatcher rd=getServletContext().getRequestDispatcher("/LogIn.jsp");
+		rd.forward(request,response);
 	}
 
 }

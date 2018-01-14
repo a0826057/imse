@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,8 @@ import dao.CostumerDAOI;
 import dao.EmployeeDAOI;
 import dao.RentalDAOI;
 import dao.VehicleDAOI;
+import model.Costumer;
+import model.Employee;
 import model.Rental;
 import model.Vehicle;
 
@@ -86,28 +89,48 @@ public class RentVehicleServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		String button = request.getParameter("button");
-		String date_f = (String) session.getAttribute("date_from");
-        String date_t = (String) session.getAttribute("date_to");
-        
-        CostumerDAOI c = new CostumerDAOI();
-        EmployeeDAOI e = new EmployeeDAOI();
-        VehicleDAOI v = new VehicleDAOI();
-        
-        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-		RentalDAOI rent = new RentalDAOI();
-		Rental r = null;
-		try {
-			r = new Rental(v.getVehicleById(Integer.parseInt(button)), c.getCostumerById(1), e.getEmployeeById(1), df.parse(date_f),df.parse(date_t), "not given");
-		} catch (NumberFormatException | ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		String user = (String)session.getAttribute("currentSessionUser");
+		String email = (String)session.getAttribute("currentSessionUserMail");
+		
+		if((session.getAttribute("currentSessionUser") != null) && user.equals("customer") && (session.getAttribute("currentSessionUserMail") != null)){
+			String button = request.getParameter("button");
+			String date_f = (String) session.getAttribute("date_from");
+	        String date_t = (String) session.getAttribute("date_to");
+	        
+	        CostumerDAOI c = new CostumerDAOI();
+	        EmployeeDAOI e = new EmployeeDAOI();
+	        VehicleDAOI v = new VehicleDAOI();
+	        Random rand = new Random();
+	        
+	        List<Employee> employees = e.getEmployeeList();
+	        List<Costumer> coss = c.getCostumerList();
+	        Costumer costumer = null;
+	        
+	        for(Costumer cs : coss){
+	        	if(cs.getEmail().equals(email)){
+	        		costumer = cs;
+	        		break;
+	        	}
+	        }
+	        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+			RentalDAOI rent = new RentalDAOI();
+			Rental r = null;
+			try {
+				r = new Rental(v.getVehicleById(Integer.parseInt(button)), costumer, employees.get(rand.nextInt(employees.size())), df.parse(date_f),df.parse(date_t), "not given");
+			} catch (NumberFormatException | ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			rent.addRental(r);
+			
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("view_rents.jsp");
+	        dispatcher.forward(request, response);
+		}else{
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/Homepage.jsp");
+	        dispatcher.forward(request, response);
 		}
-		rent.addRental(r);
 		
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("view_rents.jsp");
-        dispatcher.forward(request, response);
 	}
 
 }
