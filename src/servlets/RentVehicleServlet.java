@@ -44,7 +44,7 @@ public class RentVehicleServlet extends HttpServlet {
 		// HERE MUST BE CHECKED IF THE USER HAS AN ACTIVE ACCOUNT AND IF HE IS LOGGED IN
 		//.............
 		
-		
+		HttpSession session = request.getSession();
 	    String date_f = request.getParameter("date_from");
         String date_t = request.getParameter("date_to");
         
@@ -68,10 +68,8 @@ public class RentVehicleServlet extends HttpServlet {
 				}
 			}
 		} catch (ParseException e) {
-			e.printStackTrace();
 		} 
         
-        HttpSession session = request.getSession();
         session.setAttribute("list", list_vehicle);
         session.setAttribute("date_from", date_f);
         session.setAttribute("date_to", date_t);
@@ -107,7 +105,9 @@ public class RentVehicleServlet extends HttpServlet {
 		}
 		rent.addRental(r);
 		
-		response.getWriter().append("The booking was succesful!");
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view_rents.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }

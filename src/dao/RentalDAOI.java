@@ -133,7 +133,7 @@ public class RentalDAOI implements RentalDAO {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			String raw_query = "DELETE * FROM rental WHERE vehicle_ID = ? AND costumer_ID = ? AND employee_ID = ? AND date_from = ?;";
+			String raw_query = "DELETE FROM rental WHERE vehicle_ID = ? AND costumer_ID = ? AND employee_ID = ? AND date_from = ?;";
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setInt(1, vid);
 			prepared.setInt(2, cid);
@@ -142,7 +142,7 @@ public class RentalDAOI implements RentalDAO {
 			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
 			prepared.setDate(4, sqlDateTo);
 			
-			prepared.executeQuery();
+			prepared.executeUpdate();
 		
 		}catch(Exception e){
 			System.err.println(e);
