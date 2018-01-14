@@ -19,9 +19,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-red w3-large">
 	  <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
-	  <a href="" class="w3-bar-item w3-button w3-right w3-red">Register</a>
-	  <a href="#contact" class="w3-bar-item w3-button w3-right w3-red ">Sign In</a>
-	  <a href="#rooms" class="w3-bar-item w3-button w3-right w3-red ">Cars</a>
+	  <a href="${pageContext.request.contextPath}/Profil.jsp" class="w3-bar-item w3-button w3-right w3-red ">Profil</a>
 	  <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
 	</div>
    	  

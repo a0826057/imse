@@ -15,9 +15,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-red w3-large">
 	  <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
-	  <a href="" class="w3-bar-item w3-button w3-right w3-red">Register</a>
-	  <a href="#contact" class="w3-bar-item w3-button w3-right w3-red ">Sign In</a>
-	  <a href="#rooms" class="w3-bar-item w3-button w3-right w3-red ">Cars</a>
+	  <a href="${pageContext.request.contextPath}/Profil.jsp" class="w3-bar-item w3-button w3-right w3-red ">Profil</a>
 	  <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
 	</div>
 
@@ -26,17 +24,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       out.print(request.getAttribute("msg"));
   }
 %>
-<h1>Rent a Car</h1>
-
-We are giving You the possibility to rent a car all over the world!
-Choose from thousands of different car models and explore various cities.
-
-<h2>
-	<a href="${pageContext.request.contextPath}/SignUp.jsp">SignUp</a>
-	<a href="${pageContext.request.contextPath}/LogIn.jsp">LogIn</a>
-</h2>
-
-<br>
-<a href="${pageContext.request.contextPath}/AdminLogIn.jsp">Employee</a>
+	<div class="w3-content" style="max-width:1532px;">
+		<h1>Rent a Car</h1>
+		
+		We are giving You the possibility to rent a car all over the world!
+		Choose from thousands of different car models and explore various cities.
+		<br>
+		<a href="${pageContext.request.contextPath}/SignUp.jsp" class="w3-button w3-dark-grey">SignUp</a>
+		<a href="${pageContext.request.contextPath}/LogIn.jsp" class="w3-button w3-dark-grey">LogIn</a>
+		<a href="${pageContext.request.contextPath}/AdminLogIn.jsp" class="w3-button w3-dark-grey">Employee</a>
+	</div>
 </body>
 </html>
