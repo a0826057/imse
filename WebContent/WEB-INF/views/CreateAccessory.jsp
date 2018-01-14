@@ -13,13 +13,15 @@
         </div>
       <div><label>Description:</label>
         <input type="text" id="title" name="description"/>
-        </div>
-    
+        </div>    
         <div>
       <button type=submit>Create Accessory</button>
        </div> 
-
         
-    </form>    
+    </form>
+ <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
+<div><p><button type=submit>LogOut</button></p></div>
+</form>   
+ <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a>    
 </body>
 </html>

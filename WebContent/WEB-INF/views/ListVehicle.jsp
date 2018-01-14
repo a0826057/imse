@@ -53,7 +53,8 @@
 			</thead>
 			<tbody>
 				<%for(int i = 0; i < car.size(); i++){
-            		Vehicle cars = (Vehicle)car.get(i);
+            		Car cars = (Vehicle)car.get(i);
+            		
             	%>
             <tr>
 		       <td><% out.print(cars.getVehicle_ID()); %></td>
@@ -65,8 +66,8 @@
 		       <td><% out.print(cars.getMileage()); %></td>
 		       <td><% out.print(cars.getManufacture_year()); %></td>
 		       <td><% out.print(cars.getActive()); %></td>
-		       <td><% out.print(cars.getVehicle_ID()); %></td>
-		       <td><% out.print(cars.getVehicle_ID()); %></td>
+		       <td><% out.print(cars.getDoors()); %></td>
+		       <td><% out.print(cars.getPassenger_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
     				<button name="edit" value="<% cars.getVehicle_ID();%>">Edit</button>
@@ -81,7 +82,8 @@
 		    </tr>
 			</tbody>
 			</table>
-			<%}}
+			<%
+			}} 
 			else{ %>
 				<table>
 			<thead>
@@ -103,7 +105,7 @@
 			</thead>
 			<tbody>
 				<%for(int i = 0; i < truck.size(); i++){
-            		Vehicle trucks = (Vehicle)truck.get(i);
+            		Truck trucks = (Vehicle)truck.get(i);
             	%>
             <tr>
 		       <td><% out.print(trucks.getVehicle_ID()); %></td>
@@ -115,9 +117,9 @@
 		       <td><% out.print(trucks.getMileage()); %></td>
 		       <td><% out.print(trucks.getManufacture_year()); %></td>
 		       <td><% out.print(trucks.getActive()); %></td>
-		       <td><% out.print(trucks.getVehicle_ID()); %></td>
-		       <td><% out.print(trucks.getVehicle_ID()); %></td>
-		       <td><% out.print(trucks.getVehicle_ID()); %></td>
+		       <td><% out.print(trucks.getLenght(); %></td>
+		       <td><% out.print(trucks.getHeight(); %></td>
+		       <td><% out.print(trucks.getLoading_limit(); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
     				<button name="edit" value="<% trucks.getVehicle_ID();%>">Edit</button>
@@ -137,7 +139,12 @@
 			 <div><h1>Select a vehicle type</h1></div>
 			 <%} %>
 			</form>	
-</div>
-     
+		</div>
+	 <div><a href="CreateVehicle.jsp"><button name="create" >Create Vehicle</button></a></div>
+
+<form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
+        <div><p><button type=submit>LogOut</button></p></div>
+    </form>   
+    <a href="${pageContext.request.contextPath}/Homepage.jsp">Home</a> 	   
 </body>
 </html>
