@@ -24,15 +24,15 @@
             </select>
 		</div>
 		<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
-     		<%  String type = session.getValue("vehicleType");
-     			java.util.ArrayList<Vehicle> car = new ArrayList<Vehicle>();
-     			java.util.ArrayList<Vehicle> truck = new ArrayList<Vehicle>();
+     		<%  String type = (String)session.getValue("vehicleType");
+     			java.util.ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
+     			java.util.ArrayList<Vehicle> trucks = new ArrayList<Vehicle>();
      			
 		    	if((type != null)){
 		    		if(type.equalsIgnoreCase("CAR")){
-		    			Vehicle car =  (java.util.ArrayList<Vehicle>) session.getAttribute("carList");
+		    			 cars =  (java.util.ArrayList<Vehicle>) session.getAttribute("carList");
 		    		}else{
-			    		Vehicle truck =  (java.util.ArrayList<Vehicle>) session.getAttribute("truckList");}
+			    		 trucks =  (java.util.ArrayList<Vehicle>) session.getAttribute("truckList");}
 		    		if(type=="CAR"){  %>	
 		<table>
 			<thead>
@@ -52,31 +52,31 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%for(int i = 0; i < car.size(); i++){
-            		Car cars = (Car)car.get(i);
+				<%for(int i = 0; i < cars.size(); i++){
+            		Car car = (Car)cars.get(i);
             		
             	%>
             <tr>
-		       <td><% out.print(cars.getVehicle_ID()); %></td>
-		       <td><% out.print(cars.getLicense_plate_number()); %></td>
-		       <td><% out.print(cars.getColor().getColor_ID()); %></td>
-		       <td><% out.print(cars.getModel().getModel_ID()); %></td>
-		       <td><% out.print(cars.getManufactur().getManufacturer_ID()); %></td>
-		       <td><% out.print(cars.getAccessory()); %></td>
-		       <td><% out.print(cars.getMileage()); %></td>
-		       <td><% out.print(cars.getManufacture_year()); %></td>
-		       <td><% out.print(cars.getActive()); %></td>
-		       <td><% out.print(cars.getDoors()); %></td>
-		       <td><% out.print(cars.getPassenger_limit()); %></td>
+		       <td><% out.print(car.getVehicle_ID()); %></td>
+		       <td><% out.print(car.getLicense_plate_number()); %></td>
+		       <td><% out.print(car.getColor().getColor_ID()); %></td>
+		       <td><% out.print(car.getModel().getModel_ID()); %></td>
+		       <td><% out.print(car.getManufactur().getManufacturer_ID()); %></td>
+		       <td><% out.print(car.getAccessory()); %></td>
+		       <td><% out.print(car.getMileage()); %></td>
+		       <td><% out.print(car.getManufacture_year()); %></td>
+		       <td><% out.print(car.getActive()); %></td>
+		       <td><% out.print(car.getDoors()); %></td>
+		       <td><% out.print(car.getPassenger_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
-    				<button name="edit" value="<% cars.getVehicle_ID();%>">Edit</button>
+    				<button name="edit" value="<% car.getVehicle_ID();%>">Edit</button>
 				</form>
 			       
 		       </td>
 		       <td>
 			       <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-			       		<button name="delete" value="<% cars.getVehicle_ID();%>">Delete</button>
+			       		<button name="delete" value="<% car.getVehicle_ID();%>">Delete</button>
 			       </form>
 		       </td>
 		    </tr>
@@ -104,31 +104,31 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%for(int i = 0; i < truck.size(); i++){
-            		Truck trucks = (Truck)truck.get(i);
+				<%for(int i = 0; i < trucks.size(); i++){
+            		Truck truck = (Truck)trucks.get(i);
             	%>
             <tr>
-		       <td><% out.print(trucks.getVehicle_ID()); %></td>
-		       <td><% out.print(trucks.getLicense_plate_number()); %></td>
-		       <td><% out.print(trucks.getColor().getColor_ID()); %></td>
-		       <td><% out.print(trucks.getModel().getModel_ID()); %></td>
-		       <td><% out.print(trucks.getManufactur().getManufacturer_ID()); %></td>
-		       <td><% out.print(trucks.getAccessory()); %></td>
-		       <td><% out.print(trucks.getMileage()); %></td>
-		       <td><% out.print(trucks.getManufacture_year()); %></td>
-		       <td><% out.print(trucks.getActive()); %></td>
-		       <td><% out.print(trucks.getLenght()); %></td>
-		       <td><% out.print(trucks.getHeight()); %></td>
-		       <td><% out.print(trucks.getLoading_limit()); %></td>
+		       <td><% out.print(truck.getVehicle_ID()); %></td>
+		       <td><% out.print(truck.getLicense_plate_number()); %></td>
+		       <td><% out.print(truck.getColor().getColor_ID()); %></td>
+		       <td><% out.print(truck.getModel().getModel_ID()); %></td>
+		       <td><% out.print(truck.getManufactur().getManufacturer_ID()); %></td>
+		       <td><% out.print(truck.getAccessory()); %></td>
+		       <td><% out.print(truck.getMileage()); %></td>
+		       <td><% out.print(truck.getManufacture_year()); %></td>
+		       <td><% out.print(truck.getActive()); %></td>
+		       <td><% out.print(truck.getLenght()); %></td>
+		       <td><% out.print(truck.getHeight()); %></td>
+		       <td><% out.print(truck.getLoading_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
-    				<button name="edit" value="<% trucks.getVehicle_ID();%>">Edit</button>
+    				<button name="edit" value="<% truck.getVehicle_ID();%>">Edit</button>
 				</form>
 			       
 		       </td>
 		       <td>
 			       <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-			       		<button name="delete" value="<% trucks.getVehicle_ID();%>">Delete</button>
+			       		<button name="delete" value="<% truck.getVehicle_ID();%>">Delete</button>
 			       </form>
 		       </td>
 		    </tr>
