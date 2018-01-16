@@ -19,22 +19,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 <!-- Navigation Bar -->
 <div class="w3-bar w3-red w3-large">
   <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
-   <%if((session.getAttribute("currentSessionUser") != null) && (session.getAttribute("currentSessionUser") == "admin")){ %>
-	  
-	  <div class="w3-right w3-dropdown-hover">
-	      <button class="w3-bar-item  w3-button">Managament</button>
-	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-	        <a href="${pageContext.request.contextPath}/employee.jsp" class="w3-bar-item w3-button">Employee Managament</a>
-	        <a href="${pageContext.request.contextPath}/CreateAccessory.jsp" class="w3-bar-item w3-button">Create Accessory</a>
-	        <a href="${pageContext.request.contextPath}/CreateVehicle.jsp" class="w3-bar-item w3-button">Create Vehicle</a>
-	        <a href="${pageContext.request.contextPath}/DeleteCustomer.jsp" class="w3-bar-item w3-button">Customer Managament</a>
-	      </div>
-	    </div>
-	  <a href="${pageContext.request.contextPath}/ListVehicle.jsp" class="w3-bar-item w3-button w3-right w3-red ">Vehicles</a>
-  <%}else if(session.getAttribute("currentSessionUser") != null){ %>
-  	  <a href="${pageContext.request.contextPath}/Profil.jsp" class="w3-bar-item w3-button w3-right w3-red ">Profil</a>
-	  <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
-  <%} %>
+  <a href="${pageContext.request.contextPath}/Profil.jsp" class="w3-bar-item w3-button w3-right w3-red ">Profil</a>
+  <div class="w3-right w3-dropdown-hover">
+      <button class="w3-bar-item  w3-button">Managament</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="${pageContext.request.contextPath}/employee.jsp" class="w3-bar-item w3-button">Employee Managament</a>
+        <a href="${pageContext.request.contextPath}/CreateAccessory.jsp" class="w3-bar-item w3-button">Create Accessory</a>
+        <a href="${pageContext.request.contextPath}/CreateVehicle.jsp" class="w3-bar-item w3-button">Create Vehicle</a>
+        <a href="${pageContext.request.contextPath}/DeleteCustomer.jsp" class="w3-bar-item w3-button">Delete Customer</a>
+      </div>
+    </div>
+  <a href="${pageContext.request.contextPath}/ListVehicle.jsp" class="w3-bar-item w3-button w3-right w3-red ">Vehicles</a>
+  <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
 </div>
 
 <div class="w3-container w3-white w3-padding-16">
@@ -42,27 +38,39 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		<div>
 			<h1> List of Vehicles </h1>
 		</div>
+		
 		<div>
+	<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
+		
        <label>Select Vehicle Type:</label>
+       <!-- <form action="ListVehicle.jsp"> -->
            <select name="vehicleType" required>
+           		<option value="null">Select</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
             </select>
+            <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit">
+        <!-- </form> -->
 		</div>
-		<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
-     		<%  String type = (String)session.getValue("vehicleType");
-     			java.util.ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
-     			java.util.ArrayList<Vehicle> trucks = new ArrayList<Vehicle>();
+
+				
+		
+     		<%  //String type = (String)session.getAttribute("vehicleType");
+     			String type = (String)request.getParameter("vehicleType");
      			
+     			java.util.ArrayList<Car> cars = new ArrayList<Car>();
+     			java.util.ArrayList<Truck> trucks = new ArrayList<Truck>();
+     			
+     			System.out.println(type);
 		    	if((type != null)){
-		    		if(type.equalsIgnoreCase("CAR")){
-		    			 cars =  (java.util.ArrayList<Vehicle>) session.getAttribute("carList");
+		    		if(type=="CAR"){
+		    			 cars =  (java.util.ArrayList<Car>) session.getAttribute("list_car");
 		    		}else{
-			    		 trucks =  (java.util.ArrayList<Vehicle>) session.getAttribute("truckList");}
+			    		 trucks =  (java.util.ArrayList<Truck>) session.getAttribute("list_truck");}
 		    		if(type=="CAR"){  %>	
-		<table>
-			<thead>
-				<tr>
+					<table>
+					<thead>
+					<tr>
 					<th>Vehicle ID</th>
 					<th>License Plate Number</th>
 					<th>Color ID</th>
@@ -72,15 +80,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 					<th>Mileage</th>
 					<th>Manufacturer Year</th>
 					<th>Active</th>
-					<th>Add</th>
-					<th>Add</th>
+					<th>Doors</th>
+					<th>Passengers Limit</th>
 								
-				</tr>
-			</thead>
-			<tbody>
-				<%for(int i = 0; i < cars.size(); i++){
+					</tr>
+					</thead>
+					<tbody>
+				<% for(int i = 0; i < cars.size(); i++){
             		Car car = (Car)cars.get(i);
-            		
             	%>
             <tr>
 		       <td><% out.print(car.getVehicle_ID()); %></td>
@@ -172,5 +179,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         <div><p><button type=submit class="w3-button w3-dark-grey">LogOut</button></p></div>
 </form>    
 </div>
+
+<script>
+var e = document.getElementById(vehicleType);
+var strVehicle = e.options[e.selectedIndex].value;
+</script>
 </body>
 </html>
