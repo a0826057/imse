@@ -4,15 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
+import model.Car;
 import model.Vehicle;
 
 @WebServlet("/ChangeVehicle")
@@ -41,11 +43,13 @@ public class ChangeVehicle extends HttpServlet {
 	
 		String user = request.getParameter("user");
 		String password = request.getParameter("password");
+		String vehicleSelectId= request.getParameter("edit");
+		    
+	    int vehicleIdSelect = Integer.parseInt(vehicleSelectId);
 		
-		if(user.equals("admin") && password.equals("admin")){
+	    if(user.equals("admin") && password.equals("admin")){
 			VehicleDAO vdao = new VehicleDAOI();
 			List<Vehicle> all = new ArrayList<Vehicle>();	
-			String vehicleType = request.getParameter("vehicleType");
 			String vId = request.getParameter("id");
 			int vehicleId = Integer.parseInt(vId);
 			String plate = request.getParameter("plate");
@@ -74,26 +78,36 @@ public class ChangeVehicle extends HttpServlet {
 			String load_limit1 = request.getParameter("load_limit");
 			int load_limit = Integer.parseInt(load_limit1);
 				
-			all = vdao.getVehicleList();
+			all = vdao.getVehicleListByType("car");
+					
 			
 			for(Vehicle c:all){
-				
-				if(vehicleType == "CAR") {
-					if(c.getVehicle_ID()== vehicleId){
+				if(c.getVehicle_ID()== vehicleIdSelect){
 						VehicleDAO cdao = new VehicleDAOI();
 						cdao.changeCar(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
-					
-					}
-					else {
-						VehicleDAO tdao = new VehicleDAOI();
-						tdao.changeTruck(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
-					}
-					}			
 				}
 			}
-		
-			response.sendRedirect("/Homepage.jsp");
-	}
 			
+			all = vdao.getVehicleListByType("truck");
+			
+			for(Vehicle c:all){
+				if(c.getVehicle_ID()== vehicleIdSelect){
+					VehicleDAO tdao = new VehicleDAOI();
+					tdao.changeTruck(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
+				}
+			}	
+							
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("vehicleSelectId",vehicleSelectId);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ChangeVehicle.jsp");
+		    dispatcher.forward(request, response);
+			response.sendRedirect("/ListVehicle.jsp");
+			
+	    }
+	    response.sendRedirect("/Homepage.jsp");	    
+	}
 }
+			
+
 

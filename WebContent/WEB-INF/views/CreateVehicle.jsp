@@ -58,7 +58,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Color:</label>
     	<select name="colorId">         	
   		<% for (int i = 0; i < colors.size(); ++i) { %>
-        <option value="<% colors.get(i);%>" ><%= colors.get(i)%></option>
+        <option value="<% colors.get(i).getColor_ID();%>" ><%= colors.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </div>
@@ -72,7 +72,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Model:</label>
     	<select name="modelId">         	
   		<% for (int i = 0; i < models.size(); ++i) { %>
-        <option value="<% models.get(i).getModel_ID();%>" ><%= models.get(i)%></option>
+        <option value="<% models.get(i).getModel_ID();%>" ><%= models.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </div>
@@ -86,7 +86,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Manufacturer:</label>
     	<select name="manufacturerId">         	
   		<% for (int i = 0; i < manufacturers.size(); ++i) { %>
-        <option value="<% manufacturers.get(i).getManufacturer_ID();%>" ><%= manufacturers.get(i)%></option>
+        <option value="<% manufacturers.get(i).getManufacturer_ID();%>" ><%= manufacturers.get(i).getName() %></option>
   		<% }} %>
     	</select>
         </div>
@@ -100,7 +100,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Manufacturer:</label>
     	<select name="manufacturerId">         	
   		<% for (int i = 0; i < accessories.size(); ++i) { %>
-        <option value="<% accessories.get(i).getAccessory_ID();%>" ><%= accessories.get(i)%></option>
+        <option value="<% accessories.get(i).getAccessory_ID();%>" ><%= accessories.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </div>
@@ -115,9 +115,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         <div>
         <input type="checkbox" name="active">Active<br>
         </div>
-        <c:choose>
-        	<c:when test="${session.getAttribute("vehicleType") == 'CAR'}">
-       			<div>
+        <% String type = (String)session.getValue("vehicleType"); 
+        	if(type== "CAR"){%>
+        		<div>
         			<label>Doors:</label>
        				<input type="text" name="doors">
         		</div>
@@ -125,9 +125,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         			<label>Passenger Limit:</label>
        					<input type="text" name="pass_limit">
        			</div>
-        </c:when>
-   		<c:when test="${session.getAttribute("vehicleType") == 'TRUCK'}">
-				<div>
+        	<%}else if(type == "TRUCK"){ %>
+        		<div>
         			<label>Length:</label>
        				<input type="text" name="length">
         		</div>
@@ -139,11 +138,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         			<label>Loading Limit:</label>
        				<input type="text" name="load_limit">
        			</div>
-		</c:when> 
-   		<c:otherwise>
-   			<label>Select a type of vehicle</label>
-   		</c:otherwise>    
-		</c:choose>
+        	<%}else{ %>
+        		<label>Select a type of vehicle</label>
+        	<%} %>
         <div>
       	<p><button type=submit class="w3-button w3-dark-grey">Create Vehicle</button></p>
        	</div> 
