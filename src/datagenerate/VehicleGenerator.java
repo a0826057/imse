@@ -30,7 +30,7 @@ public class VehicleGenerator {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			PreparedStatement ps = connection.prepareStatement("CREATE TABLE vehicle ("+
 															   "vehicle_ID int AUTO_INCREMENT,"+
-															   "lisence_plate_number varchar(15) NOT NULL UNIQUE,"+
+															   "lisence_plate_number varchar(50) NOT NULL UNIQUE,"+
 															   "color_ID int," +
 															   "model_ID int, " +
 															   "manufacturer_ID int,"+
@@ -71,7 +71,7 @@ public class VehicleGenerator {
 		List<Model> lso = mod.getModelList();
 		List<Color> lsc = col.getColorList();
 		Random rand = new Random(); 
-		
+				
 		String[] plates = {"'W 3457","'W 162 ACS","'W 312 AA","'W 456 VA","'W 3454 SS1"};
 		int[] miles = {10,160,45,3,13};
 		int[] manufactur= {2008,2016,2017,2018,2011};
@@ -81,6 +81,7 @@ public class VehicleGenerator {
 		int[] height= {200,250,260,240,255};
 		int[] load_limit= {100,175,160,150,255};
 		int index1, index2, index3, index5, index6, index7, index8, index9, index10;
+		
 		for(int i = 0; i < 10; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(lsc.size()); 
@@ -92,6 +93,7 @@ public class VehicleGenerator {
 			index9 = rand.nextInt(5);
 			ad.addCar(plates[index1] + " " + i + index1 + "'", lsc.get(index2), lso.get(index3), lso.get(index3).getManufacturer(), lsa.get(index5), miles[index6], manufactur[index7], true, doors[index8], pass_limit[index9]);
 		}
+		
 		for(int i = 0; i < 10; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(lsc.size()); 

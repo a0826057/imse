@@ -123,7 +123,7 @@ public class VehicleDAOI implements VehicleDAO{
 				
 				while(tresult.next()) {
 					Vehicle v = veh.getVehicleById(tresult.getInt("truck_ID"));
-					Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("lenght"),tresult.getInt("height"), tresult.getInt("load_limit"));
+					Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("length"),tresult.getInt("height"), tresult.getInt("loading_limit"));
 					ls.add(truck);
 				}
 			}
@@ -286,7 +286,7 @@ public class VehicleDAOI implements VehicleDAO{
 			
 			
 			statement.setQueryTimeout(60);
-			String raw_query2 = "UPDATE truck SET height=?, lenght=?, loading_limit=? WHERE truck_ID =?";
+			String raw_query2 = "UPDATE truck SET height=?, length=?, loading_limit=? WHERE truck_ID =?";
 			PreparedStatement prepared2 = con.prepareStatement(raw_query2);
 			prepared2.setInt(1, height);
 			prepared2.setInt(2, length);
@@ -408,7 +408,7 @@ public class VehicleDAOI implements VehicleDAO{
 				
 				while(tresult.next()) {
 					Vehicle v = veh.getVehicleById(tresult.getInt("truck_ID"));
-					Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("lenght"),tresult.getInt("height"), tresult.getInt("load_limit"));
+					Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("length"),tresult.getInt("height"), tresult.getInt("loading_limit"));
 					ls.add(truck);
 				}
 			}
@@ -608,7 +608,7 @@ public class VehicleDAOI implements VehicleDAO{
 			while(tresult.next()){
 				Vehicle veh = v.getVehicleById(tresult.getInt("truck_ID"));
 				List<Accessory> a= acc.getHasAccessory(veh.getVehicle_ID());
-				Truck trucks = new Truck(veh.getVehicle_ID(), veh.getLicense_plate_number(), veh.getColor(), veh.getModel(), veh.getManufactur() , a, veh.getMileage(), veh.getManufacture_year(), veh.getActive(), tresult.getInt("lenght"),tresult.getInt("height"), tresult.getInt("load_limit"));
+				Truck trucks = new Truck(veh.getVehicle_ID(), veh.getLicense_plate_number(), veh.getColor(), veh.getModel(), veh.getManufactur() , a, veh.getMileage(), veh.getManufacture_year(), veh.getActive(), tresult.getInt("length"),tresult.getInt("height"), tresult.getInt("loading_limit"));
 				vehicles.add(trucks);
 			}
 		

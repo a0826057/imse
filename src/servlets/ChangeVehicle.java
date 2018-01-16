@@ -44,7 +44,7 @@ public class ChangeVehicle extends HttpServlet {
 		String user = request.getParameter("user");
 		String password = request.getParameter("password");
 		String vehicleSelectId= request.getParameter("edit");
-		    
+		String vehicleType= request.getParameter("vehicleType");    
 	    int vehicleIdSelect = Integer.parseInt(vehicleSelectId);
 		
 	    if(user.equals("admin") && password.equals("admin")){
@@ -79,10 +79,13 @@ public class ChangeVehicle extends HttpServlet {
 			int load_limit = Integer.parseInt(load_limit1);
 				
 			all = vdao.getVehicleListByType("car");
-					
+			List<Car> carInfo = new ArrayList<Car>();
 			
 			for(Vehicle c:all){
 				if(c.getVehicle_ID()== vehicleIdSelect){
+					
+											
+						
 						VehicleDAO cdao = new VehicleDAOI();
 						cdao.changeCar(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
 				}
@@ -100,6 +103,7 @@ public class ChangeVehicle extends HttpServlet {
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("vehicleSelectId",vehicleSelectId);
+			session.setAttribute("vehicleType",vehicleType);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ChangeVehicle.jsp");
 		    dispatcher.forward(request, response);
 			response.sendRedirect("/ListVehicle.jsp");

@@ -1,5 +1,6 @@
 package servlets;
 import java.io.IOException;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,15 +42,15 @@ public class ListVehicle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    
-	
+			HttpSession session = request.getSession();
 	        VehicleDAO veh = new VehicleDAOI();
 	        List<Vehicle> list_car = new ArrayList<Vehicle>();
 	        List<Vehicle> list_truck = new ArrayList<Vehicle>();
-	        String type = request.getParameter("vehicleType");
+	        String type = (String) request.getParameter("vehicleType");
+	        System.out.println(type+" on servlet");
  	        try {
 				if(type=="CAR") {
 					list_car.addAll(veh.getVehicleListByType("car"));
-						
 				}else {
 					list_truck.addAll(veh.getVehicleListByType("truck"));
 				}
@@ -58,7 +59,7 @@ public class ListVehicle extends HttpServlet {
 				e.printStackTrace();
 			} 
 	        
-	        HttpSession session = request.getSession();
+	        
 	        session.setAttribute("list_car", list_car);
 	   	    session.setAttribute("list_truck",list_truck);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("ListVehicle.jsp");

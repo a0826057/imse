@@ -91,7 +91,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getDoors()); %></td>
 		       <td><% out.print(car.getPassenger_limit()); %></td>
 		       <td>
-			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
+			   <form action="${pageContext.request.contextPath}/ChangeVehicle.jsp" method="post">
     				<button name="edit" value="<% car.getVehicle_ID();%>">Edit</button>
 				</form>
 			       
@@ -143,7 +143,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getHeight()); %></td>
 		       <td><% out.print(truck.getLoading_limit()); %></td>
 		       <td>
-			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
+			   <form action="${pageContext.request.contextPath}/ChangeVehicle.jsp" method="post">
     				<button name="edit" value="<% truck.getVehicle_ID();%>">Edit</button>
 				</form>
 			       
