@@ -65,7 +65,7 @@ public class SignUp extends HttpServlet {
 		    String pwd_hash = BCrypt.hashpw(password, BCrypt.gensalt(4));
 
 		    Costumer toAdd = new Costumer(0,title, fname, lname, "", bdate, email, pcode, 
-		    							  street, hnum, anum, town, country, pwd_hash, "", true);
+		    							  street, hnum, anum, town, country, password, "", true);
 		    CostumerDAO cdao = new CostumerDAOI();
 		    cdao.addCostumer(toAdd);
 		    

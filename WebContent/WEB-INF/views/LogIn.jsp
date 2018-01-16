@@ -16,6 +16,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 <!-- Navigation Bar -->
 <div class="w3-bar w3-red w3-large">
   <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
+  
+  <%if(session.getAttribute("currentSessionUser") != null){ %>
   <a href="${pageContext.request.contextPath}/Profil.jsp" class="w3-bar-item w3-button w3-right w3-red ">Profil</a>
   <div class="w3-right w3-dropdown-hover">
       <button class="w3-bar-item  w3-button">Managament</button>
@@ -28,6 +30,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </div>
   <a href="${pageContext.request.contextPath}/ListVehicle.jsp" class="w3-bar-item w3-button w3-right w3-red ">Vehicles</a>
   <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
+  <%} %>
 </div>
 
 <div class="w3-container w3-white w3-padding-16">
