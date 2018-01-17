@@ -48,7 +48,7 @@ public class DeleteVehicle extends HttpServlet {
 			//String password = request.getParameter("password");
 			
 			VehicleDAO veh = new VehicleDAOI();
-			String id1 = request.getParameter("button");
+			String id1 = request.getParameter("delete");
 			
 			//if(user.equals("admin") && password.equals("admin")){
 				if(id1!=null) {

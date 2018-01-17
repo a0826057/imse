@@ -313,26 +313,31 @@ public class VehicleDAOI implements VehicleDAO{
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			String raw_query = "DELETE * FROM vehicle WHERE vehicle_id = ?";
+			String raw_query = "DELETE FROM vehicle WHERE vehicle_ID = ?;";
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setInt(1, vehicle_id);
-			prepared.executeQuery();
-			Statement statement2 = con.createStatement();
-			statement2.setQueryTimeout(60);
-			String raw_query1 = "DELETE * FROM car WHERE car_ID = ?";
+			prepared.executeUpdate();
+			
+			 
+	    	  
+			String raw_query1 = "DELETE FROM car WHERE car_ID = ?;";
 			PreparedStatement prepared2 = con.prepareStatement(raw_query1);
 			prepared2.setInt(1, vehicle_id);
-			prepared2.executeQuery();
-			Statement statement3 = con.createStatement();
-			statement3.setQueryTimeout(60);
-			String raw_query3 = "DELETE * FROM truck WHERE truck_ID = ?";
+			prepared2.executeUpdate();
+			
+			
+			String raw_query3 = "DELETE FROM truck WHERE truck_ID = ?;";
 			PreparedStatement prepared3 = con.prepareStatement(raw_query3);
 			prepared3.setInt(1, vehicle_id);
-			prepared3.executeQuery();
-			String raw_query4 ="DELETE * FROM has_accessory WHERE vehicle_ID =?";
+			prepared3.executeUpdate();
+			
+	
+			String raw_query4 ="DELETE FROM has_accessory WHERE vehicle_ID =?;";
 			PreparedStatement prepared4 = con.prepareStatement(raw_query4);
 			prepared4.setInt(1, vehicle_id);
-			prepared4.executeQuery();
+			prepared4.executeUpdate(); 		
+	    	  	
+	    	con.close();
 		}catch(Exception e){
 			System.err.println(e);
 		}finally {

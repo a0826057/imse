@@ -39,24 +39,31 @@ public class CreateAccessory extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			
 		try {
-			String user = request.getParameter("user");
-			String password = request.getParameter("password");
-			if(user.equals("admin") && password.equals("admin")){
-				String name = request.getParameter("name");
-				String description = request.getParameter("description");
-			    AccessoryDAO adao = new AccessoryDAOI();
-			    adao.addAccessory(name, description);
-			}
-			else {
-				response.sendRedirect("Homepage.jsp");
-			}
-			response.sendRedirect("CreateVehicle.jsp");
+				
+				String user = (String) request.getParameter("user");
+				String password = (String) request.getParameter("password");
+				if(user.equals("admin") && password.equals("admin")){
+					String name = (String) request.getParameter("name");
+					String description = (String) request.getParameter("description");
+					if(name != null) {
+						AccessoryDAO adao = new AccessoryDAOI();
+					    adao.addAccessory(name, description);
+					    response.sendRedirect("ListVehicle.jsp");
+					}
+				    
+				}
+				else {
+					response.sendRedirect("Homepage.jsp");
+				}
+				
 			
 			}catch(Exception e) {
 				
 			}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateAccessory.jsp");
+		
 	}
-	 //RequestDispatcher dispatcher = request.getRequestDispatcher("CreateAccessory.jsp");
+	 
 }

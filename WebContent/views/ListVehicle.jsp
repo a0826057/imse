@@ -55,7 +55,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 						
      		<%  //String type = (String)session.getAttribute("vehicleType");
      			String type = (String)request.getParameter("vehicleType");
-     			
+     			String sid;
      			java.util.ArrayList<Car> cars = new ArrayList<Car>();
      			java.util.ArrayList<Truck> trucks = new ArrayList<Truck>();
      			
@@ -64,8 +64,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		    	 	trucks =  (java.util.ArrayList<Truck>) session.getAttribute("list_truck");
 		    	}
 		    		    	
-		    	if("CAR".equals(type)){ 
-		    	System.out.println("Inside the car");	
+		    	if("CAR".equals(type)){    	
 		    	%>	
 					<table>
 					<thead>
@@ -87,10 +86,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 					<tbody>
 				<% for(int i = 0; i < cars.size(); i++){
             		Car car = (Car)cars.get(i);
-            		System.out.println(i);
             	%>
             <tr>
-		       <td><% out.print(car.getVehicle_ID()); %></td>
+		       <td><% out.print(car.getVehicle_ID()); 
+		       		 sid =  String.valueOf(car.getVehicle_ID());%>
 		       <td><% out.print(car.getLicense_plate_number()); %></td>
 		       <td><% out.print(car.getColor().getColor_ID()); %></td>
 		       <td><% out.print(car.getModel().getModel_ID()); %></td>
@@ -104,15 +103,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getDoors()); %></td>
 		       <td><% out.print(car.getPassenger_limit()); %></td>
 		       <td>
-			   <form action="${pageContext.request.contextPath}/ChangeVehicle.jsp" method="post">
-    				<button name="edit" type="submit" value="<% car.getVehicle_ID();%>">Edit</button>
+			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
+    				<a href="ChangeVehicle.jsp"><button name="edit" type="submit" value="<%=sid%>">Edit</button></a>
 				</form>
 		       </td>
+		        <td>
 		        <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-			       		<button NAME="delete" type="submit" value=<%=car.getVehicle_ID()%>>Delete</button>
-			    </form>
-		       <td>
-			       
+			       		<button name="delete" type="submit" value=<%=sid%>>Delete</button>
+			    </form>       
 		       </td>
 		    </tr>
 		    <%} %>
@@ -144,7 +142,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
             		Truck truck = (Truck)trucks.get(i);
             	%>
             <tr>
-		       <td><% out.print(truck.getVehicle_ID()); %></td>
+		       <td><% out.print(truck.getVehicle_ID());
+		       	 sid =  String.valueOf(truck.getVehicle_ID());%></td>
 		       <td><% out.print(truck.getLicense_plate_number()); %></td>
 		       <td><% out.print(truck.getColor().getColor_ID()); %></td>
 		       <td><% out.print(truck.getModel().getModel_ID()); %></td>
@@ -159,13 +158,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getHeight()); %></td>
 		       <td><% out.print(truck.getLoading_limit()); %></td>
 		       <td>
-			   <form action="${pageContext.request.contextPath}/ChangeVehicle.jsp" method="post">
-    				<button name="edit" type="submit" value="<% truck.getVehicle_ID();%>">Edit</button>
+			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
+    				<a href="ChangeVehicle.jsp"><button name="edit" type="submit" value="<%=sid%>">Edit</button></a>
 				</form>
 		       </td>
 		       <td>
 			       <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-			       		<button NAME="delete" type="submit" value=<%=truck.getVehicle_ID()%>>Delete</button>
+			       		<button NAME="delete" type="submit" value=<%=sid%>>Delete</button>
 			       </form>
 		       </td>
 		    </tr>
