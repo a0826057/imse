@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
@@ -42,21 +44,26 @@ public class DeleteVehicle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String user = request.getParameter("user");
-			String password = request.getParameter("password");
+			//String user = request.getParameter("user");
+			//String password = request.getParameter("password");
 			
-			if(user.equals("admin") && password.equals("admin")){
-				VehicleDAO veh = new VehicleDAOI();
-				String id1 = request.getParameter("delete");
-				int vehicle_id = Integer.parseInt(id1);
-				veh.deleteVehicle(vehicle_id);
-			}
+			VehicleDAO veh = new VehicleDAOI();
+			String id1 = request.getParameter("button");
 			
-			request.getRequestDispatcher("/CreateVehicle.jsp").forward(request, response);
+			//if(user.equals("admin") && password.equals("admin")){
+				if(id1!=null) {
+					System.out.println(id1);
+					int vehicle_id = Integer.parseInt(id1);
+					veh.deleteVehicle(vehicle_id);
+					request.getRequestDispatcher("ListVehicle.jsp").forward(request, response);
+				}
+				
+			//}			
 		}catch (Exception e) {
 				 
 		}
-		}
+		request.getRequestDispatcher("Homepage.jsp").forward(request, response);
+	}
 	}
 
 

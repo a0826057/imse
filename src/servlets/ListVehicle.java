@@ -47,9 +47,8 @@ public class ListVehicle extends HttpServlet {
 	        List<Vehicle> list_car = new ArrayList<Vehicle>();
 	        List<Vehicle> list_truck = new ArrayList<Vehicle>();
 	        String type = (String) request.getParameter("vehicleType");
-	        System.out.println(type+" on servlet");
- 	        try {
-				if(type=="CAR") {
+	        try {
+				if(type.equalsIgnoreCase("CAR")) {
 					list_car.addAll(veh.getVehicleListByType("car"));
 				}else {
 					list_truck.addAll(veh.getVehicleListByType("truck"));

@@ -62,12 +62,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
      			java.util.ArrayList<Truck> trucks = new ArrayList<Truck>();
      			
      			System.out.println(type);
-		    	if((type != null)){
-		    		if(type=="CAR"){
-		    			 cars =  (java.util.ArrayList<Car>) session.getAttribute("list_car");
-		    		}else{
-			    		 trucks =  (java.util.ArrayList<Truck>) session.getAttribute("list_truck");}
-		    		if(type=="CAR"){  %>	
+		    	if(type != null){
+		    		cars =  (java.util.ArrayList<Car>) session.getAttribute("list_car");
+		    	 	trucks =  (java.util.ArrayList<Truck>) session.getAttribute("list_truck");
+		    	}
+		    	if(type.equals("CAR")){ 
+		    	System.out.println("Inside the car");	
+		    	%>	
 					<table>
 					<thead>
 					<tr>
@@ -116,8 +117,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 			</tbody>
 			</table>
 			<%
-			}} 
-			else{ %>
+			}}
+		    else if(type=="TRUCK"){ %>
 				<table>
 			<thead>
 				<tr>
@@ -167,7 +168,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		    </tr>
 			</tbody>
 			</table>
-			<%}}}
+			<%}}
 			 else{%>
 			 <div><h1>Select a vehicle type</h1></div>
 			 <%} %>
