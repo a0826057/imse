@@ -1,0 +1,224 @@
+{
+	"Employee":
+		{
+			"first_name": "Hubert",
+			"last_name": "Moser",
+			"superior":
+				{
+					"first_name": "Peter",
+					"last_name": "Gruber"
+				}
+		}
+}
+
+{
+	"Accessory":
+		{
+			"name": "Navi",
+			"description": "Samsung XF3 Super Navi"
+		}
+}
+
+{
+	"Color":
+		{
+			"description": "Pink",
+			"manufacturer_color_code": "RAL2074"
+		}
+}
+
+{
+	"Manufacturer":
+		{
+			"name": "Honda",
+			"country": "Japan"
+		}
+}
+
+{
+	"Model":
+		{
+			"manufacturer":
+				{
+					"name": "Ford",
+					"country": "USA"
+				},
+			"price": "50000"
+		}
+}
+
+{
+	"Vehicle":
+		[{
+			"license_plate_number": "W 12443 B",
+			"color":
+				{
+					"description": "Pink",
+					"manufacturer_color_code": "RAL2074"
+				},
+			"model":
+				{
+					"manufacturer":
+						{
+							"name": "Ford",
+							"country": "USA"
+						},
+					"price": "50000"
+				},
+			"accessory":
+				[{
+					"name": "Navi",
+					"description": "Samsung XF3 Super Navi"
+				},
+				{
+					"name": "Seats",
+					"description": "Leather Seats, beige"
+				}],
+			"mileage": "250000",
+			"manufacturer_year": "1985",
+			"type": "car",
+			"doors": "5",
+			"passenger_limit": 5
+		},
+		{
+			"license_plate_number": "W 53822 X",
+			"color":
+				{
+					"description": "Green",
+					"manufacturer_color_code": "RAL6384"
+				},
+			"model":
+				{
+					"manufacturer":
+						{
+							"name": "Iveco",
+							"country": "USA"
+						},
+					"price": "90000"
+				},
+			"accessory":
+				[{
+					"name": "Navi",
+					"description": "Samsung XF3 Super Navi"
+				},
+				{
+					"name": "Seats",
+					"description": "Leather Seats, beige"
+				}],
+			"mileage": "50000",
+			"manufacturer_year": "2009",
+			"type": "truck",
+			"length": "550",
+			"height": "250",
+			"loading_limit": 7500
+		}]
+}
+
+{
+	"Customer":
+		{
+			"title": "Dr.",
+			"first_name": "Hugo",
+			"last_name": "Portisch",
+			"drivers_license_number": "FS279394",
+			"birth_date": "1990-06-01",
+			"email": "foo@bar.net",
+			"address":
+				{
+					"country": "Austria",
+					"town": "Vienna",
+					"post_code": "1050",
+					"street": "Boltzmanngasse",
+					"house_number": "25",
+					"apartment_number": "3"
+				},
+			"pwd_hash": "FHDSHIEIOUWEH§JOIHE",
+			"salt": "plain_pwd",
+			"rental":
+				[{
+					"date_from": "2018-01-03",
+					"date_to": "2018-01-04",
+					"vehicle":
+						{
+							"license_plate_number": "W 53822 X",
+							"color":
+								{
+									"description": "Green",
+									"manufacturer_color_code": "RAL6384"
+								},
+							"model":
+								{
+									"manufacturer":
+										{
+											"name": "Iveco",
+											"country": "USA"
+										},
+									"price": "90000"
+								},
+							"accessory":
+								[{
+									"name": "Navi",
+									"description": "Samsung XF3 Super Navi"
+								},
+								{
+									"name": "Seats",
+									"description": "Leather Seats, beige"
+								}],
+							"mileage": "50000",
+							"manufacturer_year": "2009",
+							"type": "truck",
+							"length": "550",
+							"height": "250",
+							"loading_limit": 7500
+						},
+					"employee":
+						{
+							"first_name": "Hubert",
+							"last_name": "Moser"
+						},
+					"rating": "SUPER GUT"
+				},
+				{
+					"date_from": "2018-01-04",
+					"date_to": "2018-01-05",
+					"vehicle":
+						{
+							"license_plate_number": "W 12443 B",
+							"color":
+								{
+									"description": "Pink",
+									"manufacturer_color_code": "RAL2074"
+								},
+							"model":
+								{
+									"manufacturer":
+										{
+											"name": "Ford",
+											"country": "USA"
+										},
+									"price": "50000"
+								},
+							"accessory":
+								[{
+									"name": "Navi",
+									"description": "Samsung XF3 Super Navi"
+								},
+								{
+									"name": "Seats",
+									"description": "Leather Seats, beige"
+								}],
+							"mileage": "250000",
+							"manufacturer_year": "1985",
+							"type": "car",
+							"doors": "5",
+							"passenger_limit": 5
+						},
+					"employee":
+						{
+							"first_name": "Hubert",
+							"last_name": "Moser"
+						},
+					"rating": "GUT"
+				}]
+		}
+}
