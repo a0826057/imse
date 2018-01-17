@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create Vehicle</title>
+<title>List of Vehicles</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/all.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome.min.css" />
 </head>
@@ -40,7 +40,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		</div>
 		
 		<div>
-	<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
+<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
 		
        <label>Select Vehicle Type:</label>
        <!-- <form action="ListVehicle.jsp"> -->
@@ -52,21 +52,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
             <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit">
         <!-- </form> -->
 		</div>
-
-				
-		
+						
      		<%  //String type = (String)session.getAttribute("vehicleType");
      			String type = (String)request.getParameter("vehicleType");
      			
      			java.util.ArrayList<Car> cars = new ArrayList<Car>();
      			java.util.ArrayList<Truck> trucks = new ArrayList<Truck>();
      			
-     			System.out.println(type);
-		    	if(type != null){
+		    	if((type != null)){
 		    		cars =  (java.util.ArrayList<Car>) session.getAttribute("list_car");
 		    	 	trucks =  (java.util.ArrayList<Truck>) session.getAttribute("list_truck");
 		    	}
-		    	if(type.equals("CAR")){ 
+		    		    	
+		    	if("CAR".equals(type)){ 
 		    	System.out.println("Inside the car");	
 		    	%>	
 					<table>
@@ -89,6 +87,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 					<tbody>
 				<% for(int i = 0; i < cars.size(); i++){
             		Car car = (Car)cars.get(i);
+            		System.out.println(i);
             	%>
             <tr>
 		       <td><% out.print(car.getVehicle_ID()); %></td>
@@ -96,7 +95,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getColor().getColor_ID()); %></td>
 		       <td><% out.print(car.getModel().getModel_ID()); %></td>
 		       <td><% out.print(car.getManufactur().getManufacturer_ID()); %></td>
-		       <td><% out.print(car.getAccessory()); %></td>
+		       <td>
+		       	<% for(int j = 0; j < car.getAccessory().size(); j++)
+		    	   out.print(car.getAccessory().get(j).getName()); %> </td>
 		       <td><% out.print(car.getMileage()); %></td>
 		       <td><% out.print(car.getManufacture_year()); %></td>
 		       <td><% out.print(car.getActive()); %></td>
@@ -104,21 +105,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getPassenger_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle.jsp" method="post">
-    				<button name="edit" value="<% car.getVehicle_ID();%>">Edit</button>
+    				<button name="edit" type="submit" value="<% car.getVehicle_ID();%>">Edit</button>
 				</form>
+		       </td>
+		        <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
+			       		<button NAME="delete" type="submit" value=<%=car.getVehicle_ID()%>>Delete</button>
+			    </form>
+		       <td>
 			       
 		       </td>
-		       <td>
-			       <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-			       		<button name="delete" value="<% car.getVehicle_ID();%>">Delete</button>
-			       </form>
-		       </td>
 		    </tr>
+		    <%} %>
 			</tbody>
 			</table>
 			<%
-			}}
-		    else if(type=="TRUCK"){ %>
+			}
+		    else if("TRUCK".equals(type)){ %>
 				<table>
 			<thead>
 				<tr>
@@ -147,7 +149,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getColor().getColor_ID()); %></td>
 		       <td><% out.print(truck.getModel().getModel_ID()); %></td>
 		       <td><% out.print(truck.getManufactur().getManufacturer_ID()); %></td>
-		       <td><% out.print(truck.getAccessory()); %></td>
+		       <td>
+		       <% for(int j = 0; j < truck.getAccessory().size(); j++)
+		    	  out.print(truck.getAccessory().get(j).getName()); %></td>
 		       <td><% out.print(truck.getMileage()); %></td>
 		       <td><% out.print(truck.getManufacture_year()); %></td>
 		       <td><% out.print(truck.getActive()); %></td>
@@ -156,19 +160,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getLoading_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle.jsp" method="post">
-    				<button name="edit" value="<% truck.getVehicle_ID();%>">Edit</button>
+    				<button name="edit" type="submit" value="<% truck.getVehicle_ID();%>">Edit</button>
 				</form>
-			       
 		       </td>
 		       <td>
 			       <form action="${pageContext.request.contextPath}/DeleteVehicle" method="post">
-			       		<button name="delete" value="<% truck.getVehicle_ID();%>">Delete</button>
+			       		<button NAME="delete" type="submit" value=<%=truck.getVehicle_ID()%>>Delete</button>
 			       </form>
 		       </td>
 		    </tr>
+		    <%} %>
 			</tbody>
 			</table>
-			<%}}
+			<%} 
 			 else{%>
 			 <div><h1>Select a vehicle type</h1></div>
 			 <%} %>
