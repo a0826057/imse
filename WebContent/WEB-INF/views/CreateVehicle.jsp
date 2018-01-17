@@ -22,6 +22,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
    <%if((session.getAttribute("currentSessionUser") != null) && (session.getAttribute("currentSessionUser") == "admin")){ %>
 	  
+	  <div>
+	    <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">
+	       <button type=submit class="w3-bar-item w3-button w3-right w3-red ">Log Out</button>
+	    </form>
+	  </div>
 	  <div class="w3-right w3-dropdown-hover">
 	      <button class="w3-bar-item  w3-button">Managament</button>
 	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -149,12 +154,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       	<p><button type=submit class="w3-button w3-dark-grey">Create Vehicle</button></p>
        	</div> 
 </form>
-  
-<form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">      
-        <div><p><button type=submit class="w3-button w3-dark-grey">LogOut</button></p></div>
-</form>  
-	
-
+  	
 </div>
 </body>
 </html>
