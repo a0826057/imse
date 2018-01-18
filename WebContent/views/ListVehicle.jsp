@@ -44,15 +44,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		
        <label>Select Vehicle Type:</label>
        <!-- <form action="ListVehicle.jsp"> -->
-           <select name="vehicleType" required>
+           <select name="vehicleType" required class="w3-select" style="width:30%">
            		<option value="null">Select</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
             </select>
-            <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit">
+            <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit" class="w3-button w3-white w3-border w3-border-red w3-round-large">
         <!-- </form> -->
 		</div>
-						
+			<br>			
      		<%  //String type = (String)session.getAttribute("vehicleType");
      			String type = (String)request.getParameter("vehicleType");
      			String sid;
@@ -66,21 +66,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		    		    	
 		    	if("CAR".equals(type)){    	
 		    	%>	
-					<table>
+				<table class="w3-table-all">
 					<thead>
-					<tr>
+					<tr class="w3-red">
 					<th>Vehicle ID</th>
 					<th>License Plate Number</th>
-					<th>Color ID</th>
-					<th>Model ID</th>
-					<th>Manufacturer ID</th>
-					<th>Acessory ID</th>
+					<th>Color </th>
+					<th>Model </th>
+					<th>Manufacturer </th>
+					<th>Accessory </th>
 					<th>Mileage</th>
 					<th>Manufacturer Year</th>
 					<th>Active</th>
 					<th>Doors</th>
 					<th>Passengers Limit</th>
-								
+					<th></th>
+					<th></th>			
 					</tr>
 					</thead>
 					<tbody>
@@ -91,12 +92,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getVehicle_ID()); 
 		       		 sid =  String.valueOf(car.getVehicle_ID());%>
 		       <td><% out.print(car.getLicense_plate_number()); %></td>
-		       <td><% out.print(car.getColor().getColor_ID()); %></td>
-		       <td><% out.print(car.getModel().getModel_ID()); %></td>
-		       <td><% out.print(car.getManufactur().getManufacturer_ID()); %></td>
-		       <td>
-		       	<% for(int j = 0; j < car.getAccessory().size(); j++)
-		    	   out.print(car.getAccessory().get(j).getName()); %> </td>
+		       <td><% out.print(car.getColor().getDescription()); %></td>
+		       <td><% out.print(car.getModel().getDescription()); %></td>
+		       <td><% out.print(car.getManufactur().getName()); %></td>
+		       <td><% for(int j = 0; j < car.getAccessory().size(); j++)
+		    	  	 out.print(car.getAccessory().get(j).getName()); %> </td>
 		       <td><% out.print(car.getMileage()); %></td>
 		       <td><% out.print(car.getManufacture_year()); %></td>
 		       <td><% out.print(car.getActive()); %></td>
@@ -119,22 +119,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 			<%
 			}
 		    else if("TRUCK".equals(type)){ %>
-				<table>
+				<table class="w3-table-all">
 			<thead>
-				<tr>
+				<tr class="w3-red">
 					<th>Vehicle ID</th>
 					<th>License Plate Number</th>
-					<th>Color ID</th>
-					<th>Model ID</th>
-					<th>Manufacturer ID</th>
-					<th>Acessory ID</th>
+					<th>Color </th>
+					<th>Model </th>
+					<th>Manufacturer</th>
+					<th>Accessory </th>
 					<th>Mileage</th>
 					<th>Manufacturer Year</th>
 					<th>Active</th>
-					<th>Lengt</th>
+					<th>Length</th>
 					<th>Height</th>
 					<th>Load Limit</th>
-								
+					<th></th>
+					<th></th>			
 				</tr>
 			</thead>
 			<tbody>
@@ -145,9 +146,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getVehicle_ID());
 		       	 sid =  String.valueOf(truck.getVehicle_ID());%></td>
 		       <td><% out.print(truck.getLicense_plate_number()); %></td>
-		       <td><% out.print(truck.getColor().getColor_ID()); %></td>
-		       <td><% out.print(truck.getModel().getModel_ID()); %></td>
-		       <td><% out.print(truck.getManufactur().getManufacturer_ID()); %></td>
+		       <td><% out.print(truck.getColor().getDescription()); %></td>
+		       <td><% out.print(truck.getModel().getDescription()); %></td>
+		       <td><% out.print(truck.getManufactur().getName()); %></td>
 		       <td>
 		       <% for(int j = 0; j < truck.getAccessory().size(); j++)
 		    	  out.print(truck.getAccessory().get(j).getName()); %></td>
@@ -173,7 +174,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 			</table>
 			<%} 
 			 else{%>
-			 <div><h1>Select a vehicle type</h1></div>
+			 <div><h3>Select a vehicle type</h3></div>
 			 <%} %>
 			</form>	
 		</div>

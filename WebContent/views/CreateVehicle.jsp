@@ -37,111 +37,113 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 <div class="w3-container w3-white w3-padding-16">
 <div><h1>Create Vehicle</h1></div>
         <form action="CreateVehicle.jsp" method="post"> 
-           <select name="vehicleType" required>
+           <select name="vehicleType" required class="w3-select" style="width:30%">
            		<option value="null">Select</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
             </select>
-            <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit">
+            <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit" class="w3-button w3-white w3-border w3-border-red w3-round-large">
         </form> 
-<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="post">
+        <br>
+        
+<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="post" class="w3-container w3-card-4 w3-light-grey">
       
         <% String type =(String)request.getParameter("vehicleType"); %>
-         <div>
+         <p>
          	<label>Plate:</label>
-    		<input type="text" name="plate" >
-        </div>
-        <div>
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate" >
+        </p>
+        <p>
          <% 
           ColorDAO color = new ColorDAOI();
           java.util.ArrayList <Color> colors = new ArrayList<Color>();
           colors.addAll(color.getColorList());
   			if ( colors!= null){
   		%>
-  		<label>Color:</label>
-    	<select name="colorId">         	
+  		<label>Color:</label><br>
+    	<select name="colorId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < colors.size(); ++i) { %>
         <option value="<% colors.get(i).getColor_ID();%>" ><%= colors.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
-        </div>
-         <div>
+        </p>
+         <p>
          <% 
           ModelDAO model = new ModelDAOI();
           java.util.ArrayList <Model> models = new ArrayList<Model>();
           models.addAll(model.getModelList());
   			if ( models!= null){
   		%>
-  		<label>Model:</label>
-    	<select name="modelId">         	
+  		<label>Model:</label><br>
+    	<select name="modelId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < models.size(); ++i) { %>
         <option value="<% models.get(i).getModel_ID();%>" ><%= models.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
-        </div>
-        <div>
+        </p>
+        <p>
          <% 
           ManufacturerDAO manufactur = new ManufacturerDAOI();
           java.util.ArrayList <Manufacturer> manufacturers = new ArrayList<Manufacturer>();
           manufacturers.addAll(manufactur.getManufacturerList());
   			if ( manufacturers!= null){
   		%>
-  		<label>Manufacturer:</label>
-    	<select name="manufacturerId">         	
+  		<label>Manufacturer:</label><br>
+    	<select name="manufacturerId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < manufacturers.size(); ++i) { %>
         <option value="<% manufacturers.get(i).getManufacturer_ID();%>" ><%= manufacturers.get(i).getName() %></option>
   		<% }} %>
     	</select>
-        </div>
-        <div>
+        </p>
+        <p>
          <% 
           AccessoryDAO accessory = new AccessoryDAOI();
           java.util.ArrayList <Accessory> accessories = new ArrayList<Accessory>();
           accessories.addAll(accessory.getAccessoryList());
   			if ( accessories!= null){
   		%>
-  		<label>Manufacturer:</label>
-    	<select name="manufacturerId">         	
+  		<label>Accessories:</label><br>
+    	<select name="manufacturerId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < accessories.size(); ++i) { %>
         <option value="<% accessories.get(i).getAccessory_ID();%>" ><%= accessories.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
-        </div>
-        <div>
+        </p>
+        <p>
         	<label>Mileage:</label>
-       		<input type="text" name="mileage">
-        </div>
-         <div>
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage">
+        </p>
+         <p>
         	<label>Year:</label>
-       		<input type="text" name="year">
-        </div>
-        <div>
-        <input type="checkbox" name="active">Active<br>
-        </div>
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year">
+        </p>
+        <p>
+        <input class="w3-check" type="checkbox" name="active">Active<br>
+        </p>
          <%if("CAR".equals(type)){ %>   	
-        		<div>
+        		<p>
         			<label>Doors:</label>
-       				<input type="text" name="doors">
-        		</div>
-        		<div>
+       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="doors">
+        		</p>
+        		<p>
         			<label>Passenger Limit:</label>
-       					<input type="text" name="pass_limit">
-       			</div>
+       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="pass_limit">
+       			</p>
         	<%}else if("TRUCK".equals(type)){ %>
-        		<div>
+        		<p>
         			<label>Length:</label>
-       				<input type="text" name="length">
-        		</div>
-        		<div>
+       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="length">
+        		</p>
+        		<p>
         			<label>Height:</label>
-       				<input type="text" name="height">
-       			</div>
-				<div>
+       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="height">
+       			</p>
+				<p>
         			<label>Loading Limit:</label>
-       				<input type="text" name="load_limit">
-       			</div>
+       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="load_limit">
+       			</p>
         	<%}else{ %>
-        		<label>Select a type of vehicle</label>
+        		<h2>Select a type of vehicle</h2>
         	<%} %>
         <div>
       	<p><button type=submit class="w3-button w3-dark-grey">Create Vehicle</button></p>

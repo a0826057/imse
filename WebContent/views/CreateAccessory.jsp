@@ -29,15 +29,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <a href="${pageContext.request.contextPath}/rent_vehicle.jsp" class="w3-bar-item w3-button w3-right w3-red">Rent</a>
 </div>
 
-<div class="w3-container w3-white w3-padding-16">
+<div class="w3-container w3-white w3-padding-16" class="w3-container w3-card-4 w3-light-grey">
 	<form id="CreateAccessory"  action="${pageContext.request.contextPath}/CreateAccessory" method="post">
-	      <div><h3>CreateAccessory</h3></div>
-	       <div><label>Name:</label>
-	        <input type="text" id="title" name="name" />
-	        </div>
-	      <div><label>Description:</label>
-	        <input type="text" id="title" name="description"/>
-	        </div>    
+	      <p><h3>CreateAccessory</h3></p>
+	       <p><label>Name:</label>
+	        <input class="w3-input w3-border w3-round-large" style="width:30%" type="text" id="title" name="name" />
+	        </p>
+	      <p><label>Description:</label>
+	        <input class="w3-input w3-border w3-round-large" style="width:30%" type="text" id="title" name="description"/>
+	        </p>    
 	        <div>
 	      <button type=submit class="w3-button w3-dark-grey">Create Accessory</button>
 	       </div> 
