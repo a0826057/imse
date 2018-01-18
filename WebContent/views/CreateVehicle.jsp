@@ -35,19 +35,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </div>
 
 <div class="w3-container w3-white w3-padding-16">
+<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="post" class="w3-container w3-card-4 w3-light-grey">
 <div><h3>Create Vehicle</h3></div>
-        <form action="${pageContext.request.contextPath}/CreateVehicle" method="post"> 
+
+        <!-- <form action="${pageContext.request.contextPath}/CreateVehicle" method="post"> - -->
            <select name="vehicleType" class="w3-select" style="width:30%">
            		<option value="null">Select</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
             </select>
             <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit" class="w3-button w3-white w3-border w3-border-red w3-round-large">
-        </form> 
+        <!-- </form>  - -->
         <br>
-        
-<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="post" class="w3-container w3-card-4 w3-light-grey">
-      
+              
         <% String type =(String)request.getParameter("vehicleType"); %>
          <p>
          	<label>Plate:</label>
@@ -146,7 +146,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         		<h2>Select a type of vehicle</h2>
         	<%} %>
         <div>
-      	<p><button type=submit class="w3-button w3-dark-grey">Create Vehicle</button></p>
+      	<p><button type=submit name="createVehicle" class="w3-button w3-dark-grey" value="<%=type%>">Create Vehicle</button></p>
        	</div> 
 </form>
   
