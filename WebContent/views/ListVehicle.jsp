@@ -36,7 +36,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 <div class="w3-container w3-white w3-padding-16">
 	<div>
 		<div>
-			<h1> List of Vehicles </h1>
+			<h3> List of Vehicles </h3>
 		</div>
 		
 		<div>
@@ -174,7 +174,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 			</table>
 			<%} 
 			 else{%>
-			 <div><h3>Select a vehicle type</h3></div>
+			 <div align="center"><h4>You have to select a vehicle type for display</h4></div>
 			 <%} %>
 			</form>	
 		</div>

@@ -35,9 +35,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </div>
 
 <div class="w3-container w3-white w3-padding-16">
-<div><h1>Create Vehicle</h1></div>
-        <form action="CreateVehicle.jsp" method="post"> 
-           <select name="vehicleType" required class="w3-select" style="width:30%">
+<div><h3>Create Vehicle</h3></div>
+        <form action="${pageContext.request.contextPath}/CreateVehicle" method="post"> 
+           <select name="vehicleType" class="w3-select" style="width:30%">
            		<option value="null">Select</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         

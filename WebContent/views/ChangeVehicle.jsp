@@ -36,7 +36,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 
 <div class="w3-container w3-white w3-padding-16">
 <form id="ChangeVehicle" action="${pageContext.request.contextPath}/ChangeVehicle" method="post" class="w3-container w3-card-4 w3-light-grey">
-      <p><h1>Change Vehicle Information</h1></p>
+      <div><h3>Change Vehicle Information</h3></div>
     	<% //String type = (String)request.getParameter("vehicleType");
     	   //String idVehicle = (String)request.getParameter("vehicleSelectId");
     	   //int vehicleID = Integer.valueOf(idVehicle);

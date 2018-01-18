@@ -31,7 +31,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 
 <div class="w3-container w3-white w3-padding-16" class="w3-container w3-card-4 w3-light-grey">
 	<form id="CreateAccessory"  action="${pageContext.request.contextPath}/CreateAccessory" method="post">
-	      <p><h3>CreateAccessory</h3></p>
+	      <div><h3>CreateAccessory</h3></div>
 	       <p><label>Name:</label>
 	        <input class="w3-input w3-border w3-round-large" style="width:30%" type="text" id="title" name="name" />
 	        </p>
