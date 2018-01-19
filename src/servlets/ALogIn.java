@@ -1,5 +1,7 @@
 package servlets;
 
+import dao.Proxy;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,9 +42,12 @@ public class ALogIn extends HttpServlet {
 				HttpSession session = request.getSession(true); 
 				session.setAttribute("currentSessionUser", type);
 				session.setAttribute("currentSessionUserPassword", password);
-				
-						
-				response.sendRedirect("employee.jsp");
+				if(Proxy.getDbmode().equals("mongodb")) {
+					request.setAttribute("dbmode","mongodb");
+				} else {
+					request.setAttribute("dbmode","mysql");
+				}
+				request.getRequestDispatcher("employee.jsp").include(request, response);;
 			}else{
 				response.sendRedirect("Homepage.jsp");
 			}

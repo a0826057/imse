@@ -1,7 +1,7 @@
 package servlets;
 
 import dao.EmployeeDAO;
-import dao.EmployeeDAOI;
+import dao.Proxy;
 import datagenerate.DataGenerator;
 import model.Employee;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @WebServlet("/EmployeeServlet")
 public class EmployeeServlet extends HttpServlet {
     private List<Employee> employees;
-    private EmployeeDAO employeeDAO = new EmployeeDAOI();
+    private EmployeeDAO employeeDAO;
 
     /**
      * handles the employee use case
@@ -28,7 +28,9 @@ public class EmployeeServlet extends HttpServlet {
      * @throws IOException
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        employeeDAO = Proxy.getInstance().getEmployeeDAO();
         String employeeMode = request.getParameter("employeeMode");
+        request.setAttribute("dbmode", Proxy.getDbmode());
 
         // get all employees and store them in a list if the request mode is valid
         if(employeeMode.equals("create") || employeeMode.equals("read") || employeeMode.equals("update") || employeeMode.equals("delete")) {
@@ -159,6 +161,11 @@ public class EmployeeServlet extends HttpServlet {
                 }
 
                 if(employeeMode.equals("delete")) {
+                    if(Proxy.getDbmode().equals("mongodb")) {
+                        request.setAttribute("dbmode","mongodb");
+                    } else {
+                        request.setAttribute("dbmode","mysql");
+                    }
                     request.getRequestDispatcher("DeleteCustomer.jsp").include(request, response);
                 }
             } catch(Exception ex) {
@@ -170,6 +177,11 @@ public class EmployeeServlet extends HttpServlet {
             DataGenerator.main(new String[0]);
             request.setAttribute("msg", "Data loading complete!");
             request.getRequestDispatcher("Homepage.jsp").include(request, response);
+        }
+
+        if (request.getParameter("employeeMode").equals("loadProxy")) {
+            Proxy.getInstance(request.getParameter("dbmode"));
+            request.getRequestDispatcher("employee.jsp").include(request, response);
         }
     }
 
