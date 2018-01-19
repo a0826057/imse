@@ -86,7 +86,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                 <input type="hidden" name="last_name" value="">
                 <input type="hidden" name="superior_id" value="">
                 <input type="hidden" name="active" value="">
-                <input type="submit" class="w3-button w3-dark-grey" value="Admin">
+                <input type="submit" class="w3-button w3-dark-grey" value="Change Customer Data">
             </form>
         </td>
         <td>

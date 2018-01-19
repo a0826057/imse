@@ -161,11 +161,6 @@ public class EmployeeServlet extends HttpServlet {
                 }
 
                 if(employeeMode.equals("delete")) {
-                    if(Proxy.getDbmode().equals("mongodb")) {
-                        request.setAttribute("dbmode","mongodb");
-                    } else {
-                        request.setAttribute("dbmode","mysql");
-                    }
                     request.getRequestDispatcher("DeleteCustomer.jsp").include(request, response);
                 }
             } catch(Exception ex) {
@@ -181,6 +176,7 @@ public class EmployeeServlet extends HttpServlet {
 
         if (request.getParameter("employeeMode").equals("loadProxy")) {
             Proxy.getInstance(request.getParameter("dbmode"));
+            request.setAttribute("dbmode", Proxy.getDbmode());
             request.getRequestDispatcher("employee.jsp").include(request, response);
         }
     }
