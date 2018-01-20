@@ -34,7 +34,7 @@ public class VehicleDAOI implements VehicleDAO{
 			
 			Statement statement = veh.createStatement();
 			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM vehicle;");
+			ResultSet result = statement.executeQuery("SELECT * FROM vehicle WHERE active = 1;");
 			
 			while(result.next()){
 				Color c = col.getColorById( result.getInt("color_ID"));
@@ -110,21 +110,25 @@ public class VehicleDAOI implements VehicleDAO{
 			statement.setQueryTimeout(60);
 			
 			if(type.equals("car")) {
-				ResultSet cresult = statement.executeQuery("SELECT * FROM car ;");
+				ResultSet cresult = statement.executeQuery("SELECT * FROM car;");
 				
 				while(cresult.next()) {
 					Vehicle v = veh.getVehicleById(cresult.getInt("car_ID"));
-					Car car = new Car(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur(), v.getAccessory(), v.getMileage() ,v.getManufacture_year(), v.getActive() , cresult.getInt("doors"), cresult.getInt("passenger_limit"));
-					ls.add(car);
+					if(v.getActive()){
+						Car car = new Car(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur(), v.getAccessory(), v.getMileage() ,v.getManufacture_year(), v.getActive() , cresult.getInt("doors"), cresult.getInt("passenger_limit"));
+						ls.add(car);
+					}
 				}
 			}
 			else if(type.equals("truck")){
-				ResultSet tresult = statement.executeQuery("SELECT * FROM truck ;");
+				ResultSet tresult = statement.executeQuery("SELECT * FROM truck;");
 				
 				while(tresult.next()) {
 					Vehicle v = veh.getVehicleById(tresult.getInt("truck_ID"));
-					Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("length"),tresult.getInt("height"), tresult.getInt("loading_limit"));
-					ls.add(truck);
+					if(v.getActive()){
+						Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("length"),tresult.getInt("height"), tresult.getInt("loading_limit"));
+						ls.add(truck);
+					}
 				}
 			}
 		
@@ -311,16 +315,21 @@ public class VehicleDAOI implements VehicleDAO{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
 			
+		/*	String raw_query4 ="DELETE FROM has_accessory WHERE vehicle_ID =?;";
+			PreparedStatement prepared4 = con.prepareStatement(raw_query4);
+			prepared4.setInt(1, vehicle_id);
+			prepared4.executeUpdate(); 	*/
+			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(60);
-			String raw_query = "DELETE FROM vehicle WHERE vehicle_ID = ?;";
+			String raw_query = "UPDATE vehicle SET active = 0 WHERE vehicle_ID = ?;";
 			PreparedStatement prepared = con.prepareStatement(raw_query);
 			prepared.setInt(1, vehicle_id);
 			prepared.executeUpdate();
 			
 			 
 	    	  
-			String raw_query1 = "DELETE FROM car WHERE car_ID = ?;";
+		/*	String raw_query1 = "DELETE FROM car WHERE car_ID = ?;";
 			PreparedStatement prepared2 = con.prepareStatement(raw_query1);
 			prepared2.setInt(1, vehicle_id);
 			prepared2.executeUpdate();
@@ -330,13 +339,7 @@ public class VehicleDAOI implements VehicleDAO{
 			PreparedStatement prepared3 = con.prepareStatement(raw_query3);
 			prepared3.setInt(1, vehicle_id);
 			prepared3.executeUpdate();
-			
-	
-			String raw_query4 ="DELETE FROM has_accessory WHERE vehicle_ID =?;";
-			PreparedStatement prepared4 = con.prepareStatement(raw_query4);
-			prepared4.setInt(1, vehicle_id);
-			prepared4.executeUpdate(); 		
-	    	  	
+			*/
 	    	con.close();
 		}catch(Exception e){
 			System.err.println(e);
