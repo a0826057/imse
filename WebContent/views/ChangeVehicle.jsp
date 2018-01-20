@@ -42,11 +42,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     	   //int vehicleID = Integer.valueOf(idVehicle);
     	  	
     	  	int vehicleID = 5;
-    	  	String type="car";
+    	  	String type="CAR";
     	   	VehicleDAO list = new VehicleDAOI();
     	   	List<Vehicle> vehicleInfo = new ArrayList<Vehicle>();
     	   
-    	   if("car".equals(type)){
+    	   if("CAR".equals(type)){
     		   List<Vehicle> car = new ArrayList<Vehicle>();
     		   car.addAll(list.getVehicleListByType("car"));
     		   for(int i=0; i<car.size();++i){
@@ -86,7 +86,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Color:</label>
     	<select name="colorId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < colors.size(); ++i) { %>
-        <option value="<% colors.get(i).getColor_ID();%>" ><%=colors.get(i).getDescription()%></option>
+        <option value="<%=colors.get(i).getColor_ID()%>" ><%=colors.get(i).getDescription()%></option>
   		<% }} %>
     	</select>
         </p>
@@ -100,7 +100,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Model:</label>
     	<select name="modelId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < models.size(); ++i) { %>
-        <option value="<% models.get(i).getModel_ID();%>" ><%= models.get(i).getDescription() %></option>
+        <option value="<%=models.get(i).getModel_ID()%>" ><%= models.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -114,7 +114,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Manufacturer:</label>
     	<select name="manufacturerId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < manufacturers.size(); ++i) { %>
-        <option value="<% manufacturers.get(i).getManufacturer_ID();%>" ><%= manufacturers.get(i).getName() %></option>
+        <option value="<%=manufacturers.get(i).getManufacturer_ID()%>" ><%= manufacturers.get(i).getName() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -126,9 +126,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   			if ( accessories!= null){
   		%>
   		<label>Manufacturer:</label>
-    	<select name="manufacturerId" class="w3-select" style="width:30%">         	
+    	<select name="accessoryId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < accessories.size(); ++i) { %>
-        <option value="<% accessories.get(i).getAccessory_ID();%>" ><%= accessories.get(i).getDescription() %></option>
+        <option value="<%=accessories.get(i).getAccessory_ID()%>" ><%= accessories.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -141,9 +141,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" value="<%=vehicleInfo.get(0).getManufacture_year()%>">
         </p>
         <p>
-        <input class="w3-check" type="checkbox" name="active" value="<%= vehicleInfo.get(0).getActive()%>" />Active<br>
+        <input class="w3-check" type="checkbox" name="active" value="<%=vehicleInfo.get(0).getActive()%>" />Active<br>
         </p>
-         <%if("car".equals(type)){ %>
+         <%if("CAR".equals(type)){ %>
         		<p>
         			<label>Doors:</label>
        				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="doors">
@@ -167,7 +167,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        			</p>
         <%} %>
         <div>
-      	<p><button type=submit class="w3-button w3-dark-grey">Change Vehicle</button></p>
+      	<p><button type=submit class="w3-button w3-dark-grey" name="changeVehicle" value="<%=type%>">Change Vehicle</button></p>
        	</div> 
 </form>
   

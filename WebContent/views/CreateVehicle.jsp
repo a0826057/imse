@@ -63,7 +63,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Color:</label><br>
     	<select name="colorId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < colors.size(); ++i) { %>
-        <option value="<% colors.get(i).getColor_ID();%>" ><%= colors.get(i).getDescription() %></option>
+        <option value="<%=colors.get(i).getColor_ID()%>" ><%= colors.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -77,7 +77,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Model:</label><br>
     	<select name="modelId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < models.size(); ++i) { %>
-        <option value="<% models.get(i).getModel_ID();%>" ><%= models.get(i).getDescription() %></option>
+        <option value="<%=models.get(i).getModel_ID()%>" ><%= models.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -91,7 +91,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   		<label>Manufacturer:</label><br>
     	<select name="manufacturerId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < manufacturers.size(); ++i) { %>
-        <option value="<% manufacturers.get(i).getManufacturer_ID();%>" ><%= manufacturers.get(i).getName() %></option>
+        <option value="<%=manufacturers.get(i).getManufacturer_ID()%>" ><%= manufacturers.get(i).getName() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -103,9 +103,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   			if ( accessories!= null){
   		%>
   		<label>Accessories:</label><br>
-    	<select name="manufacturerId" class="w3-select" style="width:30%">         	
+    	<select name="accessoryId" class="w3-select" style="width:30%">         	
   		<% for (int i = 0; i < accessories.size(); ++i) { %>
-        <option value="<% accessories.get(i).getAccessory_ID();%>" ><%= accessories.get(i).getDescription() %></option>
+        <option value="<%=accessories.get(i).getAccessory_ID()%>" ><%= accessories.get(i).getDescription() %></option>
   		<% }} %>
     	</select>
         </p>
@@ -144,7 +144,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        			</p>
         	<%}else{ %>
         		<h2>Select a type of vehicle</h2>
-        	<%} %>
+        	<%}%>
         <div>
       	<p><button type=submit name="createVehicle" class="w3-button w3-dark-grey" value="<%=type%>">Create Vehicle</button></p>
        	</div> 

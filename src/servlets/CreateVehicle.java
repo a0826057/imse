@@ -56,59 +56,67 @@ public class CreateVehicle extends HttpServlet {
 			
 			if(user.equals("admin") && password.equals("admin")){
 				if(vehicleType != null) {
-				String plate = (String) request.getParameter("plate");
-				String colorId = (String) request.getParameter("colorId");
-				int color = Integer.parseInt(colorId);
-				String modelId = (String) request.getParameter("modelId");
-				int model = Integer.parseInt(modelId);
-				System.out.println(model);
-				String manufacturerId = (String) request.getParameter("manufacturerId");
-				int manufacturer = Integer.parseInt(manufacturerId);
-				String accessoryId = (String) request.getParameter("accessoryId");
-				int accessory = Integer.parseInt(accessoryId);
-				String mileage1 = (String) request.getParameter("mileage");
-				int mileage = Integer.parseInt(mileage1);
-				String year1 = (String) request.getParameter("year");
-				int year = Integer.parseInt(year1);
-				String active1 = (String)request.getParameter("active");
-				Boolean active = Boolean.parseBoolean(active1);
-				if(accessoryId !=null) { 
-				System.out.println("in the system");
-				if("CAR".equals(vehicleType)) {
-					System.out.println("in the car");
-					String doors1 = (String)request.getParameter("doors");
-					int doors = Integer.parseInt(doors1);
-					String pass_limit1 = (String)request.getParameter("pass_limit");
-					int pass_limit = Integer.parseInt(pass_limit1);
-					VehicleDAO car = new VehicleDAOI();
-			    	car.addCar(plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
-			    	
+				String plate = request.getParameter("plate");
+				String colorId = request.getParameter("colorId");
+				if(colorId!=null) {
+					int color = Integer.parseInt(colorId);
+					String modelId = (String)request.getParameter("modelId");
+						if(modelId!=null) {
+							int model = Integer.parseInt(modelId);
+							String manufacturerId = request.getParameter("manufacturerId");
+							if(manufacturerId!=null) {
+								int manufacturer = Integer.parseInt(manufacturerId);
+								String accessoryId = request.getParameter("accessoryId");
+								if(accessoryId!=null) {
+									int accessory = Integer.parseInt(accessoryId);
+									String mileage1 = request.getParameter("mileage");
+									int mileage = Integer.parseInt(mileage1);
+									String year1 = request.getParameter("year");
+									int year = Integer.parseInt(year1);
+									String active1 = request.getParameter("active");
+									Boolean active = Boolean.parseBoolean(active1);
+									
+									
+									if("CAR".equals(vehicleType)) {
+										String doors1 = request.getParameter("doors");
+										int doors = Integer.parseInt(doors1);
+										String pass_limit1 = request.getParameter("pass_limit");
+										int pass_limit = Integer.parseInt(pass_limit1);
+										VehicleDAO car = new VehicleDAOI();
+								    	car.addCar(plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
+								    	response.sendRedirect("ListVehicle.jsp");
+								    	return;
+									}
+									else {
+								
+										String length1 = request.getParameter("length");
+										int length = Integer.parseInt(length1);
+										String height1 = request.getParameter("height");
+										int height = Integer.parseInt(height1);
+										String load_limit1 = request.getParameter("load_limit");
+										int load_limit = Integer.parseInt(load_limit1);
+										VehicleDAO truck = new VehicleDAOI();
+								    	truck.addTruck(plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
+								    	response.sendRedirect("ListVehicle.jsp");
+								    	return;
+									}
+									
+								}
+							}
+						}
+					
+					}
+					}
 				}
 				else {
-					System.out.println("in the TRUCK");
-					String length1 = (String)request.getParameter("length");
-					int length = Integer.parseInt(length1);
-					String height1 = (String) request.getParameter("height");
-					int height = Integer.parseInt(height1);
-					String load_limit1 = (String) request.getParameter("load_limit");
-					int load_limit = Integer.parseInt(load_limit1);
-					VehicleDAO truck = new VehicleDAOI();
-			    	truck.addTruck(plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
-			    	
+					response.sendRedirect("Homepage.jsp");
+					return;
 				}
+			}catch(Exception e) {
 				
-				response.sendRedirect("ListVehicle.jsp");
-				}
-				}
 			}
-			else {
-				response.sendRedirect("Homepage.jsp");
-			}
-		}catch(Exception e) {
 			
-		}
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-	    dispatcher.forward(request, response);
-}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+		    dispatcher.forward(request, response);
+	}
 }
