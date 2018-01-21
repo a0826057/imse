@@ -43,6 +43,7 @@
 					"name": "Ford",
 					"country": "USA"
 				},
+			"description": "Very Nice",	
 			"price": "50000"
 		}
 }
