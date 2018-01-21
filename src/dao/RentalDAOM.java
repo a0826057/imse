@@ -1,5 +1,6 @@
 package dao;
 
+import model.Accessory;
 import model.Costumer;
 import model.Employee;
 import model.Rental;
@@ -10,6 +11,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 //written by a01349198 - IB
 
 public class RentalDAOM implements RentalDAO {
@@ -17,15 +25,24 @@ public class RentalDAOM implements RentalDAO {
 
 	@Override
 	public List<Rental> getRentalList(){
-		rentals = new ArrayList<Rental>();
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM rental;");
+	/*	rentals = new ArrayList<Rental>();
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.customer");
+		List<Document> access = coll.find().into(new ArrayList<Document>());
+		
+		for (int i = 0; i < access.size(); i++) {
+			Document ac = access.get(i);
+			List<Rental> rentals = (List<Rental>) ac.get("rental");
+			String description = (String) ac.get("description");
+			Accessory a = new Accessory(i,name,description);
+			accessories.add(a);
+		}
+			
+		if (mongoClient != null)
+			mongoClient.close();
+		
 
 			VehicleDAOI ad = new VehicleDAOI();
 			CostumerDAOI col = new CostumerDAOI();
@@ -37,20 +54,9 @@ public class RentalDAOM implements RentalDAO {
 				Employee e = mod.getEmployeeById(result.getInt("employee_ID"));
 				Rental r = new Rental(v, c, e, result.getDate("date_from"), result.getDate("date_to"), result.getString("rating"));
 				rentals.add(r);
-			}
+			}*/
 
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-
-		return rentals;
+		return null;
 	}
 
 	@Override

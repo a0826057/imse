@@ -1,11 +1,21 @@
 package dao;
 
+import model.Accessory;
 import model.Manufacturer;
 import model.Model;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 //written by a01349198 - IB
 
@@ -17,38 +27,34 @@ public class ModelDAOM implements ModelDAO {
 	@Override
 	public List<Model> getModelList(){
 		models = new ArrayList<Model>();
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM model");
-			
-			while(result.next()){
-				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
-				Model ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("price"));
-				models.add(ac);
-			}
+		ManufacturerDAOM m = new ManufacturerDAOM();
 		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		List<Document> mod = coll.find().into(new ArrayList<Document>());
+		
+		for (int i = 0; i < mod.size(); i++) {
+			Document ac = mod.get(i);
+			DBObject db = (DBObject) ac.get("manufacturer");
+			String man_name = (String) db.get("name");
+			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			String description = (String) ac.get("description");
+			double pr = (Double) ac.get("price");
+			Model a = new Model(i, manufacturer, description, pr);
+			models.add(a);
 		}
+			
+		if (mongoClient != null)
+			mongoClient.close();
 		
 		return models;
 	}
 	
 	@Override
 	public Model getModelById(int model_id){
-		Connection con = null;
+		/*Connection con = null;
 		Model ac = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -75,40 +81,31 @@ public class ModelDAOM implements ModelDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
-		return ac;
+		}*/
+		return null;
 	}
 	
 	@Override
 	public void addModel(Manufacturer man, String description, double price){
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "INSERT INTO model(manufacturer_ID,description,price) VALUES(?,?,?)";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, man.getManufacturer_ID());
-			prepared.setString(2, description);
-			prepared.setDouble(3, price);
-			prepared.executeUpdate();
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		
+		Document document = new Document("manufacturer", man.getManufacturer_ID())
+               .append("description", description)
+               .append("price", price);
+
+		coll.insertOne(document);
+		
+		if (mongoClient != null)
+			mongoClient.close();
+
 	}
 	
 	@Override
 	public void changeModel(int model_ID, Manufacturer man, String description, double price){
-		Connection con = null;
+		/*Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
@@ -131,12 +128,30 @@ public class ModelDAOM implements ModelDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 	}
 	
 	@Override
 	public void deleteModel(int model_id){
-		Connection con = null;
+	/*	MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		
+		BasicDBObject search = new BasicDBObject();
+		search.put("name", name);
+		List<Document> access = coll.find(search).into(new ArrayList<Document>());
+		
+		for (int i = 0; i < access.size(); i++) {
+			Document ac = access.get(i);
+			String nam = (String) ac.get("name");
+			String description = (String) ac.get("description");
+			Accessory a = new Accessory(i,nam,description);
+			accessories.add(a);
+		}
+			
+		if (mongoClient != null)
+			mongoClient.close();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
@@ -157,44 +172,40 @@ public class ModelDAOM implements ModelDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 	}
 	
 	@Override
 	public int getModelCount(){
 		models = new ArrayList<Model>();
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			ResultSet result = statement.executeQuery("SELECT * FROM model");
-			
-			while(result.next()){
-				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
-				Model ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("price"));
-				models.add(ac);
-			}
+		ManufacturerDAOM m = new ManufacturerDAOM();
 		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		List<Document> mod = coll.find().into(new ArrayList<Document>());
+		
+		for (int i = 0; i < mod.size(); i++) {
+			Document ac = mod.get(i);
+			DBObject db = (DBObject) ac.get("manufacturer");
+			String man_name = (String) db.get("name");
+			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			String description = (String) ac.get("description");
+			double pr = (Double) ac.get("price");
+			Model a = new Model(i, manufacturer, description, pr);
+			models.add(a);
 		}
+			
+		if (mongoClient != null)
+			mongoClient.close();
 		
 		return models.size();
 	}
 	
 	@Override
 	public List<Model> getModelsByManufacturersName(String name){
-		Manufacturer m = man.getManufacturerByName(name);
+		/*Manufacturer m = man.getManufacturerByName(name);
 		models = new ArrayList<Model>();
 		Connection con = null;
 		Model ac = null;
@@ -223,7 +234,7 @@ public class ModelDAOM implements ModelDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
-		return models;
+		}*/
+		return null;
 	}
 }
