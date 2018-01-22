@@ -63,7 +63,8 @@ public class CreateAccessory extends HttpServlet{
 				
 			}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateAccessory.jsp");
-		
+		dispatcher.forward(request, response);
+	
 	}
 	 
 }

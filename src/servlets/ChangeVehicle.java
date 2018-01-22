@@ -40,6 +40,7 @@ public class ChangeVehicle extends HttpServlet {
 	
 		//String user = (String)request.getParameter("user");
 		//String password = (String) request.getParameter("password");
+		
 		/*String vehicleSelectId= (String) request.getParameter("edit");   
 	    int vehicleIdSelect = Integer.parseInt(vehicleSelectId);
 		String vehicleType=null;
