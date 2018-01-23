@@ -31,7 +31,7 @@
 {
 	"Manufacturer":
 		{
-			"manufacturer_id : "1",
+			"manufacturer_id" : "1",
 			"name": "Honda",
 			"country": "Japan"
 		}
