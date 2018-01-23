@@ -212,12 +212,6 @@ public class AccessoryDAOM implements AccessoryDAO{
 		return accessories;
 	}
 	
-	public static void main(String[] args){
-		AccessoryDAOM a = new AccessoryDAOM();
-		a.getAccessoriesByName("Navi");
-	}
-	
-	
 	public void addHasAccessory(int accessory_ID, int vehicle_ID){
 		/*Connection con = null;
 		try{

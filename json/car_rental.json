@@ -37,14 +37,15 @@
 
 {
 	"Model":
-		{
+		{	
+			"model_id" : "1",
 			"manufacturer":
 				{
 					"name": "Ford",
 					"country": "USA"
 				},
 			"description": "Very Nice",	
-			"price": "50000"
+			"price": "500.00"
 		}
 }
 
