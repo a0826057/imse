@@ -42,7 +42,8 @@
 		{	
 			"model_id" : "1",
 			"manufacturer":
-				{
+				{	
+					"manufacturer_id" : "1",
 					"name": "Ford",
 					"country": "USA"
 				},

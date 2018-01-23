@@ -12,7 +12,6 @@ import com.mongodb.client.MongoDatabase;
 
 //written by a01349198 - IB
 
-//BEFORE USING THE FUNCTIONS  CHECK LATER IF THE MANUFACTURER PART IS WORKING FROM OTHER TEAMMATE!!!
 public class ModelDAOM implements ModelDAO {
 	
 	ManufacturerDAOI man = new ManufacturerDAOI();
@@ -35,8 +34,9 @@ public class ModelDAOM implements ModelDAO {
 			int id = Integer.parseInt(id_str);
 			
 			Document db = (Document) ac.get("manufacturer");
-			String man_name = (String) db.get("name");
-			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			String id_str1 = (String) db.get("manufacturer_id");
+			int id1 = Integer.parseInt(id_str1);
+			Manufacturer manufacturer = m.getManufacturerById(id1);
 			
 			String description = (String) ac.get("description");
 			String p = (String) ac.get("price");
@@ -69,8 +69,9 @@ public class ModelDAOM implements ModelDAO {
 		String id_str = (String) result.get("model_id");
 		int id = Integer.parseInt(id_str);
 		Document db = (Document) result.get("manufacturer");	
-		String man_name = (String) db.get("name");
-		Manufacturer manufacturer = m.getManufacturerByName(man_name);
+		String id_str1 = (String) db.get("manufacturer_id");
+		int id1 = Integer.parseInt(id_str1);
+		Manufacturer manufacturer = m.getManufacturerById(id1);
 		String description = (String) result.get("description");
 		String price_string = (String)result.get("price");
 		double pr = Double.parseDouble(price_string);
@@ -96,6 +97,7 @@ public class ModelDAOM implements ModelDAO {
 		Document doc = new Document();
 		doc.put("model_id", Integer.toString(id));
 		Document subdoc = new Document();
+		subdoc.put("manufacturer_id", Integer.toString(man.getManufacturer_ID()));
 		subdoc.put("name", man.getName());
 		subdoc.put("country", man.getCountry());
 		doc.append("manufacturer", subdoc);
@@ -119,6 +121,7 @@ public class ModelDAOM implements ModelDAO {
 		Document searchQuery = new Document("model_id", Integer.toString(model_ID));
 		Document newValues = new Document();
 		Document subdoc = new Document();
+		subdoc.put("manufacturer_id", Integer.toString(man.getManufacturer_ID()));
 		subdoc.put("name", man.getName());
 		subdoc.put("country", man.getCountry());
 		newValues.put("manufacturer", subdoc);
@@ -159,13 +162,18 @@ public class ModelDAOM implements ModelDAO {
 		
 		for (int i = 0; i < mod.size(); i++) {
 			Document ac = mod.get(i);
-			Document db = (Document) ac.get("manufacturer");
-			String man_name = (String) db.get("name");
+			String id_str = (String) ac.get("model_id");
+			int id = Integer.parseInt(id_str);
 			
-			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			Document db = (Document) ac.get("manufacturer");
+			String id_str1 = (String) db.get("manufacturer_id");
+			int id1 = Integer.parseInt(id_str1);
+			Manufacturer manufacturer = m.getManufacturerById(id1);
+			
 			String description = (String) ac.get("description");
-			double pr = (Double) ac.get("price");
-			Model a = new Model(i, manufacturer, description, pr);
+			String p = (String) ac.get("price");
+			double pr = Double.parseDouble(p); 
+			Model a = new Model(id, manufacturer, description, pr);
 			models.add(a);
 		}
 			
@@ -193,8 +201,9 @@ public class ModelDAOM implements ModelDAO {
 			int id = Integer.parseInt(id_str);
 			
 			Document db = (Document) ac.get("manufacturer");
-			String man_name = (String) db.get("name");
-			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			String id_str1 = (String) db.get("manufacturer_id");
+			int id1 = Integer.parseInt(id_str1);
+			Manufacturer manufacturer = m.getManufacturerById(id1);
 			String description = (String) ac.get("description");
 			String p = (String) ac.get("price");
 			double pr = Double.parseDouble(p); 
