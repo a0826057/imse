@@ -1,17 +1,10 @@
 package dao;
 
-import model.Accessory;
 import model.Manufacturer;
 import model.Model;
-
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bson.Document;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -19,6 +12,7 @@ import com.mongodb.client.MongoDatabase;
 
 //written by a01349198 - IB
 
+//BEFORE USING THE FUNCTIONS  CHECK LATER IF THE MANUFACTURER PART IS WORKING FROM OTHER TEAMMATE!!!
 public class ModelDAOM implements ModelDAO {
 	
 	ManufacturerDAOI man = new ManufacturerDAOI();
@@ -37,12 +31,17 @@ public class ModelDAOM implements ModelDAO {
 		
 		for (int i = 0; i < mod.size(); i++) {
 			Document ac = mod.get(i);
-			DBObject db = (DBObject) ac.get("manufacturer");
+			String id_str = (String) ac.get("model_id");
+			int id = Integer.parseInt(id_str);
+			
+			Document db = (Document) ac.get("manufacturer");
 			String man_name = (String) db.get("name");
 			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			
 			String description = (String) ac.get("description");
-			double pr = (Double) ac.get("price");
-			Model a = new Model(i, manufacturer, description, pr);
+			String p = (String) ac.get("price");
+			double pr = Double.parseDouble(p); 
+			Model a = new Model(id, manufacturer, description, pr);
 			models.add(a);
 		}
 			
@@ -54,35 +53,34 @@ public class ModelDAOM implements ModelDAO {
 	
 	@Override
 	public Model getModelById(int model_id){
-		/*Connection con = null;
-		Model ac = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM model WHERE model_ID = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, model_id);
-			ResultSet result = prepared.executeQuery();
-			
-			while(result.next()){
-				Manufacturer m = man.getManufacturerById( result.getInt("manufacturer_ID"));
-				ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("price"));
-			}
+		ManufacturerDAOM m = new ManufacturerDAOM();
+		Model model = null;
 		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
-		return null;
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		Document query = new Document("model_id",Integer.toString(model_id));
+		Document result = null;
+		
+		for(Document ac : coll.find(query))
+			result = ac;
+		
+		String id_str = (String) result.get("model_id");
+		int id = Integer.parseInt(id_str);
+		Document db = (Document) result.get("manufacturer");	
+		String man_name = (String) db.get("name");
+		Manufacturer manufacturer = m.getManufacturerByName(man_name);
+		String description = (String) result.get("description");
+		String price_string = (String)result.get("price");
+		double pr = Double.parseDouble(price_string);
+	
+		model = new Model(id, manufacturer, description, pr);
+		
+		if (mongoClient != null)
+			mongoClient.close();
+	
+		return model;
 	}
 	
 	@Override
@@ -91,88 +89,61 @@ public class ModelDAOM implements ModelDAO {
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("imse.model");
+		List<Document> mod = coll.find().into(new ArrayList<Document>());
+		String id_string = (String)mod.get((mod.size()-1)).get("model_id");
+		int id = Integer.parseInt(id_string) + 1;
 		
-		Document document = new Document("manufacturer", man.getManufacturer_ID())
-               .append("description", description)
-               .append("price", price);
+		Document doc = new Document();
+		doc.put("model_id", Integer.toString(id));
+		Document subdoc = new Document();
+		subdoc.put("name", man.getName());
+		subdoc.put("country", man.getCountry());
+		doc.append("manufacturer", subdoc);
+		doc.put("description", description);
+		String pr = Double.toString(price);
+		doc.put("price", pr );
 
-		coll.insertOne(document);
+		coll.insertOne(doc);
 		
 		if (mongoClient != null)
 			mongoClient.close();
 
 	}
-	
+
 	@Override
 	public void changeModel(int model_ID, Manufacturer man, String description, double price){
-		/*Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "UPDATE model SET manufacturer_ID = ?, description = ?, price = ? WHERE model_ID = ?;"; 
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, man.getManufacturer_ID());
-			prepared.setString(2, description);
-			prepared.setDouble(3, price);
-			prepared.setInt(4, model_ID);
-			prepared.executeUpdate();
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		Document searchQuery = new Document("model_id", Integer.toString(model_ID));
+		Document newValues = new Document();
+		Document subdoc = new Document();
+		subdoc.put("name", man.getName());
+		subdoc.put("country", man.getCountry());
+		newValues.put("manufacturer", subdoc);
+		newValues.put("description", description);
+		newValues.put("price", Double.toString(price));
+		
+		Document update = new Document("$set", newValues);
+		coll.updateOne(searchQuery, update);
+		
+		if (mongoClient != null)
+			mongoClient.close();
 	}
 	
 	@Override
 	public void deleteModel(int model_id){
-	/*	MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("imse.model");
+		Document query = new Document("model_id", Integer.toString(model_id));
 		
-		BasicDBObject search = new BasicDBObject();
-		search.put("name", name);
-		List<Document> access = coll.find(search).into(new ArrayList<Document>());
-		
-		for (int i = 0; i < access.size(); i++) {
-			Document ac = access.get(i);
-			String nam = (String) ac.get("name");
-			String description = (String) ac.get("description");
-			Accessory a = new Accessory(i,nam,description);
-			accessories.add(a);
-		}
+		coll.findOneAndDelete(query);
 			
 		if (mongoClient != null)
 			mongoClient.close();
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "DELETE * FROM model WHERE model_ID = " + model_id + ";";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, model_id);
-			prepared.executeQuery();
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
 	}
 	
 	@Override
@@ -188,8 +159,9 @@ public class ModelDAOM implements ModelDAO {
 		
 		for (int i = 0; i < mod.size(); i++) {
 			Document ac = mod.get(i);
-			DBObject db = (DBObject) ac.get("manufacturer");
+			Document db = (Document) ac.get("manufacturer");
 			String man_name = (String) db.get("name");
+			
 			Manufacturer manufacturer = m.getManufacturerByName(man_name);
 			String description = (String) ac.get("description");
 			double pr = (Double) ac.get("price");
@@ -201,40 +173,38 @@ public class ModelDAOM implements ModelDAO {
 			mongoClient.close();
 		
 		return models.size();
-	}
+	}	
 	
 	@Override
 	public List<Model> getModelsByManufacturersName(String name){
-		/*Manufacturer m = man.getManufacturerByName(name);
 		models = new ArrayList<Model>();
-		Connection con = null;
-		Model ac = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM model WHERE manufacturer_ID = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, m.getManufacturer_ID());
-			ResultSet result = prepared.executeQuery();
-			
-			while(result.next()){
-				 ac = new Model(result.getInt("model_ID"), m, result.getString("description"), result.getDouble("description"));
-				 models.add(ac);
-			}
+		ManufacturerDAOM m = new ManufacturerDAOM();
 		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
-		return null;
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		MongoCollection<Document> coll = database.getCollection("imse.model");
+		
+		Document query = new Document("manufacturer.name",name);
+		List<Document> mod = coll.find(query).into(new ArrayList<Document>());
+		
+		for (int i = 0; i < mod.size(); i++) {
+			Document ac = mod.get(i);
+			String id_str = (String) ac.get("model_id");
+			int id = Integer.parseInt(id_str);
+			
+			Document db = (Document) ac.get("manufacturer");
+			String man_name = (String) db.get("name");
+			Manufacturer manufacturer = m.getManufacturerByName(man_name);
+			String description = (String) ac.get("description");
+			String p = (String) ac.get("price");
+			double pr = Double.parseDouble(p); 
+			Model a = new Model(id, manufacturer, description, pr);
+			models.add(a);
+		}
+			
+		if (mongoClient != null)
+			mongoClient.close();
+		
+		return models;
 	}
 }
