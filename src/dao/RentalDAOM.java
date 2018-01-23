@@ -5,14 +5,10 @@ import model.Costumer;
 import model.Employee;
 import model.Rental;
 import model.Vehicle;
-
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.bson.Document;
-
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -20,6 +16,7 @@ import com.mongodb.client.MongoDatabase;
 
 //written by a01349198 - IB
 
+//FUNCTIONS NOT DATE AS THEY ARE DEPENDING ON CUSTOMER FROM OTHER TEAMMATE!!!
 public class RentalDAOM implements RentalDAO {
 	private List<Rental> rentals;
 
@@ -58,10 +55,16 @@ public class RentalDAOM implements RentalDAO {
 
 		return null;
 	}
+	
+
+	public static void main (String [] args){
+	//	AccessoryDAOM acc = new AccessoryDAOM();
+		//acc.getAccessoriesByName("Paint");
+	}
 
 	@Override
 	public void addRental(Rental r){
-		Connection con = null;
+	/*	Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
@@ -90,12 +93,12 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 	}
 
 	@Override
 	public void changeRental(int vid, int cid, int eid, Date date_from, String rating){
-		Connection con = null;
+		/*Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
@@ -122,12 +125,12 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 	}
 
 	@Override
 	public void deleteRental(int vid, int cid, int eid, Date date_from){
-		Connection con = null;
+	/*	Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
@@ -154,7 +157,7 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 	}
 
 	@Override
@@ -165,7 +168,7 @@ public class RentalDAOM implements RentalDAO {
 
 	@Override
 	public List<Rental> getRentalByCostumer(Costumer cos){
-		rentals = new ArrayList<Rental>();
+		/*rentals = new ArrayList<Rental>();
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -201,14 +204,14 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 
 		return rentals;
 	}
 
 	@Override
 	public List<Rental> getRentalByEmployee(Employee em){
-		rentals = new ArrayList<Rental>();
+	/*	rentals = new ArrayList<Rental>();
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -244,14 +247,14 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 
-		return rentals;
+		return null;
 	}
 
 	@Override
 	public List<Rental> getRentalByVehicle(Vehicle veh){
-		rentals = new ArrayList<Rental>();
+	/*	rentals = new ArrayList<Rental>();
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -287,14 +290,14 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 
 		return rentals;
 	}
 
 	@Override
 	public List<Rental> getRentalByDatePeriod(Date date_from, Date date_to){
-		rentals = new ArrayList<Rental>();
+		/*rentals = new ArrayList<Rental>();
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -336,8 +339,8 @@ public class RentalDAOM implements RentalDAO {
 			}catch (SQLException e) {
 				System.err.println(e);
 			}
-		}
+		}*/
 		
-		return rentals;
+		return null;
 	}
 }

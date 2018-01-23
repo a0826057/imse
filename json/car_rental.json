@@ -31,6 +31,7 @@
 {
 	"Manufacturer":
 		{
+			"manufacturer_id : "1",
 			"name": "Honda",
 			"country": "Japan"
 		}
@@ -53,6 +54,7 @@
 {
 	"Vehicle":
 		[{
+			"vehicle_id" : 1,
 			"license_plate_number": "W 12443 B",
 			"color":
 				{
@@ -84,6 +86,7 @@
 			"passenger_limit": 5
 		},
 		{
+			"vehicle_id" : 2,
 			"license_plate_number": "W 53822 X",
 			"color":
 				{
@@ -143,6 +146,7 @@
 					"date_to": "2018-01-04",
 					"vehicle":
 						{
+						 	"vehicle_id" : 1,
 							"license_plate_number": "W 53822 X",
 							"color":
 								{
@@ -186,6 +190,7 @@
 					"date_to": "2018-01-05",
 					"vehicle":
 						{
+							"vehicle_id" : 2,
 							"license_plate_number": "W 12443 B",
 							"color":
 								{
