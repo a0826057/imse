@@ -4,8 +4,6 @@ import model.Accessory;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
-
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -28,9 +26,11 @@ public class AccessoryDAOM implements AccessoryDAO{
 		
 		for (int i = 0; i < access.size(); i++) {
 			Document ac = access.get(i);
+			String id_str = (String) ac.get("accessory_id");
+			int id = Integer.parseInt(id_str);
 			String name = (String) ac.get("name");
 			String description = (String) ac.get("description");
-			Accessory a = new Accessory(i,name,description);
+			Accessory a = new Accessory(id,name,description);
 			accessories.add(a);
 		}
 			
@@ -38,38 +38,30 @@ public class AccessoryDAOM implements AccessoryDAO{
 			mongoClient.close();
 		
 		return accessories;
-	}
+	}	
 	
 	@Override
 	public Accessory getAccessoryById(int accessory_id){
-		/*Connection con = null;
-		Accessory ac = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM accessory WHERE accessory_id = ?";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, accessory_id);
-			ResultSet result = prepared.executeQuery();
-
-			while(result.next()){
-				 ac = new Accessory(result.getInt("accessory_ID"), result.getString("name"), result.getString("description"));
-			}
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
-		return null;
+		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		Document searchQuery = new Document("accessory_id", Integer.toString(accessory_id));
+		Document result = null;
+		
+		for(Document ac : coll.find(searchQuery))
+			result = ac;
+		
+		String id_str = (String) result.get("accessory_id");
+		int id = Integer.parseInt(id_str);
+		String name = (String) result.get("name");
+		String description = (String) result.get("description");
+		Accessory accessory = new Accessory(id,name,description);
+		
+		if (mongoClient != null)
+			mongoClient.close();
+		
+		return accessory;
 	}
 	
 	@Override
@@ -78,89 +70,53 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		List<Document> accs = coll.find().into(new ArrayList<Document>());
+		String id_string = (String)accs.get((accs.size()-1)).get("accessory_id");
+		int id = Integer.parseInt(id_string) + 1;
 		
-		if((name instanceof String) && (description instanceof String)){
-			Document document = new Document("name", name)
-	               .append("description", description);
+		Document doc = new Document();
+		doc.put("accessory_id", Integer.toString(id));
+		doc.put("name", name);
+		doc.put("description", description );
 
-			coll.insertOne(document);
-		}
-		
+		coll.insertOne(doc);
 		
 		if (mongoClient != null)
 			mongoClient.close();
-	}
+	}	
 	
 	@Override
 	public void changeAccessory(int accessory_ID, String name, String description){
-		/*MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		Document searchQuery = new Document("accessory_id", Integer.toString(accessory_ID));
+		Document newValues = new Document();
+		newValues.put("name", name);
+		newValues.put("description", description);
 		
-		if((name instanceof String) && (description instanceof String)){
-			Document document = new Document("name", name)
-	               .append("description", description);
-
-			coll.insertOne(document);
-		}
-		
+		Document update = new Document("$set", newValues);
+		coll.updateOne(searchQuery, update);
 		
 		if (mongoClient != null)
 			mongoClient.close();
-		
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "UPDATE accessory SET name = ?, description = ? WHERE accessory_ID = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setString(1, name);
-			prepared.setString(2, description);
-			prepared.setInt(3, accessory_ID);
-			prepared.executeUpdate();
-
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
 	}
 	
 	@Override
 	public void deleteAccessory(int accessory_id){
-		/*Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "DELETE * FROM accessory WHERE accessory_ID = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, accessory_id);
-			prepared.executeQuery();
-
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		Document query = new Document("accessory_id", Integer.toString(accessory_id));
+		
+		coll.findOneAndDelete(query);
+			
+		if (mongoClient != null)
+			mongoClient.close();
 	}
-	
+
 	@Override
 	public int getAccessoryCount(){
 		accessories = new ArrayList<Accessory>();
@@ -173,9 +129,11 @@ public class AccessoryDAOM implements AccessoryDAO{
 		
 		for (int i = 0; i < access.size(); i++) {
 			Document ac = access.get(i);
+			String id_str = (String) ac.get("accessory_id");
+			int id = Integer.parseInt(id_str);
 			String name = (String) ac.get("name");
 			String description = (String) ac.get("description");
-			Accessory a = new Accessory(i,name,description);
+			Accessory a = new Accessory(id,name,description);
 			accessories.add(a);
 		}
 			
@@ -183,7 +141,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 			mongoClient.close();
 		
 		return accessories.size();
-	}
+	}	
 	
 	@Override
 	public List<Accessory> getAccessoriesByName(String name){
@@ -193,16 +151,16 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("imse.accessory");
-		
-		BasicDBObject search = new BasicDBObject();
-		search.put("name", name);
-		List<Document> access = coll.find(search).into(new ArrayList<Document>());
+		Document query = new Document("name",name);
+		List<Document> access = coll.find(query).into(new ArrayList<Document>());
 		
 		for (int i = 0; i < access.size(); i++) {
 			Document ac = access.get(i);
+			String id_str = (String) ac.get("accessory_id");
+			int id = Integer.parseInt(id_str);
 			String nam = (String) ac.get("name");
 			String description = (String) ac.get("description");
-			Accessory a = new Accessory(i,nam,description);
+			Accessory a = new Accessory(id,nam,description);
 			accessories.add(a);
 		}
 			
