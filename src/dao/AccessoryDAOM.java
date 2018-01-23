@@ -11,6 +11,8 @@ import com.mongodb.client.MongoDatabase;
 
 //written by a01349198 - IB
 
+//HASACCESSORY PART NOT COMPLETED AS IT IS DEPENDING ON VEHICLE FROM OTHER TEAMMATE!!!
+
 public class AccessoryDAOM implements AccessoryDAO{
 	private List<Accessory> accessories;
 	
