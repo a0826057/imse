@@ -59,7 +59,7 @@
 			"vehicle_id" : "1",
 			"license_plate_number": "W 12443 B",
 			"color":
-				{
+				{	"color_id" :"1",
 					"description": "Pink",
 					"manufacturer_color_code": "RAL2074"
 				},
