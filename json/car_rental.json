@@ -23,6 +23,7 @@
 {
 	"Color":
 		{
+			"color_id" :"1",
 			"description": "Pink",
 			"manufacturer_color_code": "RAL2074"
 		}
@@ -55,7 +56,7 @@
 {
 	"Vehicle":
 		[{
-			"vehicle_id" : 1,
+			"vehicle_id" : "1",
 			"license_plate_number": "W 12443 B",
 			"color":
 				{
@@ -64,40 +65,48 @@
 				},
 			"model":
 				{
+					"model_id" : "1",
 					"manufacturer":
-						{
+						{	
+							"manufacturer_id" : "1",
 							"name": "Ford",
 							"country": "USA"
 						},
 					"price": "50000"
 				},
 			"accessory":
-				[{
+				[{	
+					"accessory_id" :"1",
 					"name": "Navi",
 					"description": "Samsung XF3 Super Navi"
 				},
-				{
+				{	
+					"accessory_id" :"2",
 					"name": "Seats",
 					"description": "Leather Seats, beige"
 				}],
 			"mileage": "250000",
 			"manufacturer_year": "1985",
 			"type": "car",
+			"active":"1",
 			"doors": "5",
-			"passenger_limit": 5
+			"passenger_limit": "5"
 		},
 		{
-			"vehicle_id" : 2,
+			"vehicle_id" : "2",
 			"license_plate_number": "W 53822 X",
 			"color":
 				{
+					"color_id" :"1",
 					"description": "Green",
 					"manufacturer_color_code": "RAL6384"
 				},
 			"model":
-				{
+				{	
+					"model_id" : "1",
 					"manufacturer":
 						{
+							"manufacturer_id" : "1",
 							"name": "Iveco",
 							"country": "USA"
 						},
@@ -105,19 +114,22 @@
 				},
 			"accessory":
 				[{
+					"accessory_id" :"1",
 					"name": "Navi",
 					"description": "Samsung XF3 Super Navi"
 				},
 				{
+					"accessory_id" :"2",
 					"name": "Seats",
 					"description": "Leather Seats, beige"
 				}],
 			"mileage": "50000",
 			"manufacturer_year": "2009",
 			"type": "truck",
+			"active":"1",
 			"length": "550",
 			"height": "250",
-			"loading_limit": 7500
+			"loading_limit": "7500"
 		}]
 }
 

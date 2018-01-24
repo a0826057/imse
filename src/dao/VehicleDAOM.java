@@ -35,50 +35,44 @@ public class VehicleDAOM implements VehicleDAO{
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 				for (int i = 0; i < foundDocument.size(); i++) {
 					Document cols = foundDocument.get(i);
+					String id_str = (String) cols.get("vehicle_id");
+					int id = Integer.parseInt(id_str);
 					String license_plate = (String) cols.get("license_plate_number");
-					System.out.println(license_plate);
 					String type = (String) cols.get("type");
 					String mileage = (String) cols.get("mileage");
-					System.out.println(mileage);
 					String manufacturer_year = (String) cols.get("manufacturer_year");
-					System.out.println(manufacturer_year);
+					String activ = (String) cols.get("active");
 					//get color
 					Document color = (Document) cols.get("color");
 					String description = (String) color.get("description");
-					System.out.println(description);
+					String description = (String) color.get("description");
 					String color_code = (String) color.get("manufacturer_color_code");
-					System.out.println(color_code);
+				
 					//get model
 					Document model = (Document) cols.get("model");
 					//get manufacturer
 					Document manufacturer = (Document) model.get("manufacturer");
 					String mName = (String) manufacturer.get("name");
-					System.out.println(mName);
 					String country = (String) manufacturer.get("country");
-					System.out.println(country);
 					String price = (String) model.get("price");
-					System.out.println(price);
+				
 					//get accessory					
 					List<Document> documentAc = (List<Document>) cols.get("accessory");
 					for (int k = 0; k < documentAc.size(); k++) {
 						Document colc = documentAc.get(k);
 						String aName = (String) colc.get("name");
-						System.out.println(aName);
 						String descriptionA = (String) colc.get("description");
-						System.out.println(descriptionA);
+						
 					}
 					if("car".equals(type)) {
 						String doors = (String) cols.get("doors");
-						System.out.println(doors);
 						String passenger_limit = (String) cols.get("passenger_limit");
-						System.out.println(passenger_limit);
+						
 					}else {
 						String length = (String) cols.get("length");
-						System.out.println(length);
 						String height = (String) cols.get("height");
-						System.out.println(height);
 						String loading_limit = (String) cols.get("loading_limit");
-						System.out.println(loading_limit);
+						
 					}
 					
 					
