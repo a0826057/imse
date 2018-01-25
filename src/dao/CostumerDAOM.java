@@ -2,31 +2,29 @@ package dao;
 
 import model.Costumer;
 
-import java.net.UnknownHostException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
 import com.mongodb.BasicDBObject;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
-import com.mongodb.util.JSON;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 public class CostumerDAOM implements CostumerDAO {
 
 	@Override
 	public List<Costumer> getCostumerList() {
-
+		MongoClient mongoClient = null;
 		try {
-			MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			DBCollection collection = db.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
-			List<Document> cursor = collection.find().into(new ArrayList<Docmunet>());
+			List<Document> cursor = collection.find().into(new ArrayList<Document>());
 			List<Costumer> cList = new ArrayList<Costumer>();
 			for (Document obj:cursor) {
 				
@@ -35,7 +33,7 @@ public class CostumerDAOM implements CostumerDAO {
 				String first_name = obj.get("first_name").toString();
 				String last_name = obj.get("last_name").toString();
 				String drivers_license_number = "";
-				if(obj.containsField("drivers_license_number")) {
+				if(obj.get("drivers_license_number") != null) {
 					drivers_license_number = obj.get("drivers_license_number").toString();
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -46,7 +44,7 @@ public class CostumerDAOM implements CostumerDAO {
 				String street = obj.get("street").toString();
 				String house_number = obj.get("house_number").toString();
 				String appartment_number = "";
-				if(obj.containsField("appartment_number")) {
+				if(obj.get("appartment_number") != null) {
 					appartment_number = obj.get("appartment_number").toString();
 				}
 				String town = obj.get("town").toString();
@@ -59,37 +57,36 @@ public class CostumerDAOM implements CostumerDAO {
 				cList.add(c);
 			}
 			return cList;
-		} catch (UnknownHostException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (MongoException e) {
 			e.printStackTrace();
 		}finally{
         	if (mongoClient != null)
-    			mongoClient.close();
+        		mongoClient.close();
         }
 		return null;
 	}
 
 	@Override
 	public Costumer getCostumerById(int ID) {
-
+			MongoClient mongoClient = null;
 		try {
-			MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			DBCollection collection = db.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
 			BasicDBObject query = new BasicDBObject();
 			query.put("costumer_ID", ID);
-			DBCursor cursor = collection.find(query);
-			List<Document> cursor = collection.find(query).into(new ArrayList<Docmunet>());
-			List<Costumer> cList = new ArrayList<Costumer>();
+			List<Document> cursor = collection.find(query).into(new ArrayList<Document>());
+			//List<Costumer> cList = new ArrayList<Costumer>();
 			for (Document obj:cursor) {
 				int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
 				String title = obj.get("title").toString();
 				String first_name = obj.get("first_name").toString();
 				String last_name = obj.get("last_name").toString();
 				String drivers_license_number = "";
-				if(obj.containsField("drivers_license_number")) {
+				if(obj.get("drivers_license_number") != null) {
 					drivers_license_number = obj.get("drivers_license_number").toString();
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -100,7 +97,7 @@ public class CostumerDAOM implements CostumerDAO {
 				String street = obj.get("street").toString();
 				String house_number = obj.get("house_number").toString();
 				String appartment_number = "";
-				if(obj.containsField("appartment_number")) {
+				if(obj.get("appartment_number") != null) {
 					appartment_number = obj.get("appartment_number").toString();
 				}
 				String town = obj.get("town").toString();
@@ -112,7 +109,7 @@ public class CostumerDAOM implements CostumerDAO {
 						town, country, pwd_hash, salt, true);
 				return c;
 			}
-		} catch (UnknownHostException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (MongoException e) {
 			e.printStackTrace();
@@ -125,11 +122,11 @@ public class CostumerDAOM implements CostumerDAO {
 
 	@Override
 	public void addCostumer(Costumer c) {
-
+		MongoClient mongoClient = null;
 		try {
-			MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			DBCollection collection = db.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
 			Document toInsert = new Document();
 			Document address = new Document();
@@ -149,11 +146,9 @@ public class CostumerDAOM implements CostumerDAO {
             toInsert.put("pwd_hash", c.getPwd_hash());
             toInsert.put("address", address);
 
-			collection.insert(toInsert);
+			collection.insertOne(toInsert);
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (MongoException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally{
         	if (mongoClient != null)
@@ -163,10 +158,11 @@ public class CostumerDAOM implements CostumerDAO {
 
 	@Override
 	public void changeCostumer(Costumer c) {
-        try {
-        	MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
-    		MongoDatabase database = mongoClient.getDatabase("imse"); 
-            DBCollection collection = db.getCollection("Customer");
+		MongoClient mongoClient = null;
+		try {
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			MongoDatabase database = mongoClient.getDatabase("imse"); 
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
             Document update = new Document();
             Document whatToUpdate = new Document();
@@ -190,11 +186,9 @@ public class CostumerDAOM implements CostumerDAO {
 
             Document searchQuery = new Document().append("costumer_ID", c.getCostumer_ID());
 
-            collection.update(searchQuery, update);
+            collection.updateOne(searchQuery, update);
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (MongoException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally{
         	if (mongoClient != null)
@@ -204,16 +198,15 @@ public class CostumerDAOM implements CostumerDAO {
 
 	@Override
 	public void deleteCostumer(int ID) {
-        try {
-        	MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
-    		MongoDatabase database = mongoClient.getDatabase("imse"); 
-            DBCollection collection = db.getCollection("Customer");
+		MongoClient mongoClient = null;
+		try {
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			MongoDatabase database = mongoClient.getDatabase("imse"); 
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
-            collection.remove(new Document().append("costumer_ID", ID));
+            collection.findOneAndDelete(new Document().append("costumer_ID", ID));
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (MongoException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally{
         	if (mongoClient != null)
