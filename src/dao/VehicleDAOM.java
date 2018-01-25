@@ -4,6 +4,7 @@ import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bson.Document;
@@ -76,10 +77,10 @@ public class VehicleDAOM implements VehicleDAO{
 					String country = (String) manufactu.get("country");
 					Manufacturer manufa = new Manufacturer(id1, mName, country);
 					Model mo = new Model(id,manufa, des, pr);
-								
-					//get accessory											
-					Document field = new Document("accessory",1);
-					List<Document> acFount = collection.find(field).into(new ArrayList<Document>());;
+					
+					//get accessory
+					List<Document> acFount = new ArrayList<Document>();
+					acFount.addAll((Collection<? extends Document>) cols.get("accessory"));
 					for (int k = 0; k < acFount.size(); k++) {
 						Document colc = acFount.get(k);
 						String a_id = (String) colc.get("accessory_id");
@@ -89,7 +90,8 @@ public class VehicleDAOM implements VehicleDAO{
 						Accessory a = new Accessory(ida, aName, descriptionA);
 						acc.add(a);
 					}
-						
+				
+					System.out.println("display");	
 					if("car".equals(type)) {
 						String doo = (String) cols.get("doors");
 						int doors = Integer.parseInt(doo);
@@ -109,7 +111,7 @@ public class VehicleDAOM implements VehicleDAO{
 					}
 					
 				}
-		
+				
 		}catch (MongoException e){
 		    System.out.println(e.getClass().getCanonicalName());
 		}finally {
@@ -174,8 +176,9 @@ public class VehicleDAOM implements VehicleDAO{
 			Manufacturer manufa = new Manufacturer(id1, mName, country);
 			Model mo = new Model(id,manufa, des, pr);
 														
-			Document field = new Document("accessory",1);
-			List<Document> acFount = collection.find(field).into(new ArrayList<Document>());;
+			//get accessory
+			List<Document> acFount = new ArrayList<Document>();
+			acFount.addAll((Collection<? extends Document>) result.get("accessory"));
 			for (int k = 0; k < acFount.size(); k++) {
 				Document colc = acFount.get(k);
 				String a_id = (String) colc.get("accessory_id");
@@ -250,9 +253,9 @@ public class VehicleDAOM implements VehicleDAO{
 			Manufacturer manufa = new Manufacturer(id1, mName, country);
 			Model mo = new Model(id,manufa, des, pr);
 						
-			//get accessory											
-			Document field = new Document("accessory",1);
-			List<Document> acFount = collection.find(field).into(new ArrayList<Document>());;
+			//get accessory
+			List<Document> acFount = new ArrayList<Document>();
+			acFount.addAll((Collection<? extends Document>) cols.get("accessory"));
 			for (int k = 0; k < acFount.size(); k++) {
 				Document colc = acFount.get(k);
 				String a_id = (String) colc.get("accessory_id");
@@ -280,7 +283,6 @@ public class VehicleDAOM implements VehicleDAO{
 				Truck truck = new Truck(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, length, height, loading_limit);
 				ls.add(truck);
 			}
-			
 		}
 		}catch (MongoException e){
 		    System.out.println(e.getClass().getCanonicalName());
@@ -350,6 +352,26 @@ public class VehicleDAOM implements VehicleDAO{
 	}
 	
 	public int getVehicleCount(){
+		int count = 0;
+		try{
+		
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			MongoDatabase database = mongoClient.getDatabase("imse"); 
+			MongoCollection<Document> collection = database.getCollection("vehicle");
+			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
+			count = foundDocument.size();
+				
+		}catch (MongoException e){
+		    System.out.println(e.getClass().getCanonicalName());
+		}finally {
+			mongoClient.close();
+		}
+		
+		
+		return count;
+	}
+
+	public int getVehicleCountByType(String typeVeh) {
 		vehicles = new ArrayList<Vehicle>();
 		List<Vehicle> ls = new ArrayList<Vehicle> ();
 		List<Accessory> acc = new ArrayList<Accessory>();
@@ -404,9 +426,9 @@ public class VehicleDAOM implements VehicleDAO{
 					Manufacturer manufa = new Manufacturer(id1, mName, country);
 					Model mo = new Model(id,manufa, des, pr);
 								
-					//get accessory											
-					Document field = new Document("accessory",1);
-					List<Document> acFount = collection.find(field).into(new ArrayList<Document>());;
+					//get accessory
+					List<Document> acFount = new ArrayList<Document>();
+					acFount.addAll((Collection<? extends Document>) cols.get("accessory"));
 					for (int k = 0; k < acFount.size(); k++) {
 						Document colc = acFount.get(k);
 						String a_id = (String) colc.get("accessory_id");
@@ -417,7 +439,7 @@ public class VehicleDAOM implements VehicleDAO{
 						acc.add(a);
 					}
 						
-					if("car".equals(type)) {
+					if(type.equals(typeVeh)) {
 						String doo = (String) cols.get("doors");
 						int doors = Integer.parseInt(doo);
 						String limit = (String) cols.get("passenger_limit");
@@ -441,64 +463,307 @@ public class VehicleDAOM implements VehicleDAO{
 		}finally {
 			client.close();
 		}
-		
-		
-		return ls.size();
-	}
-
-	public int getVehicleCountByType(String type) {
-		ArrayList<Vehicle> ls = new ArrayList<Vehicle>();
-		try{
 			
-		
-		}catch (MongoException e){
-		    System.out.println(e.getClass().getCanonicalName());
-		}finally {
-			client.close();
-		}
 		return ls.size();
 	}
 	public List<Vehicle> getVehicleListByAge(int age){
-		Connection con = null;
-		Vehicle vehic = null;
-		try{
-			//Add
-		
-		}catch (MongoException e){
-		    System.out.println(e.getClass().getCanonicalName());
-		}finally {
-			client.close();
-		}
-		
-		return vehicles;
-		
-	}
-	public List<Vehicle> getVehicleByColor(Color color){
 		vehicles = new ArrayList<Vehicle>();
+		List<Vehicle> ls = new ArrayList<Vehicle>();
+		List<Accessory> acc = new ArrayList<Accessory>();
 		try{
-			//Add
-		
+			vehicles = new ArrayList<Vehicle>();
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			MongoDatabase database = mongoClient.getDatabase("imse"); 
+			MongoCollection<Document> collection = database.getCollection("vehicle");
+			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
+				for (int i = 0; i < foundDocument.size(); i++) {
+					Document cols = foundDocument.get(i);
+					String id_str = (String) cols.get("vehicle_id");
+					int id = Integer.parseInt(id_str);
+					String license_plate = (String) cols.get("license_plate_number");
+					String type = (String) cols.get("type");
+					
+					String mil = (String) cols.get("mileage");
+					int mileage = Integer.parseInt(mil);
+					
+					String year = (String) cols.get("manufacturer_year");
+					int manufacturer_year = Integer.parseInt(year);
+					
+					String activ = (String) cols.get("active");
+					Boolean active = Boolean.parseBoolean(activ);
+					
+					//get color
+					Document color = (Document) cols.get("color");
+					String mId = (String) color.get("color_id");
+					int cId = Integer.parseInt(mId);
+					String description = (String) color.get("description");
+					String color_code = (String) color.get("manufacturer_color_code");
+					Color colD = new Color(cId, description, color_code);
+				
+					//get model
+					Document model = (Document) cols.get("model");
+					String idM = (String) model.get("model_id");
+					int idModel = Integer.parseInt(idM);
+					Document manu = (Document) model.get("manufacturer");
+					
+					//create manufacturer id
+					String id_str1 = (String) manu.get("manufacturer_id");
+					int id1 = Integer.parseInt(id_str1);
+
+					String des = (String) model.get("description");
+					String p = (String) model.get("price");
+					double pr = Double.parseDouble(p); 
+					
+					//get manufacturer and model
+					Document manufactu = (Document) model.get("manufacturer");
+					String mName = (String) manufactu.get("name");
+					String country = (String) manufactu.get("country");
+					Manufacturer manufa = new Manufacturer(id1, mName, country);
+					Model mo = new Model(id,manufa, des, pr);
+								
+					//get accessory
+					List<Document> acFount = new ArrayList<Document>();
+					acFount.addAll((Collection<? extends Document>) cols.get("accessory"));
+					for (int k = 0; k < acFount.size(); k++) {
+						Document colc = acFount.get(k);
+						String a_id = (String) colc.get("accessory_id");
+						int ida = Integer.parseInt(a_id);
+						String aName = (String) colc.get("name");
+						String descriptionA = (String) colc.get("description");
+						Accessory a = new Accessory(ida, aName, descriptionA);
+						acc.add(a);
+					}
+						
+					if("car".equals(type)) {
+						String doo = (String) cols.get("doors");
+						int doors = Integer.parseInt(doo);
+						String limit = (String) cols.get("passenger_limit");
+						int passenger_limit = Integer.parseInt(limit);
+						if(manufacturer_year == age) {
+							Car car = new Car(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, doors, passenger_limit);
+							ls.add(car);
+						}
+						
+					}else {
+						String len = (String) cols.get("length");
+						int length = Integer.parseInt(len);
+						String he = (String) cols.get("height");
+						int height = Integer.parseInt(he);
+						String loading = (String) cols.get("loading_limit");
+						int loading_limit = Integer.parseInt(loading);
+						if(manufacturer_year == age) {
+							Truck truck = new Truck(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, length, height, loading_limit);
+							ls.add(truck);
+						}
+					}
+					
+				}
 		}catch (MongoException e){
 		    System.out.println(e.getClass().getCanonicalName());
 		}finally {
 			client.close();
 		}
-		
-		return vehicles;
+		return ls;
+	}
+	
+	public List<Vehicle> getVehicleByColor(Color color){
+		List<Vehicle> ls = new ArrayList<Vehicle>();
+		List<Accessory> acc = new ArrayList<Accessory>();
+		Integer searchId = color.getColor_ID();
+		try{
+			vehicles = new ArrayList<Vehicle>();
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			MongoDatabase database = mongoClient.getDatabase("imse"); 
+			MongoCollection<Document> collection = database.getCollection("vehicle");
+			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
+				for (int i = 0; i < foundDocument.size(); i++) {
+					Document cols = foundDocument.get(i);
+					String id_str = (String) cols.get("vehicle_id");
+					int id = Integer.parseInt(id_str);
+					String license_plate = (String) cols.get("license_plate_number");
+					String type = (String) cols.get("type");
+					
+					String mil = (String) cols.get("mileage");
+					int mileage = Integer.parseInt(mil);
+					
+					String year = (String) cols.get("manufacturer_year");
+					int manufacturer_year = Integer.parseInt(year);
+					
+					String activ = (String) cols.get("active");
+					Boolean active = Boolean.parseBoolean(activ);
+					
+					//get color
+					Document colorss = (Document) cols.get("color");
+					String mId = (String) colorss.get("color_id");
+					int cId = Integer.parseInt(mId);
+					String description = (String) colorss.get("description");
+					String color_code = (String) colorss.get("manufacturer_color_code");
+					Color colD = new Color(cId, description, color_code);
+				
+					//get model
+					Document model = (Document) cols.get("model");
+					String idM = (String) model.get("model_id");
+					int idModel = Integer.parseInt(idM);
+					Document manu = (Document) model.get("manufacturer");
+					
+					//create manufacturer id
+					String id_str1 = (String) manu.get("manufacturer_id");
+					int id1 = Integer.parseInt(id_str1);
+
+					String des = (String) model.get("description");
+					String p = (String) model.get("price");
+					double pr = Double.parseDouble(p); 
+					
+					//get manufacturer and model
+					Document manufactu = (Document) model.get("manufacturer");
+					String mName = (String) manufactu.get("name");
+					String country = (String) manufactu.get("country");
+					Manufacturer manufa = new Manufacturer(id1, mName, country);
+					Model mo = new Model(id,manufa, des, pr);
+								
+					//get accessory
+					List<Document> acFount = new ArrayList<Document>();
+					acFount.addAll((Collection<? extends Document>) cols.get("accessory"));
+					for (int k = 0; k < acFount.size(); k++) {
+						Document colc = acFount.get(k);
+						String a_id = (String) colc.get("accessory_id");
+						int ida = Integer.parseInt(a_id);
+						String aName = (String) colc.get("name");
+						String descriptionA = (String) colc.get("description");
+						Accessory a = new Accessory(ida, aName, descriptionA);
+						acc.add(a);
+					}
+						
+					if("car".equals(type)) {
+						String doo = (String) cols.get("doors");
+						int doors = Integer.parseInt(doo);
+						String limit = (String) cols.get("passenger_limit");
+						int passenger_limit = Integer.parseInt(limit);
+						if(cId == searchId) {
+							Car car = new Car(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, doors, passenger_limit);
+							ls.add(car);
+						}
+						
+					}else {
+						String len = (String) cols.get("length");
+						int length = Integer.parseInt(len);
+						String he = (String) cols.get("height");
+						int height = Integer.parseInt(he);
+						String loading = (String) cols.get("loading_limit");
+						int loading_limit = Integer.parseInt(loading);
+						if(cId == searchId) {
+							Truck truck = new Truck(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, length, height, loading_limit);
+							ls.add(truck);
+						}
+					}
+					
+				}
+		}catch (MongoException e){
+		    System.out.println(e.getClass().getCanonicalName());
+		}finally {
+			client.close();
+		}
+		return ls;
 	}
 	public List<Vehicle> getVehicleByAccessory(Accessory accessory){
-		vehicles = new ArrayList<Vehicle>();
+		List<Vehicle> ls = new ArrayList<Vehicle>();
+		List<Accessory> acc = new ArrayList<Accessory>();
+		Integer searchId = accessory.getAccessory_ID();
 		try{
-			//Add
-		
+			vehicles = new ArrayList<Vehicle>();
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+			MongoDatabase database = mongoClient.getDatabase("imse"); 
+			MongoCollection<Document> collection = database.getCollection("vehicle");
+			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
+				for (int i = 0; i < foundDocument.size(); i++) {
+					Document cols = foundDocument.get(i);
+					String id_str = (String) cols.get("vehicle_id");
+					int id = Integer.parseInt(id_str);
+					String license_plate = (String) cols.get("license_plate_number");
+					String type = (String) cols.get("type");
+					
+					String mil = (String) cols.get("mileage");
+					int mileage = Integer.parseInt(mil);
+					
+					String year = (String) cols.get("manufacturer_year");
+					int manufacturer_year = Integer.parseInt(year);
+					
+					String activ = (String) cols.get("active");
+					Boolean active = Boolean.parseBoolean(activ);
+					
+					//get color
+					Document color = (Document) cols.get("color");
+					String mId = (String) color.get("color_id");
+					int cId = Integer.parseInt(mId);
+					String description = (String) color.get("description");
+					String color_code = (String) color.get("manufacturer_color_code");
+					Color colD = new Color(cId, description, color_code);
+				
+					//get model
+					Document model = (Document) cols.get("model");
+					String idM = (String) model.get("model_id");
+					int idModel = Integer.parseInt(idM);
+					Document manu = (Document) model.get("manufacturer");
+					
+					//create manufacturer id
+					String id_str1 = (String) manu.get("manufacturer_id");
+					int id1 = Integer.parseInt(id_str1);
+
+					String des = (String) model.get("description");
+					String p = (String) model.get("price");
+					double pr = Double.parseDouble(p); 
+					
+					//get manufacturer and model
+					Document manufactu = (Document) model.get("manufacturer");
+					String mName = (String) manufactu.get("name");
+					String country = (String) manufactu.get("country");
+					Manufacturer manufa = new Manufacturer(id1, mName, country);
+					Model mo = new Model(id,manufa, des, pr);
+								
+					//get accessory
+					List<Document> acFount = new ArrayList<Document>();
+					acFount.addAll((Collection<? extends Document>) cols.get("accessory"));
+					for (int k = 0; k < acFount.size(); k++) {
+						Document colc = acFount.get(k);
+						String a_id = (String) colc.get("accessory_id");
+						int ida = Integer.parseInt(a_id);
+						String aName = (String) colc.get("name");
+						String descriptionA = (String) colc.get("description");
+						Accessory a = new Accessory(ida, aName, descriptionA);
+						acc.add(a);
+						if("car".equals(type)) {
+							String doo = (String) cols.get("doors");
+							int doors = Integer.parseInt(doo);
+							String limit = (String) cols.get("passenger_limit");
+							int passenger_limit = Integer.parseInt(limit);
+							if(ida == searchId) {
+								Car car = new Car(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, doors, passenger_limit);
+								ls.add(car);
+							}
+							
+						}else {
+							String len = (String) cols.get("length");
+							int length = Integer.parseInt(len);
+							String he = (String) cols.get("height");
+							int height = Integer.parseInt(he);
+							String loading = (String) cols.get("loading_limit");
+							int loading_limit = Integer.parseInt(loading);
+							if(ida == searchId) {
+								Truck truck = new Truck(id, license_plate, colD, mo, manufa, acc, mileage, manufacturer_year, active, length, height, loading_limit);
+								ls.add(truck);
+							}
+						}
+					}
+									
+				}
 		}catch (MongoException e){
 		    System.out.println(e.getClass().getCanonicalName());
 		}finally {
 			client.close();
 		}
-		
-		return vehicles;
+		return ls;
 	}
+	
 	public List<Vehicle> getVehicleByModel(Model mode){
 		vehicles = new ArrayList<Vehicle>();
 		try{
@@ -512,6 +777,7 @@ public class VehicleDAOM implements VehicleDAO{
 		
 		return vehicles;
 	}
+	
 	public List<Vehicle> getTruckByLoadingLimit(int limit){
 		vehicles = new ArrayList<Vehicle>();
 		try{
@@ -524,6 +790,7 @@ public class VehicleDAOM implements VehicleDAO{
 		}
 		return vehicles;		
 	}
+	
 	public List<Car> getCarByDoors(int doors){
 		List<Car> cars = new ArrayList<Car>();
 		try{
@@ -537,6 +804,7 @@ public class VehicleDAOM implements VehicleDAO{
 		
 		return cars;		
 	}
+	
 	public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer){
 		vehicles = new ArrayList<Vehicle>();
 		try{
