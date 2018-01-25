@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
@@ -22,7 +21,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("imse.Customer");
 
 			List<Document> cursor = collection.find().into(new ArrayList<Document>());
 			List<Costumer> cList = new ArrayList<Costumer>();
@@ -40,15 +39,16 @@ public class CostumerDAOM implements CostumerDAO {
 				java.util.Date birth_date = sdf.parse(obj.get("birth_date").toString());
 
 				String email = obj.get("email").toString();
-				String post_code = obj.get("post_code").toString();
-				String street = obj.get("street").toString();
-				String house_number = obj.get("house_number").toString();
+				Document d = (Document) obj.get("address");
+				String post_code = d.get("post_code").toString();
+				String street = d.get("street").toString();
+				String house_number = d.get("house_number").toString();
 				String appartment_number = "";
-				if(obj.get("appartment_number") != null) {
-					appartment_number = obj.get("appartment_number").toString();
+				if(d.get("appartment_number") != null) {
+					appartment_number = d.get("appartment_number").toString();
 				}
-				String town = obj.get("town").toString();
-				String country = obj.get("country").toString();
+				String town = d.get("town").toString();
+				String country = d.get("country").toString();
 				String pwd_hash = obj.get("pwd_hash").toString();
 				String salt = obj.get("salt").toString();
 				Costumer c = new Costumer(	costumer_ID, title, first_name, last_name, drivers_license_number,
@@ -70,17 +70,16 @@ public class CostumerDAOM implements CostumerDAO {
 
 	@Override
 	public Costumer getCostumerById(int ID) {
-			MongoClient mongoClient = null;
+		MongoClient mongoClient = null;
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("imse.Customer");
 
-			BasicDBObject query = new BasicDBObject();
-			query.put("costumer_ID", ID);
-			List<Document> cursor = collection.find(query).into(new ArrayList<Document>());
+			List<Document> cursor = collection.find().into(new ArrayList<Document>());
 			//List<Costumer> cList = new ArrayList<Costumer>();
 			for (Document obj:cursor) {
+				
 				int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
 				String title = obj.get("title").toString();
 				String first_name = obj.get("first_name").toString();
@@ -93,20 +92,21 @@ public class CostumerDAOM implements CostumerDAO {
 				java.util.Date birth_date = sdf.parse(obj.get("birth_date").toString());
 
 				String email = obj.get("email").toString();
-				String post_code = obj.get("post_code").toString();
-				String street = obj.get("street").toString();
-				String house_number = obj.get("house_number").toString();
+				Document d = (Document) obj.get("address");
+				String post_code = d.get("post_code").toString();
+				String street = d.get("street").toString();
+				String house_number = d.get("house_number").toString();
 				String appartment_number = "";
-				if(obj.get("appartment_number") != null) {
-					appartment_number = obj.get("appartment_number").toString();
+				if(d.get("appartment_number") != null) {
+					appartment_number = d.get("appartment_number").toString();
 				}
-				String town = obj.get("town").toString();
-				String country = obj.get("country").toString();
+				String town = d.get("town").toString();
+				String country = d.get("country").toString();
 				String pwd_hash = obj.get("pwd_hash").toString();
 				String salt = obj.get("salt").toString();
 				Costumer c = new Costumer(	costumer_ID, title, first_name, last_name, drivers_license_number,
-						birth_date, email, post_code, street, house_number, appartment_number,
-						town, country, pwd_hash, salt, true);
+											birth_date, email, post_code, street, house_number, appartment_number,
+											town, country, pwd_hash, salt, true);
 				return c;
 			}
 		} catch (ParseException e) {
@@ -119,14 +119,14 @@ public class CostumerDAOM implements CostumerDAO {
         }
 		return null;
 	}
-
+	
 	@Override
 	public void addCostumer(Costumer c) {
 		MongoClient mongoClient = null;
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("imse.Customer");
 
 			Document toInsert = new Document();
 			Document address = new Document();
@@ -162,7 +162,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("imse.Customer");
 
             Document update = new Document();
             Document whatToUpdate = new Document();
@@ -202,7 +202,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("Customer");
+			MongoCollection<Document> collection = database.getCollection("imse.Customer");
 
             collection.findOneAndDelete(new Document().append("costumer_ID", ID));
 
