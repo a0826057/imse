@@ -160,17 +160,20 @@
 					"date_to": "2018-01-04",
 					"vehicle":
 						{
-						 	"vehicle_id" : 1,
+						 	"vehicle_id" : "1",
 							"license_plate_number": "W 53822 X",
 							"color":
 								{
+									"color_id" :"1",
 									"description": "Green",
 									"manufacturer_color_code": "RAL6384"
 								},
 							"model":
 								{
+									"model_id" : "1",
 									"manufacturer":
 										{
+											"manufacturer_id" : "1",
 											"name": "Iveco",
 											"country": "USA"
 										},
@@ -178,10 +181,12 @@
 								},
 							"accessory":
 								[{
+									"accessory_id" : "1",
 									"name": "Navi",
 									"description": "Samsung XF3 Super Navi"
 								},
 								{
+									"accessory_id" : "2",
 									"name": "Seats",
 									"description": "Leather Seats, beige"
 								}],
@@ -204,17 +209,20 @@
 					"date_to": "2018-01-05",
 					"vehicle":
 						{
-							"vehicle_id" : 2,
+							"vehicle_id" : "2",
 							"license_plate_number": "W 12443 B",
 							"color":
-								{
+								{ 	
+									"color_id" :"2",
 									"description": "Pink",
 									"manufacturer_color_code": "RAL2074"
 								},
 							"model":
-								{
+								{	
+									"model_id" : "2",
 									"manufacturer":
 										{
+											"manufacturer_id" : "2",
 											"name": "Ford",
 											"country": "USA"
 										},
@@ -222,10 +230,12 @@
 								},
 							"accessory":
 								[{
+									"accessory_id" : "3",
 									"name": "Navi",
 									"description": "Samsung XF3 Super Navi"
 								},
 								{
+								    "accessory_id" : "4",
 									"name": "Seats",
 									"description": "Leather Seats, beige"
 								}],
