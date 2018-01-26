@@ -22,14 +22,23 @@ public class Costumer {
 	private Boolean active;
 	
 	public String toString(){
-		return "Title: " + getTitle() + "<br>" + 
-				"Name: " + getFirst_name()+ getLast_name() + "<br>" + 
-				"Drivers Licens: " + getDrivers_licens_number() + "<br>" +
-				"Birthdate: " + getBirth_date() + "<br>" + 
-				"EMail: " + getEmail() + "<br>" + 
-				"Addresse: " + getCountry() + ", " + getTown() + ", " + getPost_code() + ", " +
-			   getStreet() + getHouse_number() + "/" + getAppartment_number();
+		String result = "<br> <br> Hello " + getTitle() + " " + 
+				" " + getFirst_name()+ getLast_name() + "!<br> <br>";
+		if(!getDrivers_licens_number().equals(""))
+			result = result + "Drivers Licens: " + getDrivers_licens_number() + "<br>";
+		
+		result = result + 	"Birthdate: " + getBirth_date() + "<br>" + 
+							"EMail: " + getEmail() + "<br>" +
+							"Addresse: " + 	getCountry() + ", " + getTown() + " (" + getPost_code() + "), " +
+							   				getStreet() + getHouse_number();
+		
+		if(!getAppartment_number().equals(""))
+			result = result + "/" + getAppartment_number();
+		
+		
+		return result + "<br>";
 	}
+	
 	public int getCostumer_ID() {
 		return costumer_ID;
 	}

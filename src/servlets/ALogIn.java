@@ -52,7 +52,7 @@ public class ALogIn extends HttpServlet {
 				response.sendRedirect("Homepage.jsp");
 			}
 		}catch(Exception ex){
-			
+			response.sendRedirect("Homepage.jsp");
 		}
 	}
 

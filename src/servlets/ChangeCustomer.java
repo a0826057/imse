@@ -79,7 +79,7 @@ public class ChangeCustomer extends HttpServlet {
 			}
 			response.sendRedirect("rent_vehicle.jsp");
 		}catch(Exception ex){
-			
+			response.sendRedirect("Homepage.jsp");
 		}
 	}
 }

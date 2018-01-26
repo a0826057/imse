@@ -56,7 +56,7 @@ public class Delete extends HttpServlet {
 			rd.forward(request,response);
 			
 		}catch(Exception ex){
-			
+			response.sendRedirect("Homepage.jsp");
 		}
 	}
 

@@ -40,7 +40,7 @@ public class LogOut extends HttpServlet {
 			}
 			response.sendRedirect("Homepage.jsp");
 		}catch(Exception ex){
-			
+			response.sendRedirect("Profil.jsp");
 		}
 	}
 
