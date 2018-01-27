@@ -91,9 +91,13 @@ public class ModelDAOM implements ModelDAO {
 		
 		MongoCollection<Document> coll = database.getCollection("imse.model");
 		List<Document> mod = coll.find().into(new ArrayList<Document>());
-		String id_string = (String)mod.get((mod.size()-1)).get("model_id");
-		int id = Integer.parseInt(id_string) + 1;
 		
+		int id = 1;
+		if(mod.size() != 0){
+			String id_string = (String)mod.get((mod.size()-1)).get("model_id");
+			id = Integer.parseInt(id_string) + 1;
+		}
+	
 		Document doc = new Document();
 		doc.put("model_id", Integer.toString(id));
 		Document subdoc = new Document();

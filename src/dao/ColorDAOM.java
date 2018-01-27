@@ -78,8 +78,12 @@ public class ColorDAOM implements ColorDAO{
 			MongoDatabase database = client.getDatabase("imse");
 			MongoCollection<Document> collection = database.getCollection("imse.color");
 			List<Document> col = collection.find().into(new ArrayList<Document>());
-			String id_string = (String)col.get((col.size()-1)).get("color_id");
-			int id = Integer.parseInt(id_string) + 1;
+			
+			int id = 1;
+			if(col.size() != 0){
+				String id_string = (String)col.get((col.size()-1)).get("color_id");
+				id = Integer.parseInt(id_string) + 1;
+			}
 			
 			Document documents = new Document();
 			documents.put("color_id", Integer.toString(id));

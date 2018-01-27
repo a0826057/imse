@@ -78,9 +78,13 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 			MongoDatabase database = client.getDatabase("imse");
 			MongoCollection<Document>  collection = database.getCollection("imse.manufacturer");
 			List<Document> accs = collection.find().into(new ArrayList<Document>());
-			String id_string = (String)accs.get((accs.size()-1)).get("manufacturer_id");
-			int id = Integer.parseInt(id_string) + 1;
 			
+			int id = 1;
+			if(accs.size() != 0){
+				String id_string = (String)accs.get((accs.size()-1)).get("manufacturer_id");
+				id = Integer.parseInt(id_string) + 1;
+			}
+
 			Document documents = new Document();
 			documents.put("manufacturer_id", Integer.toString(id));
 			documents.put("name",name);

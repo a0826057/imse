@@ -1376,8 +1376,13 @@ public class VehicleDAOM implements VehicleDAO{
 			Document col = new Document();
 			Document man = new Document();
 			Document acc = new Document();
-			String id_veh = (String)foundDocument.get((foundDocument.size()-1)).get("vehicle_id");
-			int idv = Integer.parseInt(id_veh) + 1;
+			
+			int idv = 1;
+			if(foundDocument.size() != 0){
+				String id_veh = (String)foundDocument.get((foundDocument.size()-1)).get("vehicle_id");
+				idv = Integer.parseInt(id_veh) + 1;
+			}
+			
 			documents.put("vehicle_id", Integer.toString(idv));
 			documents.put("license_plate_number", plate);
 			//color
@@ -1437,8 +1442,13 @@ public class VehicleDAOM implements VehicleDAO{
 			Document col = new Document();
 			Document man = new Document();
 			Document acc = new Document();
-			String id_veh = (String)foundDocument.get((foundDocument.size()-1)).get("vehicle_id");
-			int idv = Integer.parseInt(id_veh) + 1;
+			
+			int idv = 1;
+			if(foundDocument.size() != 0){
+				String id_veh = (String)foundDocument.get((foundDocument.size()-1)).get("vehicle_id");
+				idv = Integer.parseInt(id_veh) + 1;
+			}
+			
 			documents.put("vehicle_id", Integer.toString(idv));
 			documents.put("license_plate_number", plate);
 			//color

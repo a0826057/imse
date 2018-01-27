@@ -23,7 +23,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		List<Document> access = coll.find().into(new ArrayList<Document>());
 		
 		for (int i = 0; i < access.size(); i++) {
@@ -47,7 +47,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		Document searchQuery = new Document("accessory_id", Integer.toString(accessory_id));
 		Document result = null;
 		
@@ -71,10 +71,13 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		List<Document> accs = coll.find().into(new ArrayList<Document>());
-		String id_string = (String)accs.get((accs.size()-1)).get("accessory_id");
-		int id = Integer.parseInt(id_string) + 1;
+		int id = 1;
+		if(accs.size() != 0){
+			String id_string = (String)accs.get((accs.size()-1)).get("accessory_id");
+			id = Integer.parseInt(id_string) + 1;
+		}
 		
 		Document doc = new Document();
 		doc.put("accessory_id", Integer.toString(id));
@@ -92,7 +95,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		Document searchQuery = new Document("accessory_id", Integer.toString(accessory_ID));
 		Document newValues = new Document();
 		newValues.put("name", name);
@@ -110,7 +113,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		Document query = new Document("accessory_id", Integer.toString(accessory_id));
 		
 		coll.findOneAndDelete(query);
@@ -126,7 +129,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		List<Document> access = coll.find().into(new ArrayList<Document>());
 		
 		for (int i = 0; i < access.size(); i++) {
@@ -152,7 +155,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll = database.getCollection("accessory");
 		Document query = new Document("name",name);
 		List<Document> access = coll.find(query).into(new ArrayList<Document>());
 		
@@ -177,8 +180,8 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll_acc = database.getCollection("imse.accessory");
-		MongoCollection<Document> coll_veh = database.getCollection("imse.vehicle");
+		MongoCollection<Document> coll_acc = database.getCollection("accessory");
+		MongoCollection<Document> coll_veh = database.getCollection("vehicle");
 		
 		List<Document> access = coll_acc.find().into(new ArrayList<Document>());
 		List<Document> vehs = coll_veh.find().into(new ArrayList<Document>());
@@ -222,7 +225,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll_veh = database.getCollection("imse.vehicle");
+		MongoCollection<Document> coll_veh = database.getCollection("vehicle");
 		List<Document> vehs = coll_veh.find().into(new ArrayList<Document>());
 		
 		for (int i = 0; i < vehs.size(); i++) {
