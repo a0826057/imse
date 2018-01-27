@@ -82,17 +82,15 @@ public class DataGenerator {
 		
 		System.out.println("Vehicle");
 		VehicleGenerator.filler();
-		AccessoryGenerator.fillAccessoryHasTable();
 		
 		System.out.println("Rental");
 		RentalGenerator.filler();
 		
-		
-		/*EmployeeDAOI cost = new EmployeeDAOI();
+		EmployeeDAOI cost = new EmployeeDAOI();
 		Employee c = cost.getEmployeeById(10);
 		System.out.println(c.getEmployee_number());
 		RentalDAOI rent = new RentalDAOI();
 		List<Rental> r = rent.getRentalByEmployee(c);
-		System.out.print(r);*/
+		System.out.print(r);
 	}
 }

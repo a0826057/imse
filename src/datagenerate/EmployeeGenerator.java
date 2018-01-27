@@ -46,13 +46,12 @@ public class EmployeeGenerator {
 							  "'Diana'", "'Erich'", "'Fred'", "'Georg'", "'Hannah'", "'Ingrid'", "'Johann'", "'Kevin'", "'Lara'"};
 	    String[] lastname = {"'Markart'", "'Pliger'", "'Stuffer'","'Mair'","'Sauermoser'","'Becker'", "'Gruber'", "'Baumgartner'", 
 	    					 "'Huber'", "'Brunner'", "'Wagner'", "'Schmidt'", "'Pichler'", "'Auer'", "'Mueller'"};
-	    int numEmployees = 10;
 	    
 	    int fi = 0;
 	    int li = 0;
 	    
 	    
-	    for (int i = 0; i < numEmployees; i++) {
+	    for (int i = 0; i < 10; i++) {
 			
 			
 			fi = (int)((Math.random()) * 17);
@@ -63,10 +62,6 @@ public class EmployeeGenerator {
 			
 			empl.addEmployee(e);
 		}
-
-		/*for(int i = 0; i < numEmployees; i++) {
-
-		}*/
 	}
 	
 	public static void filler() {
