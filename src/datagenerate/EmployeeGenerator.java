@@ -1,5 +1,6 @@
 package datagenerate;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,16 +43,17 @@ public class EmployeeGenerator {
 	
 	public static void fillEmployee() {
 		EmployeeDAO empl = new EmployeeDAOI();
-		String[] firstname = {"'Franz'", "'Hans'", "'Sieglinde'", "'Manuela'", "'Karl'","'Anna'", "'Bernd'", "'Christian'", 
-							  "'Diana'", "'Erich'", "'Fred'", "'Georg'", "'Hannah'", "'Ingrid'", "'Johann'", "'Kevin'", "'Lara'"};
-	    String[] lastname = {"'Markart'", "'Pliger'", "'Stuffer'","'Mair'","'Sauermoser'","'Becker'", "'Gruber'", "'Baumgartner'", 
-	    					 "'Huber'", "'Brunner'", "'Wagner'", "'Schmidt'", "'Pichler'", "'Auer'", "'Mueller'"};
+		String[] firstname = {"Franz", "Hans", "Sieglinde", "Manuela", "Karl","Anna", "Bernd", "Christian", 
+							  "Diana", "Erich", "Fred", "Georg", "Hannah", "Ingrid", "Johann", "Kevin", "Lara"};
+	    String[] lastname = {"Markart", "Pliger", "Stuffer","Mair","Sauermoser","Becker", "Gruber", "Baumgartner", 
+	    					 "Huber", "Brunner", "Wagner", "Schmidt", "Pichler", "Auer", "Mueller"};
+	    int numEmployees = 50;
 	    
 	    int fi = 0;
 	    int li = 0;
 	    
 	    
-	    for (int i = 0; i < 10; i++) {
+	    for (int i = 0; i < numEmployees; i++) {
 			
 			
 			fi = (int)((Math.random()) * 17);
@@ -62,6 +64,21 @@ public class EmployeeGenerator {
 			
 			empl.addEmployee(e);
 		}
+	    
+	    
+	    for(int i = 0; i < 5; i++) {
+	    	fi = (int)((Math.random()) * numEmployees);
+	    	for(int j = 0; j < 5; j++) {
+	    		do {
+	    			li = (int)((Math.random()) * numEmployees);
+	    		}while (fi == li);
+	    		Employee e = empl.getEmployeeById(li);
+	    		Employee ex = new Employee (e.getEmployee_number(), e.getFirst_name(), e.getLast_name(), fi, e.isActive());
+	    		empl.changeEmployee(ex);
+	    	}
+	    	
+	    }
+	    
 	}
 	
 	public static void filler() {

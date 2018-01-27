@@ -1,5 +1,6 @@
 package datagenerate;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -69,10 +70,10 @@ public class RentalGenerator {
 		List<Employee> lsc = mod.getEmployeeList();
 		
 		Random rand = new Random(); 
-		String[] ratings = {"'Good'","'Bad'","'Worst'","'Ok'","'Perfect'"};
+		String[] ratings = {"Good","Bad","Worst","Ok","Perfect"};
 		
 		int index1, index2, index3, index4;
-		for(int i = 0; i < 30; i ++){
+		for(int i = 0; i < 1001; i ++){
 			index1 = rand.nextInt(lsa.size());
 			index2 = rand.nextInt(lso.size()); 
 			index3 = rand.nextInt(lsc.size());  

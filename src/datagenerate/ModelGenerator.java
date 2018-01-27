@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
+
 import dao.ManufacturerDAOI;
 import dao.ModelDAOI;
 import model.Manufacturer;
@@ -55,11 +56,11 @@ public class ModelGenerator {
 		List<Manufacturer> ls = m.getManufacturerList();
 		Random rand = new Random(); 
 		
-		String[] descriptions = {"'X360'","'Panda'","'Polo'","'Golf'","'Karl'"};
+		String[] descriptions = {"X360","Panda","Polo","Golf","Karl"};
 		String[] prices = {"1044","5006","1004","5086","7042"};
 		
 		int index1, index2, index3;
-		for(int i = 0; i < 10; i ++){
+		for(int i = 0; i < 50; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(5); 
 			index3 = rand.nextInt(5); 

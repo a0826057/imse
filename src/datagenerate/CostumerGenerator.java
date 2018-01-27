@@ -1,11 +1,13 @@
 package datagenerate;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import dao.BCrypt;
 import dao.CostumerDAOI;
 import model.Costumer;
 
@@ -32,8 +34,8 @@ public class CostumerGenerator {
 													  "appartment_number varchar(10), " + 
 													  "town	varchar(100), " + 
 													  "country varchar(50), " + 
-													  "pwd_hash	varchar(50), " + 
-													  "salt	varchar(20), " + 
+													  "pwd_hash	varchar(200), " + 
+													  "salt	varchar(50), " + 
 													  "active boolean DEFAULT true, " + 
 													  "PRIMARY KEY (costumer_ID));";
 			statement.executeUpdate(raw_query);
@@ -52,18 +54,19 @@ public class CostumerGenerator {
 	
 	public static void fillCostumer() {
 		CostumerDAOI cost = new CostumerDAOI();
-		String[] title = {"'Prof.'", "'Dr.'", "'Mag.'","'PhD.'"};
-	    String[] firstname = {"'Franz'", "'Hans'", "'Sieglinde'", "'Manuela'", "'Karl'"};
-	    String[] lastname = {"'Markart'", "'Pliger'", "'Stuffer'","'Mair'","'Sauermoser'"};
-	    String[] dln = {"'12345A'", "'34856B'", "'G57H4'", "'OPER3'", "'K3589'"};
-	    String[] postcode = {"'39042'", "'1160'", "'39040'", "'1001'", "'34097'"};
-	    String[] street = {"'Gassergasse'", "'Baeckergasse'", "'Sandleitengasse'", "'Turmgasse'", "'Route 66'"};
-	    String[] hn = {"'1'", "'34'", "'3'", "'12'", "'765'"};
-	    String[] an = {"'1'", "'43'", "'7'", "'68'", "'123'"};
-	    String[] town = {"'Brixen'", "'Wien'", "'Bozen'", "'New York'", "'Peking'"};
-	    String[] country = {"'Italien'", "'Schweden'", "'USA'", "'Argentinien'", "'Ghana'"};
-	    String[] pwd = {"'pgög'", "'Hahjda'", "'afhaeuf'", "'adf'", "'sdfar'"};
-	    String[] salt = {"'234'", "'467'", "'366'", "'754'", "'460'"};
+		String[] title = {"Prof.", "Dr.", "Mag.","PhD."};
+		String[] firstname = {"Franz", "Hans", "Sieglinde", "Manuela", "Karl","Anna", "Bernd", "Christian", 
+				  "Diana", "Erich", "Fred", "Georg", "Hannah", "Ingrid", "Johann", "Kevin", "Lara"};
+		String[] lastname = {"Markart", "Pliger", "Stuffer","Mair","Sauermoser","Becker", "Gruber", "Baumgartner", 
+				 "Huber", "Brunner", "Wagner", "Schmidt", "Pichler", "Auer", "Mueller"};
+	    String[] dln = {"12345A", "34856B", "G57H4", "OPER3", "K3589"};
+	    String[] postcode = {"39042", "1160", "39040", "1001", "34097"};
+	    String[] street = {"Gassergasse", "Baeckergasse", "Sandleitengasse", "Turmgasse", "Route 66"};
+	    String[] hn = {"1", "34", "3", "12", "765"};
+	    String[] an = {"1", "43", "7", "68", "123"};
+	    String[] town = {"Brixen", "Wien", "Bozen", "New York", "Peking"};
+	    String[] country = {"Italien", "Schweden", "USA", "Argentinien", "Ghana"};
+	    String[] salt = {"pgög", "Hahjda", "afhaeuf", "adf", "sdfar"};
 	    
 	    int tii = 0;
 	    int fi = 0;
@@ -75,25 +78,29 @@ public class CostumerGenerator {
 	    int ai = 0;
 	    int toi = 0;
 	    int ci = 0;
-	    int pi = 0;
 	    int si = 0;
+	    int fii = 0;
 	    
-	    for (int i = 0; i < 10; i++) {
+	    for (int i = 0; i < 500; i++) {
 			tii = (int)((Math.random()) * 4);
-			fi = (int)((Math.random()) * 5);
-			li = (int)((Math.random()) * 5);
+			fi = (int)((Math.random()) * 17);
+			
+			do {
+				fii = (int)((Math.random()) * 17);
+			}while(fii == fi);
+			li = (int)((Math.random()) * 15);
 			poi = (int)((Math.random()) * 5);
 			sti = (int)((Math.random()) * 5);
 			hi = (int)((Math.random()) * 5);
 			ai = (int)((Math.random()) * 5);
 			toi = (int)((Math.random()) * 5);
 			ci = (int)((Math.random()) * 5);
-			pi = (int)((Math.random()) * 5);
 			si = (int)((Math.random()) * 5);
+			String pwd_hash = BCrypt.hashpw(salt[si], BCrypt.gensalt(4));
 			
-			Costumer c = new Costumer(0, title[tii], firstname[fi], lastname[li], dln[di] + i, 
+			Costumer c = new Costumer(0, title[tii], firstname[fi] + " " + firstname[fii], lastname[li], dln[di] + i, 
 									  new Date(), firstname[fi] + i + "@gmail.com", postcode[poi], 
-									  street[sti], hn[hi], an[ai], town[toi], country[ci], pwd[pi], 
+									  street[sti], hn[hi], an[ai], town[toi], country[ci], pwd_hash, 
 									  salt[si], true);
 			
 			cost.addCostumer(c);

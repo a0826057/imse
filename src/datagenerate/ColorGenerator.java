@@ -1,5 +1,6 @@
 package datagenerate;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -51,7 +52,7 @@ public class ColorGenerator {
 		String[] colornumber = {"'39042'","'39040'","'39041'","'39001'","'39234'"};
 		
 		int index1, index2;
-		for(int i = 0; i < 10; i ++){
+		for(int i = 0; i < 50; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(5); 
 			String s = colornumber[index2];
