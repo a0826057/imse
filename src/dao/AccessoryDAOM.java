@@ -193,21 +193,48 @@ public class AccessoryDAOM implements AccessoryDAO{
 					int ac_id_TOBEAD = Integer.parseInt(access.get(j).get("accessory_id").toString());
 					if(ac_id_TOBEAD == accessory_ID){
 						Document accessory = access.get(j);
-						List<Document> acceses_INVEHICLE = (List<Document>) vehs.get(i).get("accessory");
-						List<Document> help = acceses_INVEHICLE;
-						for(Document a : help){
-							int ac_id_ALREADYIN = Integer.parseInt(a.get("accessory_id").toString());
-							if(ac_id_ALREADYIN != ac_id_TOBEAD ){
-								acceses_INVEHICLE.add(accessory);
-								
-								Document query = new Document("vehicle_id", Integer.toString(vehicle_ID));
-								coll_veh.findOneAndDelete(query);
-								
-								vehs.get(i).remove("accessory");
-								vehs.get(i).put("accessory", acceses_INVEHICLE);
-								coll_veh.insertOne(vehs.get(i));
-								break;
+						List<Document> acceses_INVEHICLE = null;
+						List<Document> help = null;
+						Document acccess_In = null;
+						boolean isArray = true;
+						try{
+							acceses_INVEHICLE = (List<Document>) vehs.get(i).get("accessory");
+							help = acceses_INVEHICLE;
+						}catch(ClassCastException e){
+							isArray = false;
+							acccess_In = (Document) vehs.get(i).get("accessory");
+						}
+						
+						if(isArray){
+							for(Document a : help){
+								int ac_id_ALREADYIN = Integer.parseInt(a.get("accessory_id").toString());
+								if(ac_id_ALREADYIN != ac_id_TOBEAD ){
+									acceses_INVEHICLE.add(accessory);
+									
+									Document query = new Document("vehicle_id", Integer.toString(vehicle_ID));
+									coll_veh.findOneAndDelete(query);
+
+									vehs.get(i).remove("accessory");
+									vehs.get(i).put("accessory", acceses_INVEHICLE);
+									coll_veh.insertOne(vehs.get(i));
+									break;
+								}
 							}
+						}else{
+							help = new ArrayList<Document>();
+							help.add(acccess_In);
+							
+							int ac_id_ALREADYIN = Integer.parseInt(acccess_In.get("accessory_id").toString());
+							if(ac_id_ALREADYIN != ac_id_TOBEAD ){
+								help.add(accessory);
+							}
+							Document query = new Document("vehicle_id", Integer.toString(vehicle_ID));
+							coll_veh.findOneAndDelete(query);
+							
+							vehs.get(i).remove("accessory");
+							vehs.get(i).put("accessory", help);
+							coll_veh.insertOne(vehs.get(i));
+							break;
 						}
 					}
 				}

@@ -72,9 +72,9 @@ public class AccessoryGenerator {
 		System.out.println(ah.size());
 		
 		int index1, index2;
-		for(int i = 0; i < 10; i ++){
-			index1 = rand.nextInt(5);
-			index2 = rand.nextInt(5); 
+		for(int i = 0; i < 20; i ++){
+			index1 = rand.nextInt(ac.size());
+			index2 = rand.nextInt(ah.size()); 
 			ad.addHasAccessory(ac.get(index1).getAccessory_ID(), ah.get(index2).getVehicle_ID());
 		}
 		

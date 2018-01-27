@@ -25,7 +25,7 @@ public class ModelDAOM implements ModelDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		List<Document> mod = coll.find().into(new ArrayList<Document>());
 		
 		for (int i = 0; i < mod.size(); i++) {
@@ -59,7 +59,7 @@ public class ModelDAOM implements ModelDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		Document query = new Document("model_id",Integer.toString(model_id));
 		Document result = null;
 		
@@ -89,7 +89,7 @@ public class ModelDAOM implements ModelDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		List<Document> mod = coll.find().into(new ArrayList<Document>());
 		
 		int id = 1;
@@ -121,7 +121,7 @@ public class ModelDAOM implements ModelDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		Document searchQuery = new Document("model_id", Integer.toString(model_ID));
 		Document newValues = new Document();
 		Document subdoc = new Document();
@@ -144,7 +144,7 @@ public class ModelDAOM implements ModelDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		Document query = new Document("model_id", Integer.toString(model_id));
 		
 		coll.findOneAndDelete(query);
@@ -161,7 +161,7 @@ public class ModelDAOM implements ModelDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		List<Document> mod = coll.find().into(new ArrayList<Document>());
 		
 		for (int i = 0; i < mod.size(); i++) {
@@ -194,7 +194,7 @@ public class ModelDAOM implements ModelDAO {
 		
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
-		MongoCollection<Document> coll = database.getCollection("imse.model");
+		MongoCollection<Document> coll = database.getCollection("model");
 		
 		Document query = new Document("manufacturer.name",name);
 		List<Document> mod = coll.find(query).into(new ArrayList<Document>());

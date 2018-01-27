@@ -78,7 +78,7 @@ public class DataGeneratorM {
 			}
 		}
 		
-	/*		for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
+			for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
 			if(cc instanceof Truck){
 				Truck truck = (Truck) cc;
 				List<Accessory> accs = acDAOI.getHasAccessory(truck.getVehicle_ID());
@@ -95,8 +95,8 @@ public class DataGeneratorM {
 		for(Costumer r : coDAOI.getCostumerList())
 			coDAOM.addCostumer(r);
 		
-		DataGenerator.dropDB();
-		*/
+		//DataGenerator.dropDB();
+		
 	}
 	
 	public void MongoDBToSQL(){

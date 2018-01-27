@@ -21,7 +21,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
 			List<Document> cursor = collection.find().into(new ArrayList<Document>());
 			List<Costumer> cList = new ArrayList<Costumer>();
@@ -74,7 +74,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
 			List<Document> cursor = collection.find().into(new ArrayList<Document>());
 			//List<Costumer> cList = new ArrayList<Costumer>();
@@ -126,7 +126,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
 			Document toInsert = new Document();
 			Document address = new Document();
@@ -162,7 +162,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
             Document update = new Document();
             Document whatToUpdate = new Document();
@@ -202,7 +202,7 @@ public class CostumerDAOM implements CostumerDAO {
 		try {
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.Customer");
+			MongoCollection<Document> collection = database.getCollection("Customer");
 
             collection.findOneAndDelete(new Document().append("costumer_ID", ID));
 

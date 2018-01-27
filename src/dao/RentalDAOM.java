@@ -31,7 +31,7 @@ public class RentalDAOM implements RentalDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.Customer");
+		MongoCollection<Document> coll = database.getCollection("Customer");
 		List<Document> cursor = coll.find().into(new ArrayList<Document>());
 		
 		for (Document obj:cursor) {
@@ -87,14 +87,14 @@ public class RentalDAOM implements RentalDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.Customer");
+		MongoCollection<Document> coll = database.getCollection("Customer");
 		List<Document> cursor = coll.find().into(new ArrayList<Document>());
 		
 		for (Document obj:cursor) {
 			int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
 			if(costumer_ID == r.getCostumer().getCostumer_ID()){
 				Costumer costumer = cost.getCostumerById(costumer_ID);
-				
+				/*
 				if(obj.get("rental") != null){
 					
 					List<Document> rents = (List<Document>) obj.get("rental");
@@ -104,7 +104,7 @@ public class RentalDAOM implements RentalDAO {
 				}else{
 					List<Document> rents = new ArrayList<Document>();
 					Document rent = new Document();
-				}
+				}*/
 			}
 		}
 		
@@ -153,7 +153,7 @@ public class RentalDAOM implements RentalDAO {
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.Customer");
+		MongoCollection<Document> coll = database.getCollection("Customer");
 		List<Document> cursor = coll.find().into(new ArrayList<Document>());
 		
 		for (Document obj:cursor) {

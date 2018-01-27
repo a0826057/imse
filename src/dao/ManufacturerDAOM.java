@@ -24,7 +24,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 			manufacturers = new ArrayList<Manufacturer>();
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.manufacturer");
+			MongoCollection<Document> collection = database.getCollection("manufacturer");
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 			
 			for (int i = 0; i < foundDocument.size(); i++) {
@@ -52,7 +52,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.manufacturer");
+		MongoCollection<Document> coll = database.getCollection("manufacturer");
 		Document searchQuery = new Document("manufacturer_id", Integer.toString(manufacturer_id));
 		Document result = null;
 		
@@ -76,7 +76,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 		try{
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse");
-			MongoCollection<Document>  collection = database.getCollection("imse.manufacturer");
+			MongoCollection<Document>  collection = database.getCollection("manufacturer");
 			List<Document> accs = collection.find().into(new ArrayList<Document>());
 			
 			int id = 1;
@@ -104,7 +104,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 		try{
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.manufacturer");
+			MongoCollection<Document> collection = database.getCollection("manufacturer");
 			
 			Document searchQuery = new Document("manufacturer_id", Integer.toString(manufacturer_ID));
 			Document newValues = new Document();
@@ -125,7 +125,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.manufacturer");
+		MongoCollection<Document> coll = database.getCollection("manufacturer");
 		Document query = new Document("manufacturer_id", Integer.toString(manufacturer_ID));
 		
 		coll.findOneAndDelete(query);
@@ -140,7 +140,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 			manufacturers = new ArrayList<Manufacturer>();
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.manufacturer");
+			MongoCollection<Document> collection = database.getCollection("manufacturer");
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 			
 			for (int i = 0; i < foundDocument.size(); i++) {
@@ -169,7 +169,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 			manufacturers = new ArrayList<Manufacturer>();
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.manufacturer");
+			MongoCollection<Document> collection = database.getCollection("manufacturer");
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 			
 			for (int i = 0; i < foundDocument.size(); i++) {
@@ -200,7 +200,7 @@ public class ManufacturerDAOM implements ManufacturerDAO{
 			manufacturers = new ArrayList<Manufacturer>();
 			mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = mongoClient.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.manufacturer");
+			MongoCollection<Document> collection = database.getCollection("manufacturer");
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 			
 			for (int i = 0; i < foundDocument.size(); i++) {

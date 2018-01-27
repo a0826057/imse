@@ -22,7 +22,7 @@ public class ColorDAOM implements ColorDAO{
 			colors = new ArrayList<Color>();
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.color");
+			MongoCollection<Document> collection = database.getCollection("color");
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 				for (int i = 0; i < foundDocument.size(); i++) {
 					Document col = foundDocument.get(i);
@@ -49,7 +49,7 @@ public class ColorDAOM implements ColorDAO{
 			colors = new ArrayList<Color>();
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.color");
+			MongoCollection<Document> collection = database.getCollection("color");
 			Document query = new Document("color_id",Integer.toString(color_id));
 			Document result = null;
 			for(Document color : collection.find(query)) {
@@ -76,7 +76,7 @@ public class ColorDAOM implements ColorDAO{
 		try{
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse");
-			MongoCollection<Document> collection = database.getCollection("imse.color");
+			MongoCollection<Document> collection = database.getCollection("color");
 			List<Document> col = collection.find().into(new ArrayList<Document>());
 			
 			int id = 1;
@@ -126,7 +126,7 @@ public class ColorDAOM implements ColorDAO{
 		try{		
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.color");
+			MongoCollection<Document> collection = database.getCollection("color");
 			Document query = new Document("color_id", Integer.toString(color_id));
 			collection.findOneAndDelete(query);
 		}catch (MongoException e){
@@ -143,7 +143,7 @@ public class ColorDAOM implements ColorDAO{
 			colors = new ArrayList<Color>();
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.color");
+			MongoCollection<Document> collection = database.getCollection("color");
 			List<Document> foundDocument = collection.find().into(new ArrayList<Document>());
 				for (int i = 0; i < foundDocument.size(); i++) {
 					Document col = foundDocument.get(i);
@@ -169,7 +169,7 @@ public class ColorDAOM implements ColorDAO{
 		try{
 			client = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 			MongoDatabase database = client.getDatabase("imse"); 
-			MongoCollection<Document> collection = database.getCollection("imse.color");
+			MongoCollection<Document> collection = database.getCollection("color");
 			Document query = new Document("description",description);
 			List<Document> foundDocument = collection.find(query).into(new ArrayList<Document>());
 				for (int i = 0; i < foundDocument.size(); i++) {
