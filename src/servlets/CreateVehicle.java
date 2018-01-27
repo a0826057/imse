@@ -48,7 +48,7 @@ public class CreateVehicle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
         dispatcher.forward(request, response);		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); //update
 		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 		ModelDAO mod = Proxy.getInstance().getModelDAO();
 		ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
