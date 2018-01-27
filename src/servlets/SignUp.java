@@ -52,7 +52,7 @@ public class SignUp extends HttpServlet {
 			String country = request.getParameter("country");
 			String town = request.getParameter("town");
 			String pcode = request.getParameter("pcode");
-			String street = request.getParameter("steet");
+			String street = request.getParameter("street");
 			String hnum = request.getParameter("hnum");
 			String anum = request.getParameter("anum");
 			String bday1 = request.getParameter("bday");

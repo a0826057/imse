@@ -78,7 +78,7 @@ public class DataGeneratorM {
 			}
 		}*/
 		
-			for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
+			/*for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
 			if(cc instanceof Truck){
 				Truck truck = (Truck) cc;
 				List<Accessory> accs = acDAOI.getHasAccessory(truck.getVehicle_ID());
@@ -87,7 +87,7 @@ public class DataGeneratorM {
 				for(Accessory ac : accs)
 					acDAOM.addHasAccessory(ac.getAccessory_ID(), truck.getVehicle_ID());
 			}
-		}
+		}*/
 	
 		for(Rental r : rentDAOI.getRentalList())
 			rentDAOM.addRental(r);
