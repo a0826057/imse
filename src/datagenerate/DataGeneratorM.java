@@ -1,5 +1,11 @@
 package datagenerate;
 
+import java.util.List;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
+
 import dao.AccessoryDAOI;
 import dao.AccessoryDAOM;
 import dao.ColorDAOI;
@@ -17,12 +23,14 @@ import dao.RentalDAOM;
 import dao.VehicleDAOI;
 import dao.VehicleDAOM;
 import model.Accessory;
+import model.Car;
 import model.Color;
 import model.Costumer;
 import model.Employee;
 import model.Manufacturer;
 import model.Model;
 import model.Rental;
+import model.Truck;
 import model.Vehicle;
 
 public class DataGeneratorM {
@@ -59,17 +67,41 @@ public class DataGeneratorM {
 		for(Employee cc : empDAOI.getEmployeeList())
 			empDAOM.addEmployee(cc);
 		
-//		for(Vehicle cc : vehDAOI.getVehicleList())
-		//	vehDAOM.add
+		for(Vehicle cc : vehDAOI.getVehicleListByType("car")){
+			if(cc instanceof Car){
+				Car car = (Car) cc;
+				List<Accessory> accs = acDAOI.getHasAccessory(car.getVehicle_ID());
+				vehDAOM.addCar(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), car.getDoors()	, car.getPassenger_limit());
+				
+				for(Accessory ac : accs)
+					acDAOM.addHasAccessory(ac.getAccessory_ID(), car.getVehicle_ID());
+			}
+		}
+		
+		for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
+			if(cc instanceof Truck){
+				Truck truck = (Truck) cc;
+				List<Accessory> accs = acDAOI.getHasAccessory(truck.getVehicle_ID());
+				vehDAOM.addTruck(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), truck.getLenght(), truck.getHeight(), truck.getLoading_limit());
+				
+				for(Accessory ac : accs)
+					acDAOM.addHasAccessory(ac.getAccessory_ID(), truck.getVehicle_ID());
+			}
+		}
 	
 		for(Rental r : rentDAOI.getRentalList())
 			rentDAOM.addRental(r);
 		
 		for(Costumer r : coDAOI.getCostumerList())
 			coDAOM.addCostumer(r);
+		
+		DataGenerator.dropDB();
+		
 	}
 	
 	public void MongoDBToSQL(){
+		DataGenerator.createDB();
+		
 		for(Accessory acc : acDAOM.getAccessoryList())
 			acDAOI.addAccessory(acc.getName(), acc.getDescription());
 		
@@ -85,24 +117,53 @@ public class DataGeneratorM {
 		for(Employee cc : empDAOM.getEmployeeList())
 			empDAOI.addEmployee(cc);
 		
-//		for(Vehicle cc : vehDAOI.getVehicleList())
-		//	vehDAOM.add
+		for(Vehicle cc : vehDAOM.getVehicleListByType("car")){
+			if(cc instanceof Car){
+				Car car = (Car) cc;
+				List<Accessory> accs = acDAOM.getHasAccessory(car.getVehicle_ID());
+				vehDAOI.addCar(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), car.getDoors()	, car.getPassenger_limit());
+			
+				for(Accessory ac : accs)
+					acDAOI.addHasAccessory(ac.getAccessory_ID(), car.getVehicle_ID());
+			}
+		}
+		
+		for(Vehicle cc : vehDAOM.getVehicleListByType("truck")){
+			if(cc instanceof Truck){
+				Truck truck = (Truck) cc;
+				List<Accessory> accs = acDAOM.getHasAccessory(truck.getVehicle_ID());
+				vehDAOI.addTruck(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), truck.getLenght(), truck.getHeight(), truck.getLoading_limit());
+			
+				for(Accessory ac : accs)
+					acDAOI.addHasAccessory(ac.getAccessory_ID(), truck.getVehicle_ID());
+			}
+		}
 
 		for(Costumer r : coDAOM.getCostumerList())
 			coDAOI.addCostumer(r);
 	
 		for(Rental r : rentDAOM.getRentalList())
 			rentDAOI.addRental(r);
+		
+		dropMongoDB();
 	}
 	
+	public static void dropMongoDB(){
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		database.drop();
+		
+		if(mongoClient != null)
+			mongoClient.close();
+	}
 	
 	public static void main(String[] args) {
+		DataGeneratorM dgenMongo = new DataGeneratorM();
 		
-		// IMPLEMENT DROPPING ALL TABLES BEFORE ADDING ON BOTH SIDES
-		DataGeneratorM dgen = new DataGeneratorM();
+		// ADD PROXY TO KNOW FROM WHICH TO WHICH 
+		dropMongoDB();
+		dgenMongo.SQLToMongoDB();
 		
-		dgen.SQLToMongoDB();
-		
-		dgen.MongoDBToSQL();
+	//	dgenMongo.MongoDBToSQL();
 	}
 }
