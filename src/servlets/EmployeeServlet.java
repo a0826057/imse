@@ -3,6 +3,7 @@ package servlets;
 import dao.EmployeeDAO;
 import dao.Proxy;
 import datagenerate.DataGenerator;
+import datagenerate.DataGeneratorM;
 import model.Employee;
 
 import javax.servlet.ServletException;
@@ -177,7 +178,10 @@ public class EmployeeServlet extends HttpServlet {
         if (request.getParameter("employeeMode").equals("loadProxy")) {
             Proxy.getInstance(request.getParameter("dbmode"));
             request.setAttribute("dbmode", Proxy.getDbmode());
-            request.getRequestDispatcher("employee.jsp").include(request, response);
+            DataGeneratorM.main(new String[0]);
+            request.getRequestDispatcher("Homepage.jsp").include(request, response);
+            
+          //  request.getRequestDispatcher("employee.jsp").include(request, response);
         }
     }
 
