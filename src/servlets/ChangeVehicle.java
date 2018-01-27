@@ -41,28 +41,7 @@ public class ChangeVehicle extends HttpServlet {
 		//String user = (String)request.getParameter("user");
 		//String password = (String) request.getParameter("password");
 		
-		/*String vehicleSelectId= (String) request.getParameter("edit");   
-	    int vehicleIdSelect = Integer.parseInt(vehicleSelectId);
-		String vehicleType=null;
-	    HttpSession session = request.getSession();
-		session.setAttribute("vehicleSelectId",vehicleSelectId);
-	
-        VehicleDAO veh = new VehicleDAOI();
-        List<Vehicle> list_car = new ArrayList<Vehicle>();
-        list_car.addAll(veh.getVehicleListByType("car"));
-		for(Vehicle c:list_car){
-			if(c.getVehicle_ID()== vehicleIdSelect){
-				vehicleType="CAR";
-			}
-		}
-		if(vehicleType == null) {
-			vehicleType="TRUCK";
-		}
 		
-		session.setAttribute("vehicleType",vehicleType);   
-	    */
-		
-	
 		try {
 			String user="admin";
 			String password="admin";

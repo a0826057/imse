@@ -51,15 +51,13 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    	HttpSession session = request.getSession(); 
-    	type = (String) request.getParameter("vehicleType");
-    	System.out.println("Im"+ type);
-    	AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
- 		ModelDAO mod = Proxy.getInstance().getModelDAO();
- 		ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
- 		ColorDAO col = Proxy.getInstance().getColorDAO();	
-    
+		HttpSession session = request.getSession(); 
+	  	type = request.getParameter("vehicleType");
+	    System.out.println("Im"+ type);
+	    AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
+	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+	 	ColorDAO col = Proxy.getInstance().getColorDAO();
         session.setAttribute("colorList",col.getColorList());
    	    session.setAttribute("modelList",mod.getModelList());
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
