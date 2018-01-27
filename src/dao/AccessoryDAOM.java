@@ -186,7 +186,6 @@ public class AccessoryDAOM implements AccessoryDAO{
 		for (int i = 0; i < vehs.size(); i++) {
 			int veh_id = Integer.parseInt(vehs.get(i).get("vehicle_id").toString());
 			if(veh_id == vehicle_ID){
-				System.out.println("here" + veh_id);
 				for (int j = 0; j < access.size(); j++) {
 					int ac_id_TOBEAD = Integer.parseInt(access.get(j).get("accessory_id").toString());
 					if(ac_id_TOBEAD == accessory_ID){
@@ -196,7 +195,6 @@ public class AccessoryDAOM implements AccessoryDAO{
 						for(Document a : help){
 							int ac_id_ALREADYIN = Integer.parseInt(a.get("accessory_id").toString());
 							if(ac_id_ALREADYIN != ac_id_TOBEAD ){
-								System.out.println("here" + ac_id_ALREADYIN + ac_id_TOBEAD );
 								acceses_INVEHICLE.add(accessory);
 								
 								Document query = new Document("vehicle_id", Integer.toString(vehicle_ID));

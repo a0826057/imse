@@ -5,6 +5,9 @@ import model.Costumer;
 import model.Employee;
 import model.Rental;
 import model.Vehicle;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,78 +25,91 @@ public class RentalDAOM implements RentalDAO {
 
 	@Override
 	public List<Rental> getRentalList(){
-	/*	rentals = new ArrayList<Rental>();
+		rentals = new ArrayList<Rental>();
+		CostumerDAOM cost = new CostumerDAOM();
+		VehicleDAOM ve = new VehicleDAOM();
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		MongoCollection<Document> coll = database.getCollection("imse.customer");
-		List<Document> access = coll.find().into(new ArrayList<Document>());
+		MongoCollection<Document> coll = database.getCollection("imse.Customer");
+		List<Document> cursor = coll.find().into(new ArrayList<Document>());
 		
-		for (int i = 0; i < access.size(); i++) {
-			Document ac = access.get(i);
-			List<Rental> rentals = (List<Rental>) ac.get("rental");
-			String description = (String) ac.get("description");
-			Accessory a = new Accessory(i,name,description);
-			accessories.add(a);
-		}
+		for (Document obj:cursor) {
+			if(obj.get("rental") != null){
+				int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
+				Costumer costumer = cost.getCostumerById(costumer_ID);
+				
+				List<Document> rents = (List<Document>) obj.get("rental");
+				for (Document r : rents) {
+					Document veh = (Document) r.get("vehicle");
+					int id_veh = Integer.parseInt(veh.get("vehicle_id").toString());
+					Vehicle vehicle = ve.getVehicleById(id_veh);
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					java.util.Date date_from = null;
+					java.util.Date date_to = null;
+					try {
+						date_from = sdf.parse(r.get("date_from").toString());
+						date_to = sdf.parse(r.get("date_to").toString());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	
+					String rat = r.get("rating").toString();
+					//EMPLOYEE MISSING
+					Rental re = new Rental(vehicle, costumer, null, date_from, date_to, rat);
+					rentals.add(re);
+				}
+				
+			}
 			
+		}
+		
 		if (mongoClient != null)
 			mongoClient.close();
 		
 
-			VehicleDAOI ad = new VehicleDAOI();
-			CostumerDAOI col = new CostumerDAOI();
-			EmployeeDAOI mod = new EmployeeDAOI();
-
-			while(result.next()){
-				Vehicle v = ad.getVehicleById(result.getInt("vehicle_ID"));
-				Costumer c = col.getCostumerById(result.getInt("costumer_ID"));
-				Employee e = mod.getEmployeeById(result.getInt("employee_ID"));
-				Rental r = new Rental(v, c, e, result.getDate("date_from"), result.getDate("date_to"), result.getString("rating"));
-				rentals.add(r);
-			}*/
-
-		return null;
+		return rentals;
 	}
 	
 
 	public static void main (String [] args){
-	//	AccessoryDAOM acc = new AccessoryDAOM();
-		//acc.getAccessoriesByName("Paint");
+		RentalDAOM acc = new RentalDAOM();
+		System.out.println(acc.getRentalList().size());
 	}
 
 	@Override
 	public void addRental(Rental r){
-	/*	Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "INSERT INTO rental(vehicle_ID, costumer_ID, employee_ID, date_from, date_to, rating) VALUES(?,?,?,?,?,?);";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			Date utilDateFrom = r.getDate_from();
-			java.sql.Date sqlDateFrom = new java.sql.Date(utilDateFrom.getTime());
-			Date utilDateTo = r.getDate_to();
-			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
-			prepared.setInt(1, r.getVehicle().getVehicle_ID());
-			prepared.setInt(2, r.getCostumer().getCostumer_ID());
-			prepared.setInt(3, r.getEmployee().getEmployee_number());
-			prepared.setDate(4, sqlDateFrom);
-			prepared.setDate(5, sqlDateTo);
-			prepared.setString(6, r.getRating());
-			prepared.executeUpdate();
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
+		
+		CostumerDAOM cost = new CostumerDAOM();
+		VehicleDAOM ve = new VehicleDAOM();
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.Customer");
+		List<Document> cursor = coll.find().into(new ArrayList<Document>());
+		
+		for (Document obj:cursor) {
+			int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
+			if(costumer_ID == r.getCostumer().getCostumer_ID()){
+				Costumer costumer = cost.getCostumerById(costumer_ID);
+				
+				if(obj.get("rental") != null){
+					
+					List<Document> rents = (List<Document>) obj.get("rental");
+					Document rent = new Document();
+					
+					
+				}else{
+					List<Document> rents = new ArrayList<Document>();
+					Document rent = new Document();
+				}
 			}
-		}*/
+		}
+		
+		if (mongoClient != null)
+			mongoClient.close();
 	}
 
 	@Override
@@ -130,34 +146,53 @@ public class RentalDAOM implements RentalDAO {
 
 	@Override
 	public void deleteRental(int vid, int cid, int eid, Date date_from){
-	/*	Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "DELETE FROM rental WHERE vehicle_ID = ? AND costumer_ID = ? AND employee_ID = ? AND date_from = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, vid);
-			prepared.setInt(2, cid);
-			prepared.setInt(3,eid);
-			Date utilDateTo = date_from;
-			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
-			prepared.setDate(4, sqlDateTo);
-
-			prepared.executeUpdate();
-
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
+		
+		rentals = new ArrayList<Rental>();
+		CostumerDAOM cost = new CostumerDAOM();
+		VehicleDAOM ve = new VehicleDAOM();
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll = database.getCollection("imse.Customer");
+		List<Document> cursor = coll.find().into(new ArrayList<Document>());
+		
+		for (Document obj:cursor) {
+			int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
+			
+			if(costumer_ID == cid){
+				
+				if(obj.get("rental") != null){
+					Costumer costumer = cost.getCostumerById(costumer_ID);
+					
+					List<Document> rents = (List<Document>) obj.get("rental");
+					for (Document r : rents) {
+						
+						Document veh = (Document) r.get("vehicle");
+						int id_veh = Integer.parseInt(veh.get("vehicle_id").toString());
+						
+						SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+						java.util.Date date_from_r = null;
+							try {
+								date_from_r = sdf.parse(r.get("date_from").toString());
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						if((id_veh == vid) &&  (date_from.equals(date_from_r))){
+							
+							//coll.findOneAndDelete(arg0);
+							
+						}
+					}
+				}
+		
 			}
-		}*/
+			
+		}
+		
+		if (mongoClient != null)
+			mongoClient.close();
 	}
 
 	@Override
