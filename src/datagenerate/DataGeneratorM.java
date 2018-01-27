@@ -95,7 +95,7 @@ public class DataGeneratorM {
 		for(Costumer r : coDAOI.getCostumerList())
 			coDAOM.addCostumer(r);
 		
-		//DataGenerator.dropDB();
+		DataGenerator.dropDB();
 		
 	}
 	
@@ -164,6 +164,6 @@ public class DataGeneratorM {
 		dropMongoDB();
 		dgenMongo.SQLToMongoDB();
 		
-	//	dgenMongo.MongoDBToSQL();
+		//dgenMongo.MongoDBToSQL();
 	}
 }
