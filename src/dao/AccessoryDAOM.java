@@ -172,63 +172,87 @@ public class AccessoryDAOM implements AccessoryDAO{
 		return accessories;
 	}
 	
+	
+	
+
+	public static void main (String [] args){
+		AccessoryDAOM acc = new AccessoryDAOM();
+		acc.addHasAccessory(3, 1);
+	}
+
+	
 	public void addHasAccessory(int accessory_ID, int vehicle_ID){
-		/*Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root", "MySQLrp");
-			
-			Statement stat = con.createStatement();
-			stat.setQueryTimeout(60);
-			String raw_query = "INSERT INTO has_accessory(accessory_ID, vehicle_ID) VALUES(?,?);";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, accessory_ID);
-			prepared.setInt(2, vehicle_ID);
-			prepared.executeUpdate();
-		}catch(Exception e){
-			System.err.println(e);
-		}finally{
-			try{
-				if(con != null)
-					con.close();
-			}catch(SQLException e){
-				System.err.println(e);
-			}
-		}*/
 		
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
+		
+		MongoCollection<Document> coll_acc = database.getCollection("imse.accessory");
+		MongoCollection<Document> coll_veh = database.getCollection("imse.vehicle");
+		
+		List<Document> access = coll_acc.find().into(new ArrayList<Document>());
+		List<Document> vehs = coll_veh.find().into(new ArrayList<Document>());
+		
+		for (int i = 0; i < vehs.size(); i++) {
+			int veh_id = Integer.parseInt(vehs.get(i).get("vehicle_id").toString());
+			if(veh_id == vehicle_ID){
+				System.out.println("here" + veh_id);
+				for (int j = 0; j < access.size(); j++) {
+					int ac_id_TOBEAD = Integer.parseInt(access.get(j).get("accessory_id").toString());
+					if(ac_id_TOBEAD == accessory_ID){
+						Document accessory = access.get(j);
+						List<Document> acceses_INVEHICLE = (List<Document>) vehs.get(i).get("accessory");
+						List<Document> help = acceses_INVEHICLE;
+						for(Document a : help){
+							int ac_id_ALREADYIN = Integer.parseInt(a.get("accessory_id").toString());
+							if(ac_id_ALREADYIN != ac_id_TOBEAD ){
+								System.out.println("here" + ac_id_ALREADYIN + ac_id_TOBEAD );
+								acceses_INVEHICLE.add(accessory);
+								
+								Document query = new Document("vehicle_id", Integer.toString(vehicle_ID));
+								coll_veh.findOneAndDelete(query);
+								
+								vehs.get(i).remove("accessory");
+								vehs.get(i).put("accessory", acceses_INVEHICLE);
+								coll_veh.insertOne(vehs.get(i));
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		
+		if (mongoClient != null)
+			mongoClient.close();
 	}
 	
 	public List<Accessory> getHasAccessory(int vehicle_ID){
-	/*	Connection con = null;
-		AccessoryDAOM ac = new AccessoryDAOM();
-		List<Accessory> list = new ArrayList<Accessory>();
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root", "MySQLrp");
-			
-			Statement stat = con.createStatement();
-			stat.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM has_accessory WHERE vehicle_ID = ?";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, vehicle_ID);
-			ResultSet res = prepared.executeQuery();
-			
-			while(res.next()){
-				 Accessory acc = ac.getAccessoryById(res.getInt("accessory_ID"));
-				 list.add(acc);
-			}
-			
-		}catch(Exception e){
-			System.err.println(e);
-		}finally{
-			try{
-				if(con != null)
-					con.close();
-			}catch(SQLException e){
-				System.err.println(e);
-			}
-		}*/
+		accessories = new ArrayList<Accessory>();
+		AccessoryDAOM acc = new AccessoryDAOM();
+		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
-		return null;
+		MongoCollection<Document> coll_veh = database.getCollection("imse.vehicle");
+		List<Document> vehs = coll_veh.find().into(new ArrayList<Document>());
+		
+		for (int i = 0; i < vehs.size(); i++) {
+			int veh_id = Integer.parseInt(vehs.get(i).get("vehicle_id").toString());
+			if(veh_id == vehicle_ID){
+				List<Document> acceses = (List<Document>) vehs.get(i).get("accessory");
+				for(Document a : acceses){
+					int ac_id_ALREADYIN = Integer.parseInt(a.get("accessory_id").toString());
+					Accessory accessory = acc.getAccessoryById(ac_id_ALREADYIN);
+					accessories.add(accessory);
+				}
+					
+			}
+			
+		}
+		
+		if (mongoClient != null)
+			mongoClient.close();
+		
+		return accessories;
 	}
 }
