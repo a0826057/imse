@@ -183,6 +183,11 @@ public class EmployeeServlet extends HttpServlet {
             DataGeneratorM.main(new String[0]);
             request.getRequestDispatcher("Homepage.jsp").include(request, response);
         }
+        if (request.getParameter("employeeMode").equals("migrate")) {
+            DataGeneratorM.main(new String[0]);
+            request.setAttribute("msg", "Data migration complete!");
+            request.getRequestDispatcher("Homepage.jsp").include(request, response);
+        }
     }
 
     /**
