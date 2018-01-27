@@ -70,7 +70,7 @@ public class EmployeeGenerator {
 	    	fi = (int)((Math.random()) * numEmployees);
 	    	for(int j = 0; j < 5; j++) {
 	    		do {
-	    			li = (int)((Math.random()) * numEmployees);
+	    			li = (int)((Math.random()) * numEmployees + 1); 
 	    		}while (fi == li);
 	    		Employee e = empl.getEmployeeById(li);
 	    		Employee ex = new Employee (e.getEmployee_number(), e.getFirst_name(), e.getLast_name(), fi, e.isActive());
