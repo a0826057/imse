@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
-import dao.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 import dao.CostumerDAOI;
 import model.Costumer;
 

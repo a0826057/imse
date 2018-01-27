@@ -43,7 +43,7 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{			
-			CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
+			CostumerDAO cdao = Proxy.getInstance().getCostumerDAO();
 			List<Costumer> all = cdao.getCostumerList();
 			List<Costumer> buff = new ArrayList<Costumer>();
 			

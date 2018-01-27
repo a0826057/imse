@@ -67,7 +67,7 @@ public class SignUp extends HttpServlet {
 
 		    Costumer toAdd = new Costumer(0,title, fname, lname, "", bdate, email, pcode, 
 		    							  street, hnum, anum, town, country, pwd_hash, password, true);
-		    CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
+		    CostumerDAO cdao = Proxy.getInstance().getCostumerDAO();
 		    cdao.addCostumer(toAdd);
 		    
 		    HttpSession session = request.getSession(true); 

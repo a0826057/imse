@@ -67,7 +67,7 @@ public class DataGeneratorM {
 		for(Employee cc : empDAOI.getEmployeeList())
 			empDAOM.addEmployee(cc);
 		
-		for(Vehicle cc : vehDAOI.getVehicleListByType("car")){
+		/*for(Vehicle cc : vehDAOI.getVehicleListByType("car")){
 			if(cc instanceof Car){
 				Car car = (Car) cc;
 				List<Accessory> accs = acDAOI.getHasAccessory(car.getVehicle_ID());
@@ -76,7 +76,7 @@ public class DataGeneratorM {
 				for(Accessory ac : accs)
 					acDAOM.addHasAccessory(ac.getAccessory_ID(), car.getVehicle_ID());
 			}
-		}
+		}*/
 		
 			for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
 			if(cc instanceof Truck){
@@ -92,10 +92,11 @@ public class DataGeneratorM {
 		for(Rental r : rentDAOI.getRentalList())
 			rentDAOM.addRental(r);
 		
+		System.out.println(coDAOI.getCostumerList());
 		for(Costumer r : coDAOI.getCostumerList())
 			coDAOM.addCostumer(r);
 		
-		DataGenerator.dropDB();
+	//	DataGenerator.dropDB();
 		
 	}
 	

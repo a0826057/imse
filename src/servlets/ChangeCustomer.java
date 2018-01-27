@@ -44,7 +44,7 @@ public class ChangeCustomer extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
+			CostumerDAO cdao = Proxy.getInstance().getCostumerDAO();
 			List<Costumer> all = new ArrayList<Costumer>();
 			
 			HttpSession session = request.getSession(true); 

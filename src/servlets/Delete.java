@@ -39,7 +39,7 @@ public class Delete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
+			CostumerDAO cdao = Proxy.getInstance().getCostumerDAO();
 			Costumer c = cdao.getCostumerById(Integer.parseInt(request.getParameter("id")));
 			HttpSession session = request.getSession(true); 
 			String user = (String)session.getAttribute("currentSessionUser");
