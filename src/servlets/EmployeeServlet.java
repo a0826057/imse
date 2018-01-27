@@ -68,6 +68,7 @@ public class EmployeeServlet extends HttpServlet {
                             superiorDropdownString.append("<option value=\"none\">None</option>");
                         }
                     }
+                    superiorDropdownString.append("</select>");
                     request.setAttribute("superiorDropdownString", superiorDropdownString.toString());
                     request.setAttribute("employeeMode", employeeMode);
                     request.getRequestDispatcher("employee.jsp").include(request, response);
@@ -117,12 +118,12 @@ public class EmployeeServlet extends HttpServlet {
                         //    employeeDropdownString.append("<option value=\"none\">None</option>");
                         //}
                     }
-
+                    employeeDropdownString.append("</select>");
                     superior_id = Integer.parseInt(request.getParameter("superior_id"));
 
                     if(!request.getParameter("employee_number").equals("-1")) {
-                        Employee employee = employeeDAO.getEmployeeById(Integer.parseInt(request.getParameter("employee_number")));//response.getWriter().print("a");
-                        request.setAttribute("employee_number", employee.getEmployee_number());//response.getWriter().print("b");
+                        Employee employee = employeeDAO.getEmployeeById(Integer.parseInt(request.getParameter("employee_number")));
+                        request.setAttribute("employee_number", employee.getEmployee_number());
                         request.setAttribute("first_name", employee.getFirst_name());
                         request.setAttribute("last_name", employee.getLast_name());
                         superior_id = employee.getSuperior_ID();
@@ -147,6 +148,7 @@ public class EmployeeServlet extends HttpServlet {
                             //superiorDropdownString.append("<option value=\"none\">None</option>");
                         }
                     }
+                    superiorDropdownString.append("</select>");
                     request.setAttribute("employee_number", request.getParameter("employee_number"));
                     if(request.getParameter("save").equals("1")) {
                         Employee updateEmployee = new Employee(Integer.parseInt(request.getParameter("employee_number")), request.getParameter("first_name"), request.getParameter("last_name"), Integer.parseInt(request.getParameter("superior_id")), Boolean.parseBoolean(request.getParameter(("active"))));
@@ -180,8 +182,6 @@ public class EmployeeServlet extends HttpServlet {
             request.setAttribute("dbmode", Proxy.getDbmode());
             DataGeneratorM.main(new String[0]);
             request.getRequestDispatcher("Homepage.jsp").include(request, response);
-            
-          //  request.getRequestDispatcher("employee.jsp").include(request, response);
         }
     }
 
