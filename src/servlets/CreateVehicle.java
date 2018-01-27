@@ -1,5 +1,7 @@
 package servlets;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AccessoryDAO;
+import dao.ColorDAO;
+import dao.ManufacturerDAO;
+import dao.ModelDAO;
+import dao.Proxy;
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
+
+
 
 
 /**
@@ -22,6 +31,7 @@ public class CreateVehicle extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -7957711074827916095L;
+	private String type;
 	
     
 
@@ -36,9 +46,26 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+        dispatcher.forward(request, response);		
+		HttpSession session = request.getSession();
+		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+		ModelDAO mod = Proxy.getInstance().getModelDAO();
+		ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+		ColorDAO col = Proxy.getInstance().getColorDAO();		
+        try {
+        	 type = (String) request.getParameter("vehicleType");				
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+        
+        session.setAttribute("colorList", col.getColorList());
+   	    session.setAttribute("modelList",mod.getModelList());
+   	    session.setAttribute("manufacturerList",man.getManufacturerList());
+   	    session.setAttribute("accessoryList",acc.getAccessoryList());
+        
 	
-}
+	}
 	
 
 	/**

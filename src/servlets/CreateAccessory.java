@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import dao.Proxy;
 import dao.AccessoryDAO;
 import dao.AccessoryDAOI;
+import dao.CostumerDAO;
 
 @WebServlet("/CreateAccessory")
 public class CreateAccessory extends HttpServlet{
@@ -39,23 +40,23 @@ public class CreateAccessory extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
 		try {
-				
-				String user = (String) request.getParameter("user");
-				String password = (String) request.getParameter("password");
-				if(user.equals("admin") && password.equals("admin")){
+				HttpSession session = request.getSession(true); 
+				String user = (String)session.getAttribute("currentSessionUser");
+				if(user.equals("admin") && user != null){
 					String name = (String) request.getParameter("name");
 					String description = (String) request.getParameter("description");
 					if(name != null) {
-						AccessoryDAO adao = new AccessoryDAOI();
+						AccessoryDAO adao = Proxy.getInstance().getAccessoryDAO();
 					    adao.addAccessory(name, description);
 					    response.sendRedirect("ListVehicle.jsp");
+					    return;
 					}
 				    
 				}
 				else {
 					response.sendRedirect("Homepage.jsp");
+					return;
 				}
 				
 			
