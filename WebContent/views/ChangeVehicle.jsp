@@ -43,140 +43,107 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </div>
 
 <div class="w3-container w3-white w3-padding-16">
-<form id="ChangeVehicle" action="${pageContext.request.contextPath}/ChangeVehicle" method="post" class="w3-container w3-card-4 w3-light-grey">
+<form  action="${pageContext.request.contextPath}/ChangeVehicle" method="get" class="w3-container w3-card-4 w3-light-grey">
       <div><h3>Change Vehicle Information</h3></div>
-    	<% //String type = (String)request.getParameter("vehicleType");
-    	   //String idVehicle = (String)request.getParameter("vehicleSelectId");
-    	   //int vehicleID = Integer.valueOf(idVehicle);
+    	<%    	  	
+    	   java.util.ArrayList<Vehicle> veh = new ArrayList<Vehicle>();
+	    	if((session.getAttribute("changeList") != null)){
+	    		veh = (java.util.ArrayList<Vehicle>) session.getAttribute("changeList");
+	    		System.out.println("Im here");
+	    	}
     	  	
-    	  	int vehicleID = 5;
-    	  	String type="CAR";
-    	   	VehicleDAO list = new VehicleDAOI();
-    	   	List<Vehicle> vehicleInfo = new ArrayList<Vehicle>();
-    	   
-    	   if("CAR".equals(type)){
-    		   List<Vehicle> car = new ArrayList<Vehicle>();
-    		   car.addAll(list.getVehicleListByType("car"));
-    		   for(int i=0; i<car.size();++i){
-    			
-    			   if(car.get(i).getVehicle_ID()==vehicleID){
-    				    vehicleInfo.add(car.get(i));
-    			   }
-    		   }
-    	   }
-    	   else{
-    		  List<Vehicle> truck = new ArrayList<Vehicle>();
-    		  truck.addAll(list.getVehicleListByType("truck"));
-    		  for(int i=0; i<truck.size();++i){
-   			  		
-   			   		if(truck.get(i).getVehicle_ID()==vehicleID){
-   				    	vehicleInfo.add(truck.get(i));
-   			   		}
-   		   		}
-    	   }
-    	  
+	    	for(int i = 0; i < veh.size(); i++){
+	            	Vehicle change = (Vehicle)veh.get(i);
     	   %> 
     	 <p>
+    		
          	<label>Vehicle ID:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="id" value="<%=vehicleInfo.get(0).getVehicle_ID() %>">
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="id" value="<%=change.getVehicle_ID()%>" disabled>
         </p>    
        <p>
          	<label>Plate:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate" value="<%=vehicleInfo.get(0).getLicense_plate_number()%>">
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate" value="<%=change.getLicense_plate_number()%>">
         </p>
         <p>
          <% 
-          ColorDAO color = new ColorDAOI();
+         
           java.util.ArrayList <Color> colors = new ArrayList<Color>();
-          colors.addAll(color.getColorList());
-  			if ( colors!= null){
-  		%>
+           if((session.getAttribute("colorList") != null)){
+        	   colors = (java.util.ArrayList<Color>) session.getAttribute("colorList");
+	       }
+           %>
   		<label>Color:</label>
-    	<select name="colorId" class="w3-select" style="width:30%">         	
-  		<% for (int i = 0; i < colors.size(); ++i) { %>
-        <option value="<%=colors.get(i).getColor_ID()%>" ><%=colors.get(i).getDescription()%></option>
-  		<% }} %>
+    	<select name="colorId" class="w3-select" style="width:30%">  
+    	<% for(int c = 0; c < colors.size(); c++){
+       		Color co = (Color)colors.get(c); %>       	
+        <option value="<%=co.getColor_ID()%>" ><%=co.getDescription()%></option>
+  		<%} %>
     	</select>
         </p>
          <p>
          <% 
-          ModelDAO model = new ModelDAOI();
           java.util.ArrayList <Model> models = new ArrayList<Model>();
-          models.addAll(model.getModelList());
-  			if ( models!= null){
+          if((session.getAttribute("modelList") != null)){
+        	  models = (java.util.ArrayList<Model>) session.getAttribute("modelList");
+	      }
   		%>
   		<label>Model:</label>
-    	<select name="modelId" class="w3-select" style="width:30%">         	
-  		<% for (int i = 0; i < models.size(); ++i) { %>
-        <option value="<%=models.get(i).getModel_ID()%>" ><%= models.get(i).getDescription() %></option>
-  		<% }} %>
+    	<select name="modelId" class="w3-select" style="width:30%">
+    	<% for(int m = 0; m < models.size(); m++){
+         		Model mo = (Model)models.get(m);%>         	
+  		<option value="<%=mo.getModel_ID()%>" ><%= mo.getDescription() %></option>
+  		<%} %>
     	</select>
         </p>
         <p>
          <% 
-          ManufacturerDAO manufactur = new ManufacturerDAOI();
-          java.util.ArrayList <Manufacturer> manufacturers = new ArrayList<Manufacturer>();
-          manufacturers.addAll(manufactur.getManufacturerList());
-  			if ( manufacturers!= null){
+         java.util.ArrayList <Manufacturer> manufacturers = new ArrayList<Manufacturer>();
+         if((session.getAttribute("manufacturerList") != null)){
+        	 manufacturers = (java.util.ArrayList<Manufacturer>) session.getAttribute("manufacturerList");
+	      }
   		%>
   		<label>Manufacturer:</label>
-    	<select name="manufacturerId" class="w3-select" style="width:30%">         	
-  		<% for (int i = 0; i < manufacturers.size(); ++i) { %>
-        <option value="<%=manufacturers.get(i).getManufacturer_ID()%>" ><%= manufacturers.get(i).getName() %></option>
-  		<% }} %>
+    	<select name="manufacturerId" class="w3-select" style="width:30%">    
+    	<% for(int ma = 0; ma < manufacturers.size(); ma++){
+        		Manufacturer man = (Manufacturer)manufacturers.get(ma);%>     	
+        <option value="<%=man.getManufacturer_ID()%>" ><%=man.getName() %></option>
+  		<% } %>
     	</select>
         </p>
         <p>
          <% 
-          AccessoryDAO accessory = new AccessoryDAOI();
           java.util.ArrayList <Accessory> accessories = new ArrayList<Accessory>();
-          accessories.addAll(accessory.getAccessoryList());
-  			if ( accessories!= null){
-  		%>
-  		<label>Manufacturer:</label>
-    	<select name="accessoryId" class="w3-select" style="width:30%">         	
-  		<% for (int i = 0; i < accessories.size(); ++i) { %>
-        <option value="<%=accessories.get(i).getAccessory_ID()%>" ><%= accessories.get(i).getDescription() %></option>
-  		<% }} %>
+         if((session.getAttribute("accessoryList") != null)){
+        	 accessories = (java.util.ArrayList<Accessory>) session.getAttribute("accessoryList");
+	      }
+       %>
+  
+  		<label>Accessories:</label>
+    	<select name="accessoryId" class="w3-select" style="width:30%" multiple>  
+		<%  for(int a = 0; a < accessories.size(); a++){
+        	Accessory ac = (Accessory)accessories.get(a);
+  		%>      	
+        <option value="<%=ac.getAccessory_ID()%>" ><%= ac.getDescription() %></option>
+  		<% } %>
     	</select>
         </p>
         <p>
         	<label>Mileage:</label>
-       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage" value="<%=vehicleInfo.get(0).getMileage() %>">
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage" value="<%=change.getMileage() %>">
         </p>
          <p>
         	<label>Year:</label>
-       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" value="<%=vehicleInfo.get(0).getManufacture_year()%>">
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" value="<%=change.getManufacture_year()%>">
         </p>
         <p>
-        <input class="w3-check" type="checkbox" name="active" value="<%=vehicleInfo.get(0).getActive()%>" />Active<br>
+        <input class="w3-check" type="checkbox" name="active" value="<%=change.getActive()%>" />Active<br>
         </p>
-         <%if("CAR".equals(type)){ %>
-        		<p>
-        			<label>Doors:</label>
-       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="doors">
-        		</p>
-        		<p>
-        			<label>Passenger Limit:</label>
-       					<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="pass_limit">
-       			</p>
-        <%}else{ %>	
-        		<p>
-        			<label>Length:</label>
-       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="length">
-        		</p>
-        		<p>
-        			<label>Height:</label>
-       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="height">
-       			</p>
-				<p>
-        			<label>Loading Limit:</label>
-       				<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="load_limit">
-       			</p>
-        <%} %>
         <div>
-      	<p><button type=submit class="w3-button w3-dark-grey" name="changeVehicle" value="<%=type%>">Change Vehicle</button></p>
+        <form id="ChangeVehicle" action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
+      	<p><button type=submit class="w3-button w3-dark-grey" name="changeVehicle">Change Vehicle</button></p>
+      	</form>
        	</div> 
+       	<%} %>
 </form>
 
 </div>

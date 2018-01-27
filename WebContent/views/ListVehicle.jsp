@@ -112,7 +112,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getPassenger_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
-    				<a href="ChangeVehicle.jsp"><button name="edit" type="submit" value="<%=sid%>">Edit</button></a>
+    				<button name="edit" type="submit" value="<%=sid%>" onclick="location.href='/ChangeVehicle.jsp';">Edit</button>
 				</form>
 		       </td>
 		        <td>
@@ -168,7 +168,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getLoading_limit()); %></td>
 		       <td>
 			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
-    				<a href="ChangeVehicle.jsp"><button name="edit" type="submit" value="<%=sid%>">Edit</button></a>
+    				<button name="edit" type="submit" value="<%=sid%>" onclick="location.href='/ChangeVehicle.jsp';">Edit</button>
 				</form>
 		       </td>
 		       <td>
@@ -189,9 +189,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	 <div><a href="CreateVehicle.jsp"><button name="create" class="w3-button w3-dark-grey" >Create Vehicle</button></a></div>
 </div>
 
-<script>
-var e = document.getElementById(vehicleType);
-var strVehicle = e.options[e.selectedIndex].value;
-</script>
+
 </body>
 </html>
