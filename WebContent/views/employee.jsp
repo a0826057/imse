@@ -100,6 +100,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         </td>
         <td>
             <form action="/EmployeeServlet" method="post">
+                <input type="hidden" name="employeeMode" value="migrate">
+                <div>
+                    <p><button type=submit class="w3-button w3-dark-grey">Migrate to MongoDB</button></p>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="/EmployeeServlet" method="post">
                 <input type="hidden" name="employeeMode" value="loadProxy">
                 <input type="hidden" name="dbmode" value="<% if(request.getAttribute("dbmode").equals("mongodb")) {out.print("mysql");} else {out.print("mongodb");} %>">
                 <div>
