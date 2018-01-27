@@ -171,16 +171,7 @@ public class AccessoryDAOM implements AccessoryDAO{
 		
 		return accessories;
 	}
-	
-	
-	
 
-	public static void main (String [] args){
-		AccessoryDAOM acc = new AccessoryDAOM();
-		acc.addHasAccessory(3, 1);
-	}
-
-	
 	public void addHasAccessory(int accessory_ID, int vehicle_ID){
 		
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
