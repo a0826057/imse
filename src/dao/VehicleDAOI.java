@@ -391,48 +391,6 @@ public class VehicleDAOI implements VehicleDAO{
 		return vehicles.size();
 	}
 
-	public int getVehicleCountByType(String type) {
-		Connection con = null;
-		List<Vehicle> ls = new ArrayList<Vehicle> ();
-		VehicleDAOI veh = new VehicleDAOI();
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			
-			if(type.equals("car")) {
-				ResultSet cresult = statement.executeQuery("SELECT * FROM car ;");
-				
-				while(cresult.next()) {
-					Vehicle v = veh.getVehicleById(cresult.getInt("car_ID"));
-					Car car = new Car(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur(), v.getAccessory(), v.getMileage() ,v.getManufacture_year(), v.getActive() , cresult.getInt("doors"), cresult.getInt("passenger_limit"));
-					ls.add(car);
-				}
-			}
-			else if(type.equals("truck")){
-				ResultSet tresult = statement.executeQuery("SELECT * FROM truck ;");
-				
-				while(tresult.next()) {
-					Vehicle v = veh.getVehicleById(tresult.getInt("truck_ID"));
-					Truck truck = new Truck(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur() , v.getAccessory(), v.getMileage(), v.getManufacture_year(), v.getActive(), tresult.getInt("length"),tresult.getInt("height"), tresult.getInt("loading_limit"));
-					ls.add(truck);
-				}
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		return ls.size();
-	}
 	public List<Vehicle> getVehicleListByAge(int age){
 		Connection con = null;
 		Vehicle vehic = null;
@@ -474,87 +432,7 @@ public class VehicleDAOI implements VehicleDAO{
 		return vehicles;
 		
 	}
-	public List<Vehicle> getVehicleByColor(Color color){
-		vehicles = new ArrayList<Vehicle>();
-		Connection con = null;
-
-		ManufacturerDAOI man = new ManufacturerDAOI();
-		AccessoryDAOI acc = new AccessoryDAOI();
-		ColorDAOI col = new ColorDAOI();
-		ModelDAOI mod = new ModelDAOI();
-		
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM vehicle WHERE color_ID = ?";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, color.getColor_ID());
-			ResultSet result = prepared.executeQuery();
-			
-			while(result.next()){
-				Color c = col.getColorById( result.getInt("color_ID"));
-				List<Accessory> a= acc.getHasAccessory(result.getInt("vehicle_ID")); 
-				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
-				Model m = mod.getModelById(result.getInt("model_id"));
-				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
-				vehicles.add(vehic);
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		
-		return vehicles;
-	}
-	public List<Vehicle> getVehicleByAccessory(Accessory accessory){
-		vehicles = new ArrayList<Vehicle>();
-		Connection con = null;
-		ManufacturerDAOI man = new ManufacturerDAOI();
-		AccessoryDAOI acc = new AccessoryDAOI();
-		ColorDAOI col = new ColorDAOI();
-		ModelDAOI mod = new ModelDAOI();
-		
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM vehicle WHERE accessory_ID = ?";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1,accessory.getAccessory_ID());
-			ResultSet result = prepared.executeQuery();
-			while(result.next()){
-				Color c = col.getColorById( result.getInt("color_ID"));
-				List<Accessory> a= acc.getHasAccessory(result.getInt("vehicle_ID")); 
-				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
-				Model m = mod.getModelById(result.getInt("model_id"));
-				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
-				vehicles.add(vehic);
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		
-		return vehicles;
-	}
+	
 	public List<Vehicle> getVehicleByModel(Model mode){
 		vehicles = new ArrayList<Vehicle>();
 		Connection con = null;
@@ -633,41 +511,7 @@ public class VehicleDAOI implements VehicleDAO{
 		
 		return vehicles;		
 	}
-	public List<Car> getCarByDoors(int doors){
-		List<Car> cars = new ArrayList<Car>();
-		Connection con = null;
-		VehicleDAOI veh = new VehicleDAOI();
-		
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-			
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM car WHERE doors = ? ";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, doors);
-			ResultSet tresult = prepared.executeQuery();
-			
-			while(tresult.next()){
-				Vehicle v = veh.getVehicleById(tresult.getInt("car_ID"));
-				Car car = new Car(v.getVehicle_ID(), v.getLicense_plate_number(), v.getColor(), v.getModel(), v.getManufactur(), v.getAccessory(), v.getMileage() ,v.getManufacture_year(), v.getActive() , tresult.getInt("doors"),tresult.getInt("passenger_limit"));
-				cars.add(car);
-			}
-		
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}
-		
-		return cars;		
-	}
+	
 	public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer){
 		vehicles = new ArrayList<Vehicle>();
 		Connection con = null;
