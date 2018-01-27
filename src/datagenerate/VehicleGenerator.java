@@ -82,7 +82,7 @@ public class VehicleGenerator {
 		int[] load_limit= {100,175,160,150,255};
 		int index1, index2, index3, index5, index6, index7, index8, index9, index10;
 		
-		for(int i = 0; i < 10; i ++){
+		for(int i = 0; i < 5; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(lsc.size()); 
 			index3 = rand.nextInt(lso.size());  
@@ -93,8 +93,8 @@ public class VehicleGenerator {
 			index9 = rand.nextInt(5);
 			ad.addCar(plates[index1] + " " + i + index1 + "'", lsc.get(index2), lso.get(index3), lso.get(index3).getManufacturer(), lsa.get(index5), miles[index6], manufactur[index7], true, doors[index8], pass_limit[index9]);
 		}
-		
-		for(int i = 0; i < 10; i ++){
+		String[] plate = {"'W 3437","'W 1622 S","'W 312 NC","'W 456 VA","'W 3454 DH"};
+		for(int i = 0; i < 5; i ++){
 			index1 = rand.nextInt(5);
 			index2 = rand.nextInt(lsc.size()); 
 			index3 = rand.nextInt(lso.size());  
@@ -104,7 +104,7 @@ public class VehicleGenerator {
 			index8 = rand.nextInt(5);
 			index9 = rand.nextInt(5);
 			index10 = rand.nextInt(5);
-			ad.addTruck(plates[index1] + " " + i*3 + index1 + "'", lsc.get(index2), lso.get(index3), lso.get(index3).getManufacturer(), lsa.get(index5), miles[index6], manufactur[index7],true, length[index8], height[index9], load_limit[index10]);
+			ad.addTruck(plate[index1] + " " + i*3 + index1 + "'", lsc.get(index2), lso.get(index3), lso.get(index3).getManufacturer(), lsa.get(index5), miles[index6], manufactur[index7],true, length[index8], height[index9], load_limit[index10]);
 		}
 	}
 		
