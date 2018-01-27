@@ -180,7 +180,6 @@ public class EmployeeServlet extends HttpServlet {
         if (request.getParameter("employeeMode").equals("loadProxy")) {
             Proxy.getInstance(request.getParameter("dbmode"));
             request.setAttribute("dbmode", Proxy.getDbmode());
-            DataGeneratorM.main(new String[0]);
             request.getRequestDispatcher("Homepage.jsp").include(request, response);
         }
         if (request.getParameter("employeeMode").equals("migrate")) {
