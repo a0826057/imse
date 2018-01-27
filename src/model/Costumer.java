@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Costumer {
@@ -29,7 +30,7 @@ public class Costumer {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		String birth_date = sdf.format(getBirth_date());
-		result = result + 	"Birthdate: " + birth_date() + "<br>" + 
+		result = result + 	"Birthdate: " + birth_date + "<br>" + 
 							"EMail: " + getEmail() + "<br>" +
 							"Addresse: " + 	getCountry() + ", " + getTown() + " (" + getPost_code() + "), " +
 							   				getStreet() + " " + getHouse_number();
