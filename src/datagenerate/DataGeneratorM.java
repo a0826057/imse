@@ -67,34 +67,41 @@ public class DataGeneratorM {
 		for(Employee cc : empDAOI.getEmployeeList())
 			empDAOM.addEmployee(cc);
 		
-		/*for(Vehicle cc : vehDAOI.getVehicleListByType("car")){
+		for(Vehicle cc : vehDAOI.getVehicleListByType("car")){
 			if(cc instanceof Car){
 				Car car = (Car) cc;
-				List<Accessory> accs = acDAOI.getHasAccessory(car.getVehicle_ID());
 				vehDAOM.addCar(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), car.getDoors()	, car.getPassenger_limit());
 				
-				for(Accessory ac : accs)
-					acDAOM.addHasAccessory(ac.getAccessory_ID(), car.getVehicle_ID());
+				List<Accessory> accs = acDAOI.getHasAccessory(car.getVehicle_ID());
+				if(accs != null){
+					for(Accessory ac : accs)
+						acDAOM.addHasAccessory(ac.getAccessory_ID(), car.getVehicle_ID());
+				}
+			
 			}
-		}*/
+		}
 		
-			for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
+		for(Vehicle cc : vehDAOI.getVehicleListByType("truck")){
 			if(cc instanceof Truck){
 				Truck truck = (Truck) cc;
-				List<Accessory> accs = acDAOI.getHasAccessory(truck.getVehicle_ID());
 				vehDAOM.addTruck(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), truck.getLenght(), truck.getHeight(), truck.getLoading_limit());
 				
-				for(Accessory ac : accs)
-					acDAOM.addHasAccessory(ac.getAccessory_ID(), truck.getVehicle_ID());
+				List<Accessory> accs = acDAOI.getHasAccessory(truck.getVehicle_ID());
+				if(accs != null){
+					for(Accessory ac : accs)
+						acDAOM.addHasAccessory(ac.getAccessory_ID(), truck.getVehicle_ID());
+				}
+				
 			}
 		}
 	
 		for(Rental r : rentDAOI.getRentalList())
 			rentDAOM.addRental(r);
 		
-		System.out.println(coDAOI.getCostumerList());
 		for(Costumer r : coDAOI.getCostumerList())
 			coDAOM.addCostumer(r);
+		
+		System.out.println("Finished Migration");
 		
 	//	DataGenerator.dropDB();
 		

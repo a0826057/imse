@@ -68,31 +68,31 @@ public class DataGenerator {
 		
 		System.out.println("Costumer");
 		CostumerGenerator.filler();		
-		wait(30000);
+		//wait(30000);
 
 		System.out.println("Employee");
 		EmployeeGenerator.filler();
-		wait(30000);
+		//wait(30000);
 		
 		System.out.println("Accessory");
 		AccessoryGenerator.filler();
-		wait(30000);
+		//wait(30000);
 
 		System.out.println("Color");
 		ColorGenerator.filler();
-		wait(30000);
+		//wait(30000);
 
 		System.out.println("Manufacturer");
 		ManufacturerGenerator.filler();
-		wait(30000);
+		//wait(30000);
 
 		System.out.println("Model");
 		ModelGenerator.filler();
-		wait(30000);
+		//wait(30000);
 
 		System.out.println("Car");
 		CarGenerator.filler();
-		wait(30000);
+		//wait(30000);
 
 		System.out.println("Truck");
 		TruckGenerator.filler();
@@ -103,10 +103,12 @@ public class DataGenerator {
 		//wait(60000);
 		//VehicleGenerator.filler2();
 		AccessoryGenerator.fillAccessoryHasTable();
-		wait(60000);
+		//wait(60000);
 
 		System.out.println("Rental");
 		RentalGenerator.filler();
+		
+		System.out.println("Finished");
 
 	}
 }

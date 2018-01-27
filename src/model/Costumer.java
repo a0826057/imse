@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Costumer {
@@ -23,14 +24,16 @@ public class Costumer {
 	
 	public String toString(){
 		String result = "<br> <br> Hello " + getTitle() + " " + 
-				" " + getFirst_name()+ getLast_name() + "!<br> <br>";
+				" " + getFirst_name() + " " + getLast_name() + "!<br> <br>";
 		if(!getDrivers_licens_number().equals(""))
 			result = result + "Drivers Licens: " + getDrivers_licens_number() + "<br>";
 		
-		result = result + 	"Birthdate: " + getBirth_date() + "<br>" + 
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		String birth_date = sdf.format(getBirth_date());
+		result = result + 	"Birthdate: " + birth_date + "<br>" + 
 							"EMail: " + getEmail() + "<br>" +
 							"Addresse: " + 	getCountry() + ", " + getTown() + " (" + getPost_code() + "), " +
-							   				getStreet() + getHouse_number();
+							   				getStreet() + " " + getHouse_number();
 		
 		if(!getAppartment_number().equals(""))
 			result = result + "/" + getAppartment_number();

@@ -144,6 +144,7 @@ public class CostumerDAOM implements CostumerDAO {
             address.put("town", c.getTown());
             address.put("country", c.getCountry());
             toInsert.put("pwd_hash", c.getPwd_hash());
+            toInsert.put("salt", c.getSalt());
             toInsert.put("address", address);
 
 			collection.insertOne(toInsert);
