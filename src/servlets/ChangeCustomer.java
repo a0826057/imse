@@ -2,6 +2,7 @@ package servlets;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import model.Costumer;
+import dao.Proxy;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class ChangeCustomer extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			CostumerDAO cdao = new CostumerDAOI();
+			CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
 			List<Costumer> all = new ArrayList<Costumer>();
 			
 			HttpSession session = request.getSession(true); 

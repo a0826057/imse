@@ -2,6 +2,7 @@ package servlets;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
 import model.Costumer;
+import dao.Proxy;
 import javax.servlet.RequestDispatcher;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -42,7 +43,7 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{			
-			CostumerDAO cdao = new CostumerDAOI();
+			CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
 			List<Costumer> all = cdao.getCostumerList();
 			List<Costumer> buff = new ArrayList<Costumer>();
 			

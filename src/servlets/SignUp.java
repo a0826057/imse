@@ -2,6 +2,7 @@ package servlets;
 import model.Costumer;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
+import dao.Proxy;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class SignUp extends HttpServlet {
 
 		    Costumer toAdd = new Costumer(0,title, fname, lname, "", bdate, email, pcode, 
 		    							  street, hnum, anum, town, country, pwd_hash, password, true);
-		    CostumerDAO cdao = new CostumerDAOI();
+		    CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
 		    cdao.addCostumer(toAdd);
 		    
 		    HttpSession session = request.getSession(true); 

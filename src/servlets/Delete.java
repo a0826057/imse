@@ -1,6 +1,7 @@
 package servlets;
 import dao.CostumerDAO;
 import dao.CostumerDAOI;
+import dao.Proxy;
 import model.Costumer;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class Delete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			CostumerDAO cdao = new CostumerDAOI();
+			CostumerDAO cdao = Proxy.getInstance().CostumerDAO();
 			Costumer c = cdao.getCostumerById(Integer.parseInt(request.getParameter("id")));
 			HttpSession session = request.getSession(true); 
 			String user = (String)session.getAttribute("currentSessionUser");
