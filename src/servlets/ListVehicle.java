@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.Proxy;
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
 
@@ -43,7 +44,7 @@ public class ListVehicle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    
 			HttpSession session = request.getSession();
-	        VehicleDAO veh = new VehicleDAOI();
+	        VehicleDAO veh = Proxy.getInstance().getVehicleDAO();
 	        List<Vehicle> list_car = new ArrayList<Vehicle>();
 	        List<Vehicle> list_truck = new ArrayList<Vehicle>();
 	        String type = (String) request.getParameter("vehicleType");
@@ -62,7 +63,6 @@ public class ListVehicle extends HttpServlet {
 	        session.setAttribute("list_car", list_car);
 	   	    session.setAttribute("list_truck",list_truck);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("ListVehicle.jsp");
-	        
 	        dispatcher.forward(request, response);
 	}
 

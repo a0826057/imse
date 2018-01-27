@@ -1,4 +1,5 @@
 package servlets;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AccessoryDAO;
+import dao.AccessoryDAOI;
 import dao.ColorDAO;
+import dao.ColorDAOI;
 import dao.ManufacturerDAO;
+import dao.ManufacturerDAOI;
 import dao.ModelDAO;
+import dao.ModelDAOI;
 import dao.Proxy;
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
@@ -46,25 +51,21 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-        dispatcher.forward(request, response);		
-		HttpSession session = request.getSession(); //update
-		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
-		ModelDAO mod = Proxy.getInstance().getModelDAO();
-		ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
-		ColorDAO col = Proxy.getInstance().getColorDAO();		
-        try {
-        	 type = (String) request.getParameter("vehicleType");				
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-        
-        session.setAttribute("colorList", col.getColorList());
+
+    	HttpSession session = request.getSession(); 
+    	type = (String) request.getParameter("vehicleType");
+    	System.out.println("Im"+ type);
+    	AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+ 		ModelDAO mod = Proxy.getInstance().getModelDAO();
+ 		ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+ 		ColorDAO col = Proxy.getInstance().getColorDAO();	
+    
+        session.setAttribute("colorList",col.getColorList());
    	    session.setAttribute("modelList",mod.getModelList());
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
    	    session.setAttribute("accessoryList",acc.getAccessoryList());
-        
-	
+   	    RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+   	    dispatcher.forward(request, response);		
 	}
 	
 
@@ -78,16 +79,16 @@ public class CreateVehicle extends HttpServlet {
 			String user="admin";
 			String password="admin";
 			
-			String vehicleType = (String) request.getParameter("createVehicle");
-					
-			
+			String vehicleType = (String) request.getParameter("vehicleType");
+			System.out.println(vehicleType);
 			if(user.equals("admin") && password.equals("admin")){
 				if(vehicleType != null) {
 				String plate = request.getParameter("plate");
+				System.out.println(plate);
 				String colorId = request.getParameter("colorId");
 				if(colorId!=null) {
 					int color = Integer.parseInt(colorId);
-					String modelId = (String)request.getParameter("modelId");
+					String modelId = request.getParameter("modelId");
 						if(modelId!=null) {
 							int model = Integer.parseInt(modelId);
 							String manufacturerId = request.getParameter("manufacturerId");
@@ -102,7 +103,6 @@ public class CreateVehicle extends HttpServlet {
 									int year = Integer.parseInt(year1);
 									String active1 = request.getParameter("active");
 									Boolean active = Boolean.parseBoolean(active1);
-									
 									
 									if("CAR".equals(vehicleType)) {
 										String doors1 = request.getParameter("doors");
