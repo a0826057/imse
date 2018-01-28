@@ -81,7 +81,7 @@ public class CostumerGenerator {
 	    int si = 0;
 	    int fii = 0;
 	    
-	    for (int i = 0; i < 500; i++) {
+	    for (int i = 0; i < 100; i++) {
 			tii = (int)((Math.random()) * 4);
 			fi = (int)((Math.random()) * 17);
 			
