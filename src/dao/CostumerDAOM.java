@@ -130,7 +130,7 @@ public class CostumerDAOM implements CostumerDAO {
 
 			Document toInsert = new Document();
 			Document address = new Document();
-            toInsert.put("costumer_ID", c.getCostumer_ID());
+            toInsert.put("costumer_ID", Integer.toString(c.getCostumer_ID()));
             toInsert.put("title", c.getTitle());
             toInsert.put("first_name", c.getFirst_name());
             toInsert.put("last_name", c.getLast_name());

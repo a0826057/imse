@@ -54,23 +54,29 @@ public class DataGeneratorM {
 	public void SQLToMongoDB(){
 		for(Accessory acc : acDAOI.getAccessoryList())
 			acDAOM.addAccessory(acc.getName(), acc.getDescription());
+		System.out.println("Accessory Migrated");
 		
 		for(Color cc : colDAOI.getColorList())
 			colDAOM.addColor(cc.getDescription(), cc.getManufacturer_color_code());
+		System.out.println("Color Migrated");
 		
 		for(Manufacturer cc : manDAOI.getManufacturerList())
 			manDAOM.addManufacturer(cc.getName(), cc.getCountry());
+		System.out.println("Manufacturer Migrated");
 		
 		for(Model cc : modDAOI.getModelList())
 			modDAOM.addModel(cc.getManufacturer(), cc.getDescription(), cc.getPrice());
+		System.out.println("Model Migrated");
 		
 		for(Employee cc : empDAOI.getEmployeeList())
 			empDAOM.addEmployee(cc);
+		System.out.println("Employee Migrated");
 		
 		for(Vehicle cc : vehDAOI.getVehicleListByType("car")){
 			if(cc instanceof Car){
 				Car car = (Car) cc;
 				vehDAOM.addCar(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), car.getDoors()	, car.getPassenger_limit());
+				acDAOM.addHasAccessory(car.getAccessory().get(0).getAccessory_ID(), car.getVehicle_ID());
 				
 				List<Accessory> accs = acDAOI.getHasAccessory(car.getVehicle_ID());
 				if(accs != null){
@@ -85,6 +91,7 @@ public class DataGeneratorM {
 			if(cc instanceof Truck){
 				Truck truck = (Truck) cc;
 				vehDAOM.addTruck(cc.getLicense_plate_number(), cc.getColor(), cc.getModel(), cc.getManufactur(), cc.getAccessory().get(0), cc.getMileage(), cc.getManufacture_year(), cc.getActive(), truck.getLenght(), truck.getHeight(), truck.getLoading_limit());
+				acDAOM.addHasAccessory(truck.getAccessory().get(0).getAccessory_ID(), truck.getVehicle_ID());
 				
 				List<Accessory> accs = acDAOI.getHasAccessory(truck.getVehicle_ID());
 				if(accs != null){
@@ -94,12 +101,15 @@ public class DataGeneratorM {
 				
 			}
 		}
-	
-		for(Rental r : rentDAOI.getRentalList())
-			rentDAOM.addRental(r);
+		System.out.println("Vehicle Migrated");
 		
 		for(Costumer r : coDAOI.getCostumerList())
 			coDAOM.addCostumer(r);
+		System.out.println("Costumer Migrated");
+	
+		for(Rental r : rentDAOI.getRentalList())
+			rentDAOM.addRental(r);
+		System.out.println("Rental Migrated");
 		
 		System.out.println("Finished Migration");
 		
@@ -167,8 +177,7 @@ public class DataGeneratorM {
 	
 	public static void main(String[] args) {
 		DataGeneratorM dgenMongo = new DataGeneratorM();
-		
-		// ADD PROXY TO KNOW FROM WHICH TO WHICH 
+		 
 		dropMongoDB();
 		dgenMongo.SQLToMongoDB();
 		

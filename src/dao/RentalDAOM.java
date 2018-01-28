@@ -1,9 +1,11 @@
 package dao;
 
 import model.Accessory;
+import model.Car;
 import model.Costumer;
 import model.Employee;
 import model.Rental;
+import model.Truck;
 import model.Vehicle;
 
 import java.text.ParseException;
@@ -72,40 +74,108 @@ public class RentalDAOM implements RentalDAO {
 
 		return rentals;
 	}
-	
-
-	public static void main (String [] args){
-		RentalDAOM acc = new RentalDAOM();
-		System.out.println(acc.getRentalList().size());
-	}
 
 	@Override
 	public void addRental(Rental r){
-		
-		CostumerDAOM cost = new CostumerDAOM();
-		VehicleDAOM ve = new VehicleDAOM();
 		MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("Customer");
-		List<Document> cursor = coll.find().into(new ArrayList<Document>());
+		Document query = new Document("costumer_ID", Integer.toString(r.getCostumer().getCostumer_ID()));
+		List<Document> cursor = coll.find(query).into(new ArrayList<Document>());
 		
-		for (Document obj:cursor) {
+		for (Document obj : coll.find(query)) {
+			boolean found = false;
 			int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
-			if(costumer_ID == r.getCostumer().getCostumer_ID()){
-				Costumer costumer = cost.getCostumerById(costumer_ID);
-				/*
+			if(costumer_ID == r.getCostumer().getCostumer_ID()){	
+				List<Document> rents = null;
+				found = true;
+
+				coll.findOneAndDelete(obj);
+			
 				if(obj.get("rental") != null){
-					
-					List<Document> rents = (List<Document>) obj.get("rental");
-					Document rent = new Document();
-					
-					
+					rents = (List<Document>) obj.get("rental");
 				}else{
-					List<Document> rents = new ArrayList<Document>();
+					rents = new ArrayList<Document>();
+				}
 					Document rent = new Document();
-				}*/
+					Document veh = new Document();
+					Document emp = new Document();
+					rent.put("date_from", r.getDate_from().toString());
+					rent.put("date_to", r.getDate_from().toString());
+					
+					veh.put("vehicle_id", r.getVehicle().getVehicle_ID());
+					veh.put("license_plate_number", r.getVehicle().getLicense_plate_number());
+					veh.put("mileage", r.getVehicle().getMileage());
+					veh.put("manufacturer_year", r.getVehicle().getManufacture_year());
+
+					Document col = new Document();
+					col.put("color_id", r.getVehicle().getColor().getColor_ID());
+					col.put("description", r.getVehicle().getColor().getDescription());
+					col.put("manufacturer_color_code", r.getVehicle().getColor().getManufacturer_color_code());
+					veh.put("color", col);
+					Document mod = new Document();
+					mod.put("model_id", r.getVehicle().getModel().getModel_ID());
+					Document man = new Document();
+					man.put("manufacturer_id", r.getVehicle().getManufactur().getManufacturer_ID());
+					man.put("name", r.getVehicle().getManufactur().getName());
+					man.put("country", r.getVehicle().getManufactur().getCountry());
+					mod.put("price", r.getVehicle().getModel().getPrice());
+					veh.put("model", mod);
+					
+					List<Document> accs = null;
+					
+					if(obj.get("accessory") != null){
+						accs = (List<Document>) obj.get("accessory");
+					}else{
+						accs = new ArrayList<Document>();
+					}
+					
+					Document accessory = null;
+					
+					for(Accessory ac : r.getVehicle().getAccessory()){
+						accessory = new Document();
+						accessory.put("accessory_id", ac.getAccessory_ID());
+						accessory.put("name", ac.getName());
+						accessory.put("description", ac.getDescription());
+						accs.add(accessory);
+					}
+					
+					
+					if(r.getVehicle() instanceof Truck){
+						Truck truck = (Truck)r.getVehicle();
+						veh.put("type", "truck");
+						veh.put("length", truck.getLenght());
+						veh.put("height", truck.getHeight());
+						veh.put("loading_limit", truck.getLoading_limit());
+					}else if(r.getVehicle() instanceof Car){
+						Car car = (Car)r.getVehicle();
+						veh.put("type", "car");
+						veh.put("doors", car.getDoors());
+						veh.put("passenger_limit", car.getPassenger_limit());
+					}
+					rent.put("vehicle", veh);
+					
+					emp.put("first_name", r.getEmployee().getFirst_name());
+					emp.put("last_name", r.getEmployee().getLast_name());
+					rent.put("employee", emp);
+					
+					rent.put("rating", r.getRating());
+					rents.add(rent);
+					
+				
+					
+					obj.remove("rental");
+					obj.put("rental", rents);
+				
+					coll.insertOne(obj);
+					System.out.println("DONE");
+					break;
 			}
+			
+			if(found)
+				break;
+			
 		}
 		
 		if (mongoClient != null)
@@ -114,36 +184,27 @@ public class RentalDAOM implements RentalDAO {
 
 	@Override
 	public void changeRental(int vid, int cid, int eid, Date date_from, String rating){
-		/*Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "UPDATE rental SET rating = ? WHERE vehicle_ID = ? AND costumer_ID = ? AND employee_ID = ? AND date_from = ?";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setString(1, rating);
-			prepared.setInt(2, vid);
-			prepared.setInt(3, cid);
-			prepared.setInt(4,eid);
-			Date utilDateTo = date_from;
-			java.sql.Date sqlDateTo = new java.sql.Date(utilDateTo.getTime());
-			prepared.setDate(5, sqlDateTo);
-
-			prepared.executeUpdate();
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
 	}
 
+	
+
+	public static void main (String [] args){
+		RentalDAOM acc = new RentalDAOM();
+	 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	 String dateInString = "2018-01-28";
+
+	 Date date =  null;
+	try {
+		date = formatter.parse(dateInString);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		acc.deleteRental(46, 14, 0, date);
+	}
+
+	
+	
 	@Override
 	public void deleteRental(int vid, int cid, int eid, Date date_from){
 		
@@ -154,23 +215,20 @@ public class RentalDAOM implements RentalDAO {
 		MongoDatabase database = mongoClient.getDatabase("imse"); 
 		
 		MongoCollection<Document> coll = database.getCollection("Customer");
-		List<Document> cursor = coll.find().into(new ArrayList<Document>());
+		Document doc = new Document("costumer_ID", Integer.toString(cid));
+		List<Document> cursor = coll.find(doc).into(new ArrayList<Document>());
 		
-		for (Document obj:cursor) {
-			int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());
-			
-			if(costumer_ID == cid){
-				
+		for (Document o : cursor) {
+			Document obj = o;
 				if(obj.get("rental") != null){
-					Costumer costumer = cost.getCostumerById(costumer_ID);
-					
 					List<Document> rents = (List<Document>) obj.get("rental");
 					for (Document r : rents) {
 						
 						Document veh = (Document) r.get("vehicle");
 						int id_veh = Integer.parseInt(veh.get("vehicle_id").toString());
+
 						
-						SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 						java.util.Date date_from_r = null;
 							try {
 								date_from_r = sdf.parse(r.get("date_from").toString());
@@ -178,17 +236,20 @@ public class RentalDAOM implements RentalDAO {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							
+						
 						if((id_veh == vid) &&  (date_from.equals(date_from_r))){
 							
-							//coll.findOneAndDelete(arg0);
+							coll.findOneAndDelete(obj);
+							
+							List<Document> help = (List<Document>) obj.get("rental");
+							help.remove(r);
+							obj.remove("rental");
+							obj.put("rental", help);
+							coll.insertOne(obj);
 							
 						}
 					}
 				}
-		
-			}
-			
 		}
 		
 		if (mongoClient != null)
@@ -246,87 +307,12 @@ public class RentalDAOM implements RentalDAO {
 
 	@Override
 	public List<Rental> getRentalByEmployee(Employee em){
-	/*	rentals = new ArrayList<Rental>();
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM rental WHERE employee_ID = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, em.getEmployee_number());
-			ResultSet result = prepared.executeQuery();
-
-			VehicleDAOI ad = new VehicleDAOI();
-			CostumerDAOI col = new CostumerDAOI();
-			EmployeeDAOI mod = new EmployeeDAOI();
-			Vehicle v;
-			Costumer c;
-			Employee ed;
-			while(result.next()){
-				v = ad.getVehicleById(result.getInt("vehicle_ID"));
-				c = col.getCostumerById(result.getInt("costumer_ID"));
-				ed = mod.getEmployeeById(result.getInt("employee_ID"));
-				Rental r = new Rental(v, c, ed, result.getDate("date_from"), result.getDate("date_to"), result.getString("rating"));
-				rentals.add(r);
-			}
-
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
 
 		return null;
 	}
 
 	@Override
 	public List<Rental> getRentalByVehicle(Vehicle veh){
-	/*	rentals = new ArrayList<Rental>();
-		Connection con = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
-
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(60);
-			String raw_query = "SELECT * FROM rental WHERE vehicle_ID = ?;";
-			PreparedStatement prepared = con.prepareStatement(raw_query);
-			prepared.setInt(1, veh.getVehicle_ID());
-			ResultSet result = prepared.executeQuery();
-
-			VehicleDAOI ad = new VehicleDAOI();
-			CostumerDAOI col = new CostumerDAOI();
-			EmployeeDAOI mod = new EmployeeDAOI();
-			Vehicle v;
-			Costumer c;
-			Employee ed;
-			while(result.next()){
-				v = ad.getVehicleById(result.getInt("vehicle_ID"));
-				c = col.getCostumerById(result.getInt("costumer_ID"));
-				ed = mod.getEmployeeById(result.getInt("employee_ID"));
-				Rental r = new Rental(v, c, ed, result.getDate("date_from"), result.getDate("date_to"), result.getString("rating"));
-				rentals.add(r);
-			}
-
-		}catch(Exception e){
-			System.err.println(e);
-		}finally {
-			try {
-				if (con != null)
-					con.close();
-			}catch (SQLException e) {
-				System.err.println(e);
-			}
-		}*/
-
 		return rentals;
 	}
 
