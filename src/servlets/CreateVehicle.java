@@ -58,6 +58,10 @@ public class CreateVehicle extends HttpServlet {
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
 	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
 	 	ColorDAO col = Proxy.getInstance().getColorDAO();
+	    /*AccessoryDAOI acc = new AccessoryDAOI();
+	 	ModelDAOI mod = new ModelDAOI();
+	 	ManufacturerDAOI man = new ManufacturerDAOI();
+	 	ColorDAOI col = new ColorDAOI();*/
         session.setAttribute("colorList",col.getColorList());
    	    session.setAttribute("modelList",mod.getModelList());
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
@@ -72,14 +76,11 @@ public class CreateVehicle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			//String user = (String) request.getParameter("user");
-			//String password = (String)request.getParameter("password");
-			String user="admin";
-			String password="admin";
-			
+			HttpSession session = request.getSession(true); 
+			String user = (String)session.getAttribute("currentSessionUser");
+			if(user.equals("admin") && user != null){
 			String vehicleType = (String) request.getParameter("vehicleType");
 			System.out.println(vehicleType);
-			if(user.equals("admin") && password.equals("admin")){
 				if(vehicleType != null) {
 				String plate = request.getParameter("plate");
 				System.out.println(plate);
@@ -131,9 +132,9 @@ public class CreateVehicle extends HttpServlet {
 						}
 					
 					}
-					}
+					
 				}
-				else {
+				}else {
 					response.sendRedirect("Homepage.jsp");
 					return;
 				}

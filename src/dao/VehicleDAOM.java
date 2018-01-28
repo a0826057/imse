@@ -1110,4 +1110,10 @@ public class VehicleDAOM implements VehicleDAO{
 }
 	
 	public List<Vehicle> getVehicleList(int color, int model, int manufacturer, int accessory){}
+
+	@Override
+	public List<Vehicle> searchVehicle(int color, int model, int manufacturer, int accessory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

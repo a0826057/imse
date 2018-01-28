@@ -642,6 +642,7 @@ public class VehicleDAOI implements VehicleDAO{
 	
 	public List<Vehicle> searchVehicle(int color, int model, int manufacturer, int accessory){
 		Connection con = null;
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");

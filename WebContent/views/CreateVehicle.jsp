@@ -21,8 +21,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 <div class="w3-bar w3-red w3-large">
   <a href="${pageContext.request.contextPath}/Homepage.jsp" class="w3-bar-item w3-button w3-left w3-red w3-mobile">YACR</a>
    <%if((session.getAttribute("currentSessionUser") != null) && (session.getAttribute("currentSessionUser") == "admin")){ %>
-	  
-	  
 	  <div>
 	    <form id="LogOut"  action="${pageContext.request.contextPath}/LogOut" method="post">
 	       <button type=submit class="w3-bar-item w3-button w3-right w3-red ">Log Out</button>
@@ -41,19 +39,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	  <a href="${pageContext.request.contextPath}/ListVehicle.jsp" class="w3-bar-item w3-button w3-right w3-red ">Vehicles</a>
   <%}%>
 </div>
-
+<form id="show" action="${pageContext.request.contextPath}/CreateVehicle" method="get">
 <div class="w3-container w3-white w3-padding-16">
 <div class="w3-container w3-card-4 w3-light-grey">
 <div><h3>Create Vehicle</h3></div>
 
-       <form action="${pageContext.request.contextPath}/CreateVehicle" method="post"> 
+       <form> 
            <select name="vehicleType" class="w3-select" style="width:30%">
            		<option value="null">Select a vehicle type</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
             </select>
             <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit" class="w3-button w3-white w3-border w3-border-red w3-round-large">
-      
+      </form>
         <br>
               
         <% String type =(String)request.getParameter("vehicleType"); %>
@@ -67,6 +65,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           java.util.ArrayList <Color> colors = new ArrayList<Color>();
            if((session.getAttribute("colorList") != null)){
         	   colors = (java.util.ArrayList<Color>) session.getAttribute("colorList");
+        	   System.out.println("inside");
 	       }
            %>
   		<label>Color:</label>
@@ -160,13 +159,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         	<%}else{ %>
         		<h2></h2>
         	<%}%>
-        <div>
+        </form>
+        <form action="${pageContext.request.contextPath}/CreateVehicle" method="post"><div>
       	<p><button type=submit class="w3-button w3-dark-grey">Create Vehicle</button></p>
        	</div> 
        	</form>
 </div>
-
-
 </div>
 </body>
 </html>

@@ -9,8 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
+import dao.AccessoryDAO;
+import dao.ColorDAO;
+import dao.ManufacturerDAO;
+import dao.ModelDAO;
+import dao.Proxy;
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
 
@@ -30,32 +35,45 @@ public class ChangeVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(); 
+	    AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
+	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+	 	ColorDAO col = Proxy.getInstance().getColorDAO();
+	 	String cid = (String)session.getAttribute("edit");
+		int changeId = Integer.parseInt(cid);
+		System.out.println("My id" + cid);
+		VehicleDAO vehi = Proxy.getInstance().getVehicleDAO();
 		
+	    /*AccessoryDAOI acc = new AccessoryDAOI();
+	 	ModelDAOI mod = new ModelDAOI();
+	 	ManufacturerDAOI man = new ManufacturerDAOI();
+	 	ColorDAOI col = new ColorDAOI();*/
+		session.setAttribute("colorList",vehi.getVehicleById(changeId));
+        session.setAttribute("colorList",col.getColorList());
+   	    session.setAttribute("modelList",mod.getModelList());
+   	    session.setAttribute("manufacturerList",man.getManufacturerList());
+   	    session.setAttribute("accessoryList",acc.getAccessoryList());
+   	    RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+   	    dispatcher.forward(request, response);		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		//String user = (String)request.getParameter("user");
-		//String password = (String) request.getParameter("password");
-		
-		
+		HttpSession session = request.getSession(true); 
 		try {
-			String user="admin";
-			String password="admin";
 			
-			String vehicleType = (String) request.getParameter("changeVehicle");
-				
-			if(user.equals("admin") && password.equals("admin")){
+			String user = (String)session.getAttribute("currentSessionUser");
+			if(user.equals("admin") && user != null){
+				String vehicleType = (String) request.getParameter("changeVehicle");
 				if(vehicleType != null) {
 				String IDvehicle = (String) request.getParameter("id");
 				int vehicleId = Integer.parseInt(IDvehicle);
 				String plate = (String) request.getParameter("plate");
 				String colorId = (String) request.getParameter("colorId");
 				if(colorId!=null) {
-				
 					int color = Integer.parseInt(colorId);
 					String modelId = (String)request.getParameter("modelId");
 						if(modelId!=null) {

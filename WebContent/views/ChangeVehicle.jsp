@@ -66,12 +66,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         </p>
         <p>
          <% 
-         
           java.util.ArrayList <Color> colors = new ArrayList<Color>();
            if((session.getAttribute("colorList") != null)){
         	   colors = (java.util.ArrayList<Color>) session.getAttribute("colorList");
-	       }
-           %>
+	       } %>
   		<label>Color:</label>
     	<select name="colorId" class="w3-select" style="width:30%">  
     	<% for(int c = 0; c < colors.size(); c++){
