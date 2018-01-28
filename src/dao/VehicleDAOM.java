@@ -1108,4 +1108,6 @@ public class VehicleDAOM implements VehicleDAO{
 		client.close();	
 	}	
 }
+	
+	public List<Vehicle> getVehicleList(int color, int model, int manufacturer, int accessory){}
 }
