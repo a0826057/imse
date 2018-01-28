@@ -45,14 +45,10 @@ public class RentVehicleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// HERE MUST BE CHECKED IF THE USER HAS AN ACTIVE ACCOUNT AND IF HE IS LOGGED IN
-		//.............
-		
+	
 		HttpSession session = request.getSession();
 	    String date_f = request.getParameter("date_from");
         String date_t = request.getParameter("date_to");
-        
      
         List<Rental> list_rentals = new ArrayList<Rental>();
         List<Vehicle> list_vehicle = new ArrayList<Vehicle>();

@@ -99,7 +99,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     		</form>
         </td>
         <td>
-            <form action="/EmployeeServlet" method="post">
+            <form action="${pageContext.request.contextPath}/EmployeeServlet" method="post">
                 <input type="hidden" name="employeeMode" value="migrate">
                 <div>
                     <p><button type=submit class="w3-button w3-dark-grey">Migrate to MongoDB</button></p>
