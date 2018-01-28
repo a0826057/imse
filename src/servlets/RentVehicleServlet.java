@@ -50,6 +50,7 @@ public class RentVehicleServlet extends HttpServlet {
 	    String date_f = request.getParameter("date_from");
         String date_t = request.getParameter("date_to");
      
+        
         List<Rental> list_rentals = new ArrayList<Rental>();
         List<Vehicle> list_vehicle = new ArrayList<Vehicle>();
         RentalDAO rent = Proxy.getInstance().getRentalDAO();
