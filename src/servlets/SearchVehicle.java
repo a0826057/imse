@@ -68,6 +68,7 @@ public class SearchVehicle extends HttpServlet {
 					
 					VehicleDAO cdao = new VehicleDAOI();
 					List <Vehicle> vlist = cdao.searchVehicle(color, model, manufacturer, accessory);
+					session.setAttribute("list_vehicle", vlist);
 					response.sendRedirect("Homepage.jsp");
 					return;
 				}

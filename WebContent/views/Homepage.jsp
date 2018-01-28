@@ -149,7 +149,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        	<br>			
      		<% 
      			java.util.ArrayList<Vehicle> v = new ArrayList<Vehicle>();
-     			
 		    	v =  (java.util.ArrayList<Vehicle>) session.getAttribute("list_vehicle");
    	
 		    	%>	
