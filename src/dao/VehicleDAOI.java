@@ -639,4 +639,74 @@ public class VehicleDAOI implements VehicleDAO{
 		}
 		
 	}	
+	
+	public List<Vehicle> searchVehicle(int color, int model, int manufacturer, int accessory){
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
+			
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(60);
+			String raw_query = "SELECT * FROM vehicle WHERE ";
+			
+			int counter = 0;
+			if (color > 0) {
+				raw_query = raw_query + "color_ID = ?";
+				counter++;
+			}
+			if (model > 0) {
+				if (counter > 0)
+					raw_query = raw_query + " AND ";
+				raw_query = raw_query + "model_ID = ?";
+				counter++;
+			}
+			if (manufacturer > 0) {
+				if (counter > 0)
+					raw_query = raw_query + " AND ";
+				raw_query = raw_query + "manufacturer_ID = ?";
+				counter++;
+			}
+			if (accessory > 0) {
+				if (counter > 0)
+					raw_query = raw_query + " AND ";
+				raw_query = raw_query + "accessory_ID = ?";
+				counter++;
+			}
+			counter = 0;
+			PreparedStatement prepared = con.prepareStatement(raw_query);
+			if (color > 0) {
+				prepared.setInt(++counter, color);
+			}
+			if (model > 0) {
+				prepared.setInt(++counter, model);
+			}
+			if (manufacturer > 0) {
+				prepared.setInt(++counter, manufacturer);
+			}
+			if (accessory > 0) {
+				prepared.setInt(++counter, accessory);
+			}
+			ResultSet result = prepared.executeQuery(raw_query);
+			List<Vehicle> vehicles = vehicles = new ArrayList<Vehicle>();
+			while(result.next()){
+				Color c = col.getColorById(result.getInt("color_ID"));
+				List<Accessory> a= acc.getHasAccessory(result.getInt("vehicle_ID")); 
+				Manufacturer ma= man.getManufacturerById(result.getInt("manufacturer_ID"));
+				Model m = mod.getModelById(result.getInt("model_id"));
+				Vehicle vehic = new Vehicle(result.getInt("vehicle_ID"),result.getString("lisence_plate_number"),c, m,ma, a,result.getInt("mileage"),result.getInt("manufacturer_year"),result.getBoolean("active"));
+				vehicles.add(vehic);			
+			}
+			return vehicles;
+		}catch(Exception e){
+			System.err.println(e);
+		}finally {
+			try {
+				if (con != null)
+					con.close();
+			}catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+	}
 }

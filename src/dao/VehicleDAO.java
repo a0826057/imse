@@ -24,4 +24,5 @@ public interface VehicleDAO {
 		public List<Vehicle> getVehicleByManufacturer(Manufacturer manufacturer);
 		public void addCar(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, boolean active, int doors, int pass_limit);
 		public void addTruck(String plate, Color color, Model model, Manufacturer manufacturer, Accessory accessory, int mileage, int year, boolean active, int length, int height, int load_limit);
+		public List<Vehicle> searchVehicle(int color, int model, int manufacturer, int accessory);
 }
