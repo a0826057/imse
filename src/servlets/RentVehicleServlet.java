@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CostumerDAOI;
-import dao.EmployeeDAOI;
+import dao.CostumerDAO;
+import dao.EmployeeDAO;
+import dao.Proxy;
+import dao.RentalDAO;
 import dao.RentalDAOI;
-import dao.VehicleDAOI;
+import dao.VehicleDAO;
 import model.Costumer;
 import model.Employee;
 import model.Rental;
@@ -54,8 +56,8 @@ public class RentVehicleServlet extends HttpServlet {
      
         List<Rental> list_rentals = new ArrayList<Rental>();
         List<Vehicle> list_vehicle = new ArrayList<Vehicle>();
-        RentalDAOI rent = new RentalDAOI();
-        VehicleDAOI veh = new VehicleDAOI();
+        RentalDAO rent = Proxy.getInstance().getRentalDAO();
+        VehicleDAO veh = Proxy.getInstance().getVehicleDAO();
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         try {
 			java.util.Date DateFrom  =  df.parse(date_f);
@@ -97,9 +99,9 @@ public class RentVehicleServlet extends HttpServlet {
 			String date_f = (String) session.getAttribute("date_from");
 	        String date_t = (String) session.getAttribute("date_to");
 	        
-	        CostumerDAOI c = new CostumerDAOI();
-	        EmployeeDAOI e = new EmployeeDAOI();
-	        VehicleDAOI v = new VehicleDAOI();
+	        CostumerDAO c = Proxy.getInstance().getCostumerDAO();
+	        EmployeeDAO e =  Proxy.getInstance().getEmployeeDAO();
+	        VehicleDAO v = Proxy.getInstance().getVehicleDAO();
 	        Random rand = new Random();
 	        
 	        List<Employee> employees = e.getEmployeeList();

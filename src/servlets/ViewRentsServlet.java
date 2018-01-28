@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CostumerDAOI;
-import dao.RentalDAOI;
-import dao.VehicleDAOI;
+import dao.CostumerDAO;
+import dao.Proxy;
+import dao.RentalDAO;
 import model.Costumer;
 import model.Rental;
-import model.Vehicle;
 
 /**
  * Servlet implementation class ViewRentsServlet
@@ -44,8 +41,8 @@ public class ViewRentsServlet extends HttpServlet {
   		HttpSession session = request.getSession();
 		String user = (String)session.getAttribute("currentSessionUser");
   		String email = (String) session.getAttribute("currentSessionUserMail");
-  		CostumerDAOI cos = new CostumerDAOI();
-  		RentalDAOI rent = new RentalDAOI();
+  		CostumerDAO cos = Proxy.getInstance().getCostumerDAO();
+  		RentalDAO rent = Proxy.getInstance().getRentalDAO();
   		
 		if((session.getAttribute("currentSessionUser") != null) && user.equals("customer") && (session.getAttribute("currentSessionUserMail") != null)){
 	  		List<Rental> list_rentals = rent.getRentalList();
@@ -81,7 +78,7 @@ public class ViewRentsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RentalDAOI rent = new RentalDAOI();
+		RentalDAO rent = Proxy.getInstance().getRentalDAO();
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("list_rent") != null){
