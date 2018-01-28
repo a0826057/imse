@@ -145,6 +145,51 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       	</form>
        	</div> 
        	<%} %>
+       	
+       	<br>			
+     		<% 
+     			java.util.ArrayList<Vehicle> v = new ArrayList<Vehicle>();
+     			
+		    	v =  (java.util.ArrayList<Vehicle>) session.getAttribute("list_vehicle");
+   	
+		    	%>	
+				<table class="w3-table-all">
+					<thead>
+					<tr class="w3-red">
+					<th>Vehicle ID</th>
+					<th>License Plate Number</th>
+					<th>Color </th>
+					<th>Model </th>
+					<th>Manufacturer </th>
+					<th>Accessory </th>
+					<th>Mileage</th>
+					<th>Manufacturer Year</th>
+					<th>Active</th>
+					<th>Doors</th>
+					<th>Passengers Limit</th>
+					</tr>
+					</thead>
+					<tbody>
+				<% for(int i = 0; i < v.size(); i++){
+            		Vehicle car = (Vehicle)v.get(i);
+            	%>
+            <tr>
+		       <td><% out.print(car.getVehicle_ID()); 
+		       		 sid =  String.valueOf(car.getVehicle_ID());%>
+		       <td><% out.print(car.getLicense_plate_number()); %></td>
+		       <td><% out.print(car.getColor().getDescription()); %></td>
+		       <td><% out.print(car.getModel().getDescription()); %></td>
+		       <td><% out.print(car.getManufactur().getName()); %></td>
+		       <td><% for(int j = 0; j < car.getAccessory().size(); j++)
+		    	  	 out.print(car.getAccessory().get(j).getName()); %> </td>
+		       <td><% out.print(car.getMileage()); %></td>
+		       <td><% out.print(car.getManufacture_year()); %></td>
+		       <td><% out.print(car.getActive()); %></td>
+		       <td><% out.print(car.getDoors()); %></td>
+		       <td><% out.print(car.getPassenger_limit()); %></td>
+		    </tr>
+			</tbody>
+			</table>
 </form>
 </div>
 
