@@ -53,12 +53,13 @@ public class RentVehicleServlet extends HttpServlet {
         
         List<Rental> list_rentals = new ArrayList<Rental>();
         List<Vehicle> list_vehicle = new ArrayList<Vehicle>();
-        RentalDAO rent = Proxy.getInstance().getRentalDAO();
-        VehicleDAO veh = Proxy.getInstance().getVehicleDAO();
+        RentalDAO rent = Proxy.getInstance("mongodb").getRentalDAO();
+        VehicleDAO veh = Proxy.getInstance("mongodb").getVehicleDAO();
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         try {
 			java.util.Date DateFrom  =  df.parse(date_f);
 			java.util.Date DateTo  =  df.parse(date_t);
+			System.out.println(DateFrom);
 			list_rentals = rent.getRentalByDatePeriod(DateFrom, DateTo);
 			list_vehicle = veh.getVehicleList();
 			
@@ -86,7 +87,7 @@ public class RentVehicleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		HttpSession session = request.getSession();
 		String user = (String)session.getAttribute("currentSessionUser");
 		String email = (String)session.getAttribute("currentSessionUserMail");
@@ -96,30 +97,31 @@ public class RentVehicleServlet extends HttpServlet {
 			String date_f = (String) session.getAttribute("date_from");
 	        String date_t = (String) session.getAttribute("date_to");
 	        
-	        CostumerDAO c = Proxy.getInstance().getCostumerDAO();
-	        EmployeeDAO e =  Proxy.getInstance().getEmployeeDAO();
-	        VehicleDAO v = Proxy.getInstance().getVehicleDAO();
+	        CostumerDAO c = Proxy.getInstance("mongodb").getCostumerDAO();
+	        EmployeeDAO e =  Proxy.getInstance("mongdodb").getEmployeeDAO();
+	        VehicleDAO v = Proxy.getInstance("mongodb").getVehicleDAO();
 	        Random rand = new Random();
 	        
+	 
 	        List<Employee> employees = e.getEmployeeList();
 	        List<Costumer> coss = c.getCostumerList();
 	        Costumer costumer = null;
-	        
+	      
 	        for(Costumer cs : coss){
 	        	if(cs.getEmail().equals(email)){
 	        		costumer = cs;
-	        		break;
 	        	}
 	        }
 	        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-			RentalDAOI rent = new RentalDAOI();
+			RentalDAO rent = Proxy.getInstance("mongodb").getRentalDAO();
 			Rental r = null;
 			try {
 				r = new Rental(v.getVehicleById(Integer.parseInt(button)), costumer, employees.get(rand.nextInt(employees.size())), df.parse(date_f),df.parse(date_t), "not given");
 			} catch (NumberFormatException | ParseException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			//	e1.printStackTrace();
 			}
+			
 			rent.addRental(r);
 			
 			

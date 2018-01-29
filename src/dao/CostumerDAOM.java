@@ -35,7 +35,7 @@ public class CostumerDAOM implements CostumerDAO {
 				if(obj.get("drivers_license_number") != null) {
 					drivers_license_number = obj.get("drivers_license_number").toString();
 				}
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				java.util.Date birth_date = sdf.parse(obj.get("birth_date").toString());
 
 				String email = obj.get("email").toString();
@@ -56,6 +56,7 @@ public class CostumerDAOM implements CostumerDAO {
 											town, country, pwd_hash, salt, true);
 				cList.add(c);
 			}
+			
 			return cList;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -135,7 +136,7 @@ public class CostumerDAOM implements CostumerDAO {
             toInsert.put("first_name", c.getFirst_name());
             toInsert.put("last_name", c.getLast_name());
             toInsert.put("drivers_license_number", c.getDrivers_licens_number());
-            toInsert.put("birth_date", c.getBirth_date());
+            toInsert.put("birth_date", c.getBirth_date().toString());
             toInsert.put("email", c.getEmail());
             address.put("post_code", c.getPost_code());
             address.put("street", c.getStreet());
