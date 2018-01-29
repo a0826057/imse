@@ -62,7 +62,6 @@ public class CreateVehicle extends HttpServlet {
    	    RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
    	    dispatcher.forward(request, response);		
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -137,8 +136,8 @@ public class CreateVehicle extends HttpServlet {
 				response.sendRedirect("Homepage.jsp");
 				
 			}
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-	    //dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+	    dispatcher.forward(request, response);
 			
 	}
 }

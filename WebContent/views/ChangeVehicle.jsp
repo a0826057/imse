@@ -42,28 +42,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <%}%>
 </div>
 
-<form id="ChangeVehicle" action="${pageContext.request.contextPath}/ChangeVehicle" method="post" class="w3-container w3-white w3-padding-16">
+<form action="${pageContext.request.contextPath}/ChangeVehicle" method="post" class="w3-container w3-white w3-padding-16">
 <div class="w3-container w3-card-4 w3-light-grey">
       <div><h3>Change Vehicle Information</h3></div>
     	<%    	  	
     	   java.util.ArrayList<Vehicle> vehic = new ArrayList<Vehicle>();
     		Vehicle change;
     	   String id = (String) request.getParameter("edit");
-    	   System.out.println(id);
-	    	if((session.getAttribute("changeList") != null)){
-	    		vehic = (java.util.ArrayList<Vehicle>) session.getAttribute("changeList");
-	    		System.out.println("Im here");
-	    	}
-	            	
+    	             	
     	   %> 
     	 <p>
-    		
-         	<label>Vehicle ID:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="id" value="<%=vehic.get(0).getVehicle_ID()%>" disabled>
+           	<label>Vehicle ID:</label>
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="id" value="<%=id%>" disabled>
         </p>    
        <p>
          	<label>Plate:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate" value="<%=vehic.get(0).getLicense_plate_number()%>">
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate">
         </p>
         <p>
          <% 
@@ -128,14 +122,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         </p>
         <p>
         	<label>Mileage:</label>
-       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage" value="<%=vehic.get(0).getMileage() %>">
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage">
         </p>
          <p>
         	<label>Year:</label>
-       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" value="<%=vehic.get(0).getManufacture_year()%>">
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" >
         </p>
         <p>
-        <input class="w3-check" type="checkbox" name="active" value="<%=vehic.get(0).getActive()%>" />Active<br>
+        <input class="w3-check" type="checkbox" name="active" />Active<br>
         </p>
  
         <div>
