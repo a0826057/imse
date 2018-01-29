@@ -1109,7 +1109,7 @@ public class VehicleDAOM implements VehicleDAO{
 	}	
 }
 	
-	public List<Vehicle> getVehicleList(int color, int model, int manufacturer, int accessory){}
+	public List<Vehicle> getVehicleList(int color, int model, int manufacturer, int accessory){ return null;}
 
 	@Override
 	public List<Vehicle> searchVehicle(int color, int model, int manufacturer, int accessory) {
