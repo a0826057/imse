@@ -406,7 +406,7 @@ public class VehicleDAOM implements VehicleDAO{
 		documents.put("mileage", mil);
 		String myear = Integer.toString(year);
 		documents.put("manufacturer_year", myear);
-		documents.put("type", "car");
+		documents.put("type", "truck");
 		String bool = Boolean.toString(active);
 		documents.put("active", bool);
 		String len = Integer.toString(length);
@@ -535,7 +535,7 @@ public class VehicleDAOM implements VehicleDAO{
 			newValue.put("mileage", mil);
 			String myear = Integer.toString(year);
 			newValue.put("manufacturer_year", myear);
-			newValue.put("type", "car");
+			newValue.put("type", "truck");
 			String bool = Boolean.toString(active);
 			newValue.put("active", bool);
 			String len = Integer.toString(length);
@@ -1092,7 +1092,7 @@ public class VehicleDAOM implements VehicleDAO{
 			documents.put("mileage", mil);
 			String myear = Integer.toString(year);
 			documents.put("manufacturer_year", myear);
-			documents.put("type", "car");
+			documents.put("type", "truck");
 			String bool = Boolean.toString(active);
 			documents.put("active", bool);
 			String len = Integer.toString(length);
