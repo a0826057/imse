@@ -42,18 +42,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <%}%>
 </div>
 
-<div class="w3-container w3-white w3-padding-16">
-<form  action="${pageContext.request.contextPath}/ChangeVehicle" method="get" class="w3-container w3-card-4 w3-light-grey">
+<form action="${pageContext.request.contextPath}/ChangeVehicle" method="get"class="w3-container w3-white w3-padding-16">
+<div class="w3-container w3-card-4 w3-light-grey">
       <div><h3>Change Vehicle Information</h3></div>
     	<%    	  	
     	   java.util.ArrayList<Vehicle> veh = new ArrayList<Vehicle>();
+    	   String id = (String) request.getAttribute("edit");
+    	   System.out.println(id);
 	    	if((session.getAttribute("changeList") != null)){
 	    		veh = (java.util.ArrayList<Vehicle>) session.getAttribute("changeList");
 	    		System.out.println("Im here");
 	    	}
+	    	VehicleDAOI vehI = new VehicleDAOI();
+	    	java.util.ArrayList<Vehicle> ve = new ArrayList<Vehicle>();
+	    	ve.add(vehI.getVehicleById(5));
     	  	
-	    	for(int i = 0; i < veh.size(); i++){
-	            	Vehicle change = (Vehicle)veh.get(i);
+	    	for(int i = 0; i < 1; i++){
+	            	Vehicle change = (Vehicle)ve.get(i);
     	   %> 
     	 <p>
     		
@@ -136,14 +141,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         <p>
         <input class="w3-check" type="checkbox" name="active" value="<%=change.getActive()%>" />Active<br>
         </p>
+        </form>
         <div>
+        <%} %>
         <form id="ChangeVehicle" action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
       	<p><button type=submit class="w3-button w3-dark-grey" name="changeVehicle">Change Vehicle</button></p>
       	</form>
        	</div> 
-       	<%} %>
-</form>
-
+       
 </div>
+
+
 </body>
 </html>

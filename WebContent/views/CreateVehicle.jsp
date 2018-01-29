@@ -39,25 +39,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 	  <a href="${pageContext.request.contextPath}/ListVehicle.jsp" class="w3-bar-item w3-button w3-right w3-red ">Vehicles</a>
   <%}%>
 </div>
-<form id="show" action="${pageContext.request.contextPath}/CreateVehicle" method="get">
+
 <div class="w3-container w3-white w3-padding-16">
 <div class="w3-container w3-card-4 w3-light-grey">
 <div><h3>Create Vehicle</h3></div>
 
-       <form> 
+<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="POST"> 
            <select name="vehicleType" class="w3-select" style="width:30%">
            		<option value="null">Select a vehicle type</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
             </select>
             <input type="submit" name="<%=request.getParameter("vehicleType")%>" value="submit" class="w3-button w3-white w3-border w3-border-red w3-round-large">
-      </form>
         <br>
               
         <% String type =(String)request.getParameter("vehicleType"); %>
          <p>
          	<label>Plate:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate" >
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate">
         </p>
         <p>
          <% 
@@ -65,7 +64,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           java.util.ArrayList <Color> colors = new ArrayList<Color>();
            if((session.getAttribute("colorList") != null)){
         	   colors = (java.util.ArrayList<Color>) session.getAttribute("colorList");
-        	   System.out.println("inside");
 	       }
            %>
   		<label>Color:</label>
@@ -115,7 +113,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        %>
   
   		<label>Accessories:</label>
-    	<select name="accessoryId" class="w3-select" style="width:30%" multiple>  
+    	<select name="accessoryId" class="w3-select" style="width:30%">  
 		<%  for(int a = 0; a < accessories.size(); a++){
         	Accessory ac = (Accessory)accessories.get(a);
   		%>      	
@@ -159,9 +157,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         	<%}else{ %>
         		<h2></h2>
         	<%}%>
-        </form>
-        <form action="${pageContext.request.contextPath}/CreateVehicle" method="post"><div>
-      	<p><button type=submit class="w3-button w3-dark-grey">Create Vehicle</button></p>
+        <div>
+      	<p><button type=submit name="submit" class="w3-button w3-dark-grey" value="<%=type%>">Create Vehicle</button></p>
        	</div> 
        	</form>
 </div>
