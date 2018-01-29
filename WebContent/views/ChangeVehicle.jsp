@@ -42,7 +42,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <%}%>
 </div>
 
-<form action="${pageContext.request.contextPath}/ChangeVehicle" method="post" class="w3-container w3-white w3-padding-16">
+<form action="${pageContext.request.contextPath}/ChangeVehicle" method="POST" class="w3-container w3-white w3-padding-16">
 <div class="w3-container w3-card-4 w3-light-grey">
       <div><h3>Change Vehicle Information</h3></div>
     	<%    	  	
@@ -125,17 +125,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage">
         </p>
          <p>
-        	<label>Year:</label>
+        	<label>Year: </label>
        		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" >
         </p>
         <p>
         <input class="w3-check" type="checkbox" name="active" />Active<br>
         </p>
-  
         <div>
       	<p><button type=submit class="w3-button w3-dark-grey" name="changeVehicle">Change Vehicle</button></p>
-       	</div>
        	</div> 
+       	</div>
 		</form>
 
 </body>

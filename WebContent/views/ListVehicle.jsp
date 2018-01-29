@@ -95,6 +95,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 					<tbody>
 				<% for(int i = 0; i < cars.size(); i++){
             		Car car = (Car)cars.get(i);
+            		Vehicle vehicles;
             	%>
             <tr>
 		       <td><% out.print(car.getVehicle_ID()); 
@@ -186,7 +187,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 			 <%} %>
 			</form>	
 		</div>
-	 <div><a href="CreateVehicle.jsp"><button name="create" class="w3-button w3-dark-grey" >Create Vehicle</button></a></div>
+		<form action="${pageContext.request.contextPath}/CreateVehicle" method="get">
+	 <div><button name="create" class="w3-button w3-dark-grey" >Create Vehicle</button></div></form>
 </div>
 
 
