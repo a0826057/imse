@@ -30,11 +30,7 @@ public class EmployeeServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         employeeDAO = Proxy.getInstance().getEmployeeDAO();
-        String employeeMode = "";
-        if(request.getParameter("employeeMode") == null) {
-            employeeMode = request.getParameter("employeeMode");
-        }
-
+        String employeeMode = request.getParameter("employeeMode");
         request.setAttribute("dbmode", Proxy.getDbmode());
 
         // get all employees and store them in a list if the request mode is valid
@@ -184,7 +180,7 @@ public class EmployeeServlet extends HttpServlet {
         if (request.getParameter("employeeMode").equals("loadProxy")) {
             Proxy.getInstance(request.getParameter("dbmode"));
             request.setAttribute("dbmode", Proxy.getDbmode());
-            request.getRequestDispatcher("Homepage.jsp").include(request, response);
+            request.getRequestDispatcher("employee.jsp").include(request, response);
         }
         if (request.getParameter("employeeMode").equals("migrate")) {
             DataGeneratorM.main(new String[0]);
