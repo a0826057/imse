@@ -70,9 +70,10 @@ public class ChangeVehicle extends HttpServlet {
 		System.out.println("Im in post");
 		int changeId = Integer.parseInt(cid);
 		VehicleDAO chVe = Proxy.getInstance().getVehicleDAO();
+		String user = (String)session.getAttribute("currentSessionUser");
+		System.out.println(user);
 		try {
-			String user = (String)session.getAttribute("currentSessionUser");
-			if(user.equals("admin") && user != null){
+			if((session.getAttribute("currentSessionUser") != null) && user.equals("admin")){
 				String vehicleType = (String) request.getParameter("changeVehicle");
 				if(vehicleType != null) {
 				String IDvehicle = (String) request.getParameter("id");

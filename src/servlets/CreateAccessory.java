@@ -43,7 +43,7 @@ public class CreateAccessory extends HttpServlet{
 		try {
 				HttpSession session = request.getSession(true); 
 				String user = (String)session.getAttribute("currentSessionUser");
-				if(user.equals("admin") && user != null){
+				if((session.getAttribute("currentSessionUser") != null) && user.equals("admin")){
 					String name = (String) request.getParameter("name");
 					String description = (String) request.getParameter("description");
 					if(name != null) {

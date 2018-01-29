@@ -712,5 +712,6 @@ public class VehicleDAOI implements VehicleDAO{
 				System.err.println(e);
 			}
 		}
+		return vehicles;
 	}
 }

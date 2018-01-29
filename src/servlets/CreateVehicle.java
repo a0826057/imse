@@ -75,7 +75,7 @@ public class CreateVehicle extends HttpServlet {
 		}
 		try {
 			String user = (String)session.getAttribute("currentSessionUser");
-			if(user.equals("admin") && user != null){
+			if((session.getAttribute("currentSessionUser") != null) && user.equals("admin")){
 			String vehicleType = request.getParameter("vehicleType");
 			System.out.println(vehicleType);
 				if(vehicleType != null) {
