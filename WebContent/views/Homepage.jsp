@@ -184,8 +184,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getMileage()); %></td>
 		       <td><% out.print(car.getManufacture_year()); %></td>
 		       <td><% out.print(car.getActive()); %></td>
-		       <td><% out.print(car.getDoors()); %></td>
-		       <td><% out.print(car.getPassenger_limit()); %></td>
 		    </tr>
 			</tbody>
 			</table>
