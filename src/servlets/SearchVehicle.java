@@ -41,7 +41,7 @@ public class SearchVehicle extends HttpServlet {
 		//String password = (String) request.getParameter("password");
 		
 		
-		/*try {
+		try {
 			String user="admin";
 			String password="admin";
 			
@@ -82,7 +82,7 @@ public class SearchVehicle extends HttpServlet {
 			}
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("SearchVehicle.jsp");
-		    dispatcher.forward(request, response);*/
+		    dispatcher.forward(request, response);
 	}
 }		
 
