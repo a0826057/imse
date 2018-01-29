@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AccessoryDAO;
-import dao.AccessoryDAOI;
+
 import dao.ColorDAO;
-import dao.ColorDAOI;
+
 import dao.ManufacturerDAO;
-import dao.ManufacturerDAOI;
+
 import dao.ModelDAO;
-import dao.ModelDAOI;
+
 import dao.Proxy;
 import dao.VehicleDAO;
-import dao.VehicleDAOI;
+
 
 
 
@@ -36,7 +36,6 @@ public class CreateVehicle extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -7957711074827916095L;
-	private String type;
 	
     
 
@@ -52,8 +51,6 @@ public class CreateVehicle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); 
-	  	type = request.getParameter("vehicleType");
-	    System.out.println("Im"+ type);
 	    AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
 	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
@@ -65,21 +62,21 @@ public class CreateVehicle extends HttpServlet {
    	    RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
    	    dispatcher.forward(request, response);		
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(); 
+		String submit = (String) request.getParameter("create");
+		if(submit != null) {
+			System.out.println("Im"+submit);
+		}
 		try {
-			//String user = (String) request.getParameter("user");
-			//String password = (String)request.getParameter("password");
-			String user="admin";
-			String password="admin";
-			
-			String vehicleType = (String) request.getParameter("vehicleType");
+			String user = (String)session.getAttribute("currentSessionUser");
+			if((session.getAttribute("currentSessionUser") != null) && user.equals("admin")){
+			String vehicleType = request.getParameter("vehicleType");
 			System.out.println(vehicleType);
-			if(user.equals("admin") && password.equals("admin")){
 				if(vehicleType != null) {
 				String plate = request.getParameter("plate");
 				System.out.println(plate);
@@ -107,23 +104,22 @@ public class CreateVehicle extends HttpServlet {
 										int doors = Integer.parseInt(doors1);
 										String pass_limit1 = request.getParameter("pass_limit");
 										int pass_limit = Integer.parseInt(pass_limit1);
-										VehicleDAO car = new VehicleDAOI();
+										VehicleDAO car = Proxy.getInstance().getVehicleDAO();
 								    	car.addCar(plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
 								    	response.sendRedirect("ListVehicle.jsp");
-								    	return;
+								    
 									}
 									else {
-								
 										String length1 = request.getParameter("length");
 										int length = Integer.parseInt(length1);
 										String height1 = request.getParameter("height");
 										int height = Integer.parseInt(height1);
 										String load_limit1 = request.getParameter("load_limit");
 										int load_limit = Integer.parseInt(load_limit1);
-										VehicleDAO truck = new VehicleDAOI();
+										VehicleDAO truck =Proxy.getInstance().getVehicleDAO();
 								    	truck.addTruck(plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
 								    	response.sendRedirect("ListVehicle.jsp");
-								    	return;
+								    	
 									}
 									
 								}
@@ -131,17 +127,17 @@ public class CreateVehicle extends HttpServlet {
 						}
 					
 					}
-					}
+					
 				}
-				else {
-					response.sendRedirect("Homepage.jsp");
-					return;
+				}else {
+					
 				}
 			}catch(Exception e) {
+				response.sendRedirect("Homepage.jsp");
 				
 			}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+	    dispatcher.forward(request, response);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-		    dispatcher.forward(request, response);
 	}
 }

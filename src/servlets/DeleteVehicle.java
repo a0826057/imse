@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import dao.Proxy;
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
 /**
@@ -44,13 +45,12 @@ public class DeleteVehicle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			//String user = request.getParameter("user");
-			//String password = request.getParameter("password");
 			
-			VehicleDAO veh = new VehicleDAOI();
+			HttpSession session = request.getSession(); 
+			VehicleDAO veh = Proxy.getInstance().getVehicleDAO();
 			String id1 = request.getParameter("delete");
-			
-			//if(user.equals("admin") && password.equals("admin")){
+			String user = (String)session.getAttribute("currentSessionUser");
+			if(user.equals("admin") && user != null){
 				if(id1!=null) {
 					System.out.println(id1);
 					int vehicle_id = Integer.parseInt(id1);
@@ -58,7 +58,7 @@ public class DeleteVehicle extends HttpServlet {
 					request.getRequestDispatcher("ListVehicle.jsp").forward(request, response);
 				}
 				
-			//}			
+		}			
 		}catch (Exception e) {
 				 
 		}

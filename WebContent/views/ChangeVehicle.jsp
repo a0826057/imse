@@ -42,36 +42,29 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <%}%>
 </div>
 
-<div class="w3-container w3-white w3-padding-16">
-<form  action="${pageContext.request.contextPath}/ChangeVehicle" method="get" class="w3-container w3-card-4 w3-light-grey">
+<form action="${pageContext.request.contextPath}/ChangeVehicle" method="post" class="w3-container w3-white w3-padding-16">
+<div class="w3-container w3-card-4 w3-light-grey">
       <div><h3>Change Vehicle Information</h3></div>
     	<%    	  	
-    	   java.util.ArrayList<Vehicle> veh = new ArrayList<Vehicle>();
-	    	if((session.getAttribute("changeList") != null)){
-	    		veh = (java.util.ArrayList<Vehicle>) session.getAttribute("changeList");
-	    		System.out.println("Im here");
-	    	}
-    	  	
-	    	for(int i = 0; i < veh.size(); i++){
-	            	Vehicle change = (Vehicle)veh.get(i);
+    	   java.util.ArrayList<Vehicle> vehic = new ArrayList<Vehicle>();
+    		Vehicle change;
+    	   String id = (String) request.getParameter("edit");
+    	             	
     	   %> 
     	 <p>
-    		
-         	<label>Vehicle ID:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="id" value="<%=change.getVehicle_ID()%>" disabled>
+           	<label>Vehicle ID:</label>
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="id" value="<%=id%>" disabled>
         </p>    
        <p>
          	<label>Plate:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate" value="<%=change.getLicense_plate_number()%>">
+    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate">
         </p>
         <p>
          <% 
-         
           java.util.ArrayList <Color> colors = new ArrayList<Color>();
            if((session.getAttribute("colorList") != null)){
         	   colors = (java.util.ArrayList<Color>) session.getAttribute("colorList");
-	       }
-           %>
+	       } %>
   		<label>Color:</label>
     	<select name="colorId" class="w3-select" style="width:30%">  
     	<% for(int c = 0; c < colors.size(); c++){
@@ -119,7 +112,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        %>
   
   		<label>Accessories:</label>
-    	<select name="accessoryId" class="w3-select" style="width:30%" multiple>  
+    	<select name="accessoryId" class="w3-select" style="width:30%" >  
 		<%  for(int a = 0; a < accessories.size(); a++){
         	Accessory ac = (Accessory)accessories.get(a);
   		%>      	
@@ -129,23 +122,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         </p>
         <p>
         	<label>Mileage:</label>
-       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage" value="<%=change.getMileage() %>">
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="mileage">
         </p>
          <p>
         	<label>Year:</label>
-       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" value="<%=change.getManufacture_year()%>">
+       		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="year" >
         </p>
         <p>
-        <input class="w3-check" type="checkbox" name="active" value="<%=change.getActive()%>" />Active<br>
+        <input class="w3-check" type="checkbox" name="active" />Active<br>
         </p>
+ 
         <div>
-        <form id="ChangeVehicle" action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
       	<p><button type=submit class="w3-button w3-dark-grey" name="changeVehicle">Change Vehicle</button></p>
-      	</form>
        	</div> 
-       	<%} %>
-</form>
+       	</div>
+		</form>
 
-</div>
 </body>
 </html>

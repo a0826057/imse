@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,16 +9,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
+import dao.AccessoryDAO;
+import dao.AccessoryDAOI;
+import dao.ColorDAO;
+import dao.ColorDAOI;
+import dao.ManufacturerDAO;
+import dao.ManufacturerDAOI;
+import dao.ModelDAO;
+import dao.ModelDAOI;
+import dao.Proxy;
 import dao.VehicleDAO;
 import dao.VehicleDAOI;
+import model.Car;
+import model.Truck;
+import model.Vehicle;
 
 
 @WebServlet("/ChangeVehicle")
 public class ChangeVehicle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	String cid;
     /**
      * Default constructor. 
      */
@@ -30,32 +42,45 @@ public class ChangeVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession(); 
+		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
+	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+	 	ColorDAO col = Proxy.getInstance().getColorDAO();
+		VehicleDAO vehi = Proxy.getInstance().getVehicleDAO();
+		cid = (String) request.getParameter("id");
+		int changeId = Integer.parseInt(cid);
+		System.out.println("My id" + cid);
+		session.setAttribute("changeList",vehi.getVehicleById(changeId));
+        session.setAttribute("colorList",col.getColorList());
+   	    session.setAttribute("modelList",mod.getModelList());
+   	    session.setAttribute("manufacturerList",man.getManufacturerList());
+   	    session.setAttribute("accessoryList",acc.getAccessoryList());
+   	    RequestDispatcher dispatcher = request.getRequestDispatcher("ChangeVehicle.jsp");
+   	    dispatcher.forward(request, response);		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		//String user = (String)request.getParameter("user");
-		//String password = (String) request.getParameter("password");
 		
-		
+		HttpSession session = request.getSession(); 
+		cid = (String)session.getAttribute("edit");
+		System.out.println("Im in post");
+		int changeId = Integer.parseInt(cid);
+		VehicleDAO chVe = Proxy.getInstance().getVehicleDAO();
+		String user = (String)session.getAttribute("currentSessionUser");
+		System.out.println(user);
 		try {
-			String user="admin";
-			String password="admin";
-			
-			String vehicleType = (String) request.getParameter("changeVehicle");
-				
-			if(user.equals("admin") && password.equals("admin")){
+			if((session.getAttribute("currentSessionUser") != null) && user.equals("admin")){
+				String vehicleType = (String) request.getParameter("changeVehicle");
 				if(vehicleType != null) {
 				String IDvehicle = (String) request.getParameter("id");
 				int vehicleId = Integer.parseInt(IDvehicle);
 				String plate = (String) request.getParameter("plate");
 				String colorId = (String) request.getParameter("colorId");
 				if(colorId!=null) {
-				
 					int color = Integer.parseInt(colorId);
 					String modelId = (String)request.getParameter("modelId");
 						if(modelId!=null) {
@@ -75,35 +100,35 @@ public class ChangeVehicle extends HttpServlet {
 									Boolean active = Boolean.parseBoolean(active1);
 									
 									if("CAR".equals(vehicleType)) {
-										
-										String doors1 = (String) request.getParameter("doors");
-										int doors = Integer.parseInt(doors1);
-										String pass_limit1 = (String) request.getParameter("pass_limit");
-										int pass_limit = Integer.parseInt(pass_limit1);
-										VehicleDAO cdao = new VehicleDAOI();
-										cdao.changeCar(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
-										response.sendRedirect("ListVehicle.jsp");
-										return;
-									}else {
-										String length1 = request.getParameter("length");
-										int length = Integer.parseInt(length1);
-										String height1 = request.getParameter("height");
-										int height = Integer.parseInt(height1);
-										String load_limit1 = request.getParameter("load_limit");
-										int load_limit = Integer.parseInt(load_limit1);
-										VehicleDAO tdao = new VehicleDAOI();
-										tdao.changeTruck(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
-										response.sendRedirect("ListVehicle.jsp");
-										return;
+										VehicleDAO cdao = Proxy.getInstance().getVehicleDAO();
+										ArrayList<Car> carss = new ArrayList<Car>();
+										carss.add((Car) chVe.getVehicleListByType("Car"));
+										for(Car c: carss) {
+											if(changeId==c.getVehicle_ID()) {
+												cdao.changeCar(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active,c.getDoors(),c.getPassenger_limit());
+												response.sendRedirect("ListVehicle.jsp");
+												return;
+											}
 										}
-									
+									}else {
+										ArrayList<Truck> truckss = new ArrayList<Truck>();
+										truckss.add((Truck) chVe.getVehicleListByType("Truck"));
+										for(Truck c: truckss) {
+											if(changeId==c.getVehicle_ID()) {
+												VehicleDAO tdao = Proxy.getInstance().getVehicleDAO();
+												tdao.changeTruck(vehicleId, plate, color, model, manufacturer, accessory, mileage, year, active, c.getLenght(), c.getHeight(), c.getLoading_limit());
+												response.sendRedirect("ListVehicle.jsp");
+												return;
+											}
+										
+										}								
 								}
 							}
 						}
 					
 					}
 					}
-				}
+				}}
 				else {
 					response.sendRedirect("Homepage.jsp");
 					return;

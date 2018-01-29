@@ -48,11 +48,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		</div>
 		
 		<div>
-<form  action="${pageContext.request.contextPath}/ListVehicle" method="get">
+<form action="${pageContext.request.contextPath}/ListVehicle" method="get">
 		
        <label>Select Vehicle Type:</label>
        <!-- <form action="ListVehicle.jsp"> -->
-           <select name="vehicleType" required class="w3-select" style="width:30%">
+           <select name="vehicleType" class="w3-select" style="width:30%">
            		<option value="null">Select</option>
          		<option value="CAR">Car</option>
            		<option value="TRUCK">Truck</option>         
@@ -111,8 +111,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(car.getDoors()); %></td>
 		       <td><% out.print(car.getPassenger_limit()); %></td>
 		       <td>
-			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
-    				<button name="edit" type="submit" value="<%=sid%>" onclick="location.href='/ChangeVehicle.jsp';">Edit</button>
+			   <form action="ChangeVehicle.jsp" method="post">
+    				<button NAME="edit" type="submit" value="<%=sid%>">Edit</button>
 				</form>
 		       </td>
 		        <td>
@@ -167,8 +167,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 		       <td><% out.print(truck.getHeight()); %></td>
 		       <td><% out.print(truck.getLoading_limit()); %></td>
 		       <td>
-			   <form action="${pageContext.request.contextPath}/ChangeVehicle" method="post">
-    				<button name="edit" type="submit" value="<%=sid%>" onclick="location.href='/ChangeVehicle.jsp';">Edit</button>
+			   <form action="ChangeVehicle.jsp" method="post">
+    				<button NAME="edit" type="submit" value="<%=sid%>">Edit</button>
 				</form>
 		       </td>
 		       <td>
