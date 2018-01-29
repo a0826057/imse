@@ -55,7 +55,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         <% String type =(String)request.getParameter("vehicleType"); %>
          <p>
          	<label>Plate:</label>
-    		<input class="w3-input w3-border w3-round-large" style="width:30%" type="text" name="plate">
+    		<input type="text" name="plate" class="w3-input w3-border w3-round-large" style="width:30%" />
         </p>
         <p>
          <% 
