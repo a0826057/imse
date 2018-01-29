@@ -42,6 +42,7 @@ public class ChangeVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("My id");
 		HttpSession session = request.getSession(); 
 		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
@@ -53,6 +54,7 @@ public class ChangeVehicle extends HttpServlet {
 		System.out.println("My id" + cid);
 		session.setAttribute("changeList",vehi.getVehicleById(changeId));
         session.setAttribute("colorList",col.getColorList());
+        System.out.println(col.getColorList().toString());
    	    session.setAttribute("modelList",mod.getModelList());
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
    	    session.setAttribute("accessoryList",acc.getAccessoryList());
