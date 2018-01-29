@@ -42,24 +42,7 @@ public class ChangeVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("My id");
-		HttpSession session = request.getSession(); 
-		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
-	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
-	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
-	 	ColorDAO col = Proxy.getInstance().getColorDAO();
-		VehicleDAO vehi = Proxy.getInstance().getVehicleDAO();
-		cid = (String) request.getParameter("id");
-		int changeId = Integer.parseInt(cid);
-		System.out.println("My id" + cid);
-		session.setAttribute("changeList",vehi.getVehicleById(changeId));
-        session.setAttribute("colorList",col.getColorList());
-        System.out.println(col.getColorList().toString());
-   	    session.setAttribute("modelList",mod.getModelList());
-   	    session.setAttribute("manufacturerList",man.getManufacturerList());
-   	    session.setAttribute("accessoryList",acc.getAccessoryList());
-   	    RequestDispatcher dispatcher = request.getRequestDispatcher("ChangeVehicle.jsp");
-   	    dispatcher.forward(request, response);		
+		doPost(request, response);
 	}
 
 	/**
@@ -68,6 +51,16 @@ public class ChangeVehicle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(); 
+		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
+	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+	 	ColorDAO col = Proxy.getInstance().getColorDAO();
+		VehicleDAO vehi = Proxy.getInstance().getVehicleDAO();
+        session.setAttribute("colorList",col.getColorList());
+        System.out.println(col.getColorList().toString());
+   	    session.setAttribute("modelList",mod.getModelList());
+   	    session.setAttribute("manufacturerList",man.getManufacturerList());
+   	    session.setAttribute("accessoryList",acc.getAccessoryList());
 		cid = (String)session.getAttribute("edit");
 		System.out.println("Im in post");
 		int changeId = Integer.parseInt(cid);

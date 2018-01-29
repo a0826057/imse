@@ -50,7 +50,8 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(); 
+		doPost(request, response);
+		/*HttpSession session = request.getSession(); 
 	    AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
 	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
@@ -60,7 +61,7 @@ public class CreateVehicle extends HttpServlet {
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
    	    session.setAttribute("accessoryList",acc.getAccessoryList());
    	    RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-   	    dispatcher.forward(request, response);		
+   	    dispatcher.forward(request, response);		*/
 	}
 
 	/**
@@ -68,6 +69,14 @@ public class CreateVehicle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); 
+		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+		ModelDAO mod = Proxy.getInstance().getModelDAO();
+		ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
+		ColorDAO col = Proxy.getInstance().getColorDAO();
+	    session.setAttribute("colorList",col.getColorList());
+	   	session.setAttribute("modelList",mod.getModelList());
+	   	session.setAttribute("manufacturerList",man.getManufacturerList());
+	   	session.setAttribute("accessoryList",acc.getAccessoryList());
 		String submit = (String) request.getParameter("create");
 		if(submit != null) {
 			System.out.println("Im"+submit);
@@ -75,7 +84,7 @@ public class CreateVehicle extends HttpServlet {
 		try {
 			String user = (String)session.getAttribute("currentSessionUser");
 			if((session.getAttribute("currentSessionUser") != null) && user.equals("admin")){
-			String vehicleType = request.getParameter("vehicleType");
+			String vehicleType = request.getParameter("create");
 			System.out.println(vehicleType);
 				if(vehicleType != null) {
 				String plate = request.getParameter("plate");
@@ -134,7 +143,6 @@ public class CreateVehicle extends HttpServlet {
 				}
 			}catch(Exception e) {
 				response.sendRedirect("Homepage.jsp");
-				
 			}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
 	    dispatcher.forward(request, response);
