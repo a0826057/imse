@@ -30,6 +30,7 @@ public class SearchVehicle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class SearchVehicle extends HttpServlet {
 		//String user = (String)request.getParameter("user");
 		//String password = (String) request.getParameter("password");
 		
-		
+		/*
 		try {
 			String user="admin";
 			String password="admin";
@@ -82,7 +83,7 @@ public class SearchVehicle extends HttpServlet {
 			}
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("SearchVehicle.jsp");
-		    dispatcher.forward(request, response);
+		    dispatcher.forward(request, response);*/
 	}
 }		
 
