@@ -41,7 +41,7 @@ public class SearchVehicle extends HttpServlet {
 		//String password = (String) request.getParameter("password");
 		
 		
-		try {
+		/*try {
 			String user="admin";
 			String password="admin";
 			
@@ -50,19 +50,19 @@ public class SearchVehicle extends HttpServlet {
 			if(user.equals("admin") && password.equals("admin")){
 				if(vehicleType != null) {
 					String colorId = (String) request.getParameter("colorId");
-					int color;
+					int color = 0;
 					if(colorId!=null)
 						color = Integer.parseInt(colorId);
 					String modelId = (String)request.getParameter("modelId");
-					int model;
+					int model = 0;
 					if(modelId!=null)
 						model = Integer.parseInt(modelId);
 					String manufacturerId = (String) request.getParameter("manufacturerId");
-					int manufacturer;
+					int manufacturer = 0;
 					if(manufacturerId!=null)
 						manufacturer = Integer.parseInt(manufacturerId);
 					String accessoryId = (String) request.getParameter("accessoryId");
-					int accessory;
+					int accessory = 0;
 					if(accessoryId!=null)
 						int accessory = Integer.parseInt(accessoryId);					
 					
@@ -82,7 +82,7 @@ public class SearchVehicle extends HttpServlet {
 			}
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("SearchVehicle.jsp");
-		    dispatcher.forward(request, response);
+		    dispatcher.forward(request, response);*/
 	}
 }		
 
