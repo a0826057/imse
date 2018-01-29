@@ -1,9 +1,14 @@
 <%@ page import="model.Employee" %>
 <%@ page import="java.util.List" %>
+<%@ page import="dao.Proxy" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
    	if(session.getAttribute("currentSessionUser") == null || (!session.getAttribute("currentSessionUser").equals("admin") && !session.getAttribute("currentSessionUserPassword").equals("admin"))) {
        response.sendRedirect("Homepage.jsp");
+    }
+    String dbmode = Proxy.getDbmode();
+    if(request.getAttribute("dbmode") != null) {
+   	    dbmode = (String)request.getAttribute("dbmode");
     }
 %>
 <!DOCTYPE html>
@@ -109,9 +114,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         <td>
             <form action="/EmployeeServlet" method="post">
                 <input type="hidden" name="employeeMode" value="loadProxy">
-                <input type="hidden" name="dbmode" value="<% if(request.getAttribute("dbmode").equals("mongodb")) {out.print("mysql");} else {out.print("mongodb");} %>">
+                <input type="hidden" name="dbmode" value="<% if(dbmode.equals("mongodb")) {out.print("mysql");} else {out.print("mongodb");} %>">
                 <div>
-                    <p><button type=submit class="w3-button w3-dark-grey">Switch to <% if(request.getAttribute("dbmode").equals("mongodb")) {out.print("MySQL");} else {out.print("MongoDB");} %></button></p>
+                    <p><button type=submit class="w3-button w3-dark-grey">Switch to <% if(dbmode.equals("mongodb")) {out.print("MySQL");} else {out.print("MongoDB");} %></button></p>
                 </div>
             </form>
         </td>

@@ -30,7 +30,11 @@ public class EmployeeServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         employeeDAO = Proxy.getInstance().getEmployeeDAO();
-        String employeeMode = request.getParameter("employeeMode");
+        String employeeMode = "";
+        if(request.getParameter("employeeMode") == null) {
+            employeeMode = request.getParameter("employeeMode");
+        }
+
         request.setAttribute("dbmode", Proxy.getDbmode());
 
         // get all employees and store them in a list if the request mode is valid
