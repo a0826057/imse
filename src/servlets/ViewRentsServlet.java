@@ -41,8 +41,8 @@ public class ViewRentsServlet extends HttpServlet {
   		HttpSession session = request.getSession();
 		String user = (String)session.getAttribute("currentSessionUser");
   		String email = (String) session.getAttribute("currentSessionUserMail");
-  		CostumerDAO cos = Proxy.getInstance("mongodb").getCostumerDAO();
-  		RentalDAO rent = Proxy.getInstance("mongodb").getRentalDAO();
+  		CostumerDAO cos = Proxy.getInstance().getCostumerDAO();
+  		RentalDAO rent = Proxy.getInstance().getRentalDAO();
   		
 		if((session.getAttribute("currentSessionUser") != null) && user.equals("customer") && (session.getAttribute("currentSessionUserMail") != null)){
 	  		List<Rental> list_rentals = rent.getRentalList();
@@ -78,7 +78,7 @@ public class ViewRentsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RentalDAO rent = Proxy.getInstance("mongodb").getRentalDAO();
+		RentalDAO rent = Proxy.getInstance().getRentalDAO();
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("list_rent") != null){

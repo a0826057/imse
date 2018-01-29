@@ -38,6 +38,7 @@ public class CostumerDAOM implements CostumerDAO {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				java.util.Date birth_date = sdf.parse(obj.get("birth_date").toString());
 
+				
 				String email = obj.get("email").toString();
 				Document d = (Document) obj.get("address");
 				String post_code = d.get("post_code").toString();

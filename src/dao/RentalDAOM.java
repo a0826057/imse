@@ -326,6 +326,7 @@ public class RentalDAOM implements RentalDAO {
 		MongoCollection<Document> coll = database.getCollection("Customer");
 		List<Document> cursor = coll.find().into(new ArrayList<Document>());
 		
+		
 		for (Document obj:cursor) {
 			if(obj.get("rental") != null){
 				int costumer_ID = Integer.parseInt(obj.get("costumer_ID").toString());

@@ -53,8 +53,8 @@ public class RentVehicleServlet extends HttpServlet {
         
         List<Rental> list_rentals = new ArrayList<Rental>();
         List<Vehicle> list_vehicle = new ArrayList<Vehicle>();
-        RentalDAO rent = Proxy.getInstance("mongodb").getRentalDAO();
-        VehicleDAO veh = Proxy.getInstance("mongodb").getVehicleDAO();
+        RentalDAO rent = Proxy.getInstance().getRentalDAO();
+        VehicleDAO veh = Proxy.getInstance().getVehicleDAO();
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         try {
 			java.util.Date DateFrom  =  df.parse(date_f);
@@ -97,9 +97,9 @@ public class RentVehicleServlet extends HttpServlet {
 			String date_f = (String) session.getAttribute("date_from");
 	        String date_t = (String) session.getAttribute("date_to");
 	        
-	        CostumerDAO c = Proxy.getInstance("mongodb").getCostumerDAO();
-	        EmployeeDAO e =  Proxy.getInstance("mongdodb").getEmployeeDAO();
-	        VehicleDAO v = Proxy.getInstance("mongodb").getVehicleDAO();
+	        CostumerDAO c = Proxy.getInstance().getCostumerDAO();
+	        EmployeeDAO e =  Proxy.getInstance().getEmployeeDAO();
+	        VehicleDAO v = Proxy.getInstance().getVehicleDAO();
 	        Random rand = new Random();
 	        
 	 
@@ -113,7 +113,7 @@ public class RentVehicleServlet extends HttpServlet {
 	        	}
 	        }
 	        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-			RentalDAO rent = Proxy.getInstance("mongodb").getRentalDAO();
+			RentalDAO rent = Proxy.getInstance().getRentalDAO();
 			Rental r = null;
 			try {
 				r = new Rental(v.getVehicleById(Integer.parseInt(button)), costumer, employees.get(rand.nextInt(employees.size())), df.parse(date_f),df.parse(date_t), "not given");
