@@ -16,7 +16,6 @@ import dao.AccessoryDAO;
 
 import dao.ColorDAO;
 
-import dao.CostumerDAO;
 import dao.ManufacturerDAO;
 
 import dao.ModelDAO;
@@ -24,7 +23,6 @@ import dao.ModelDAO;
 import dao.Proxy;
 import dao.VehicleDAO;
 
-import model.Costumer;
 
 
 
@@ -53,8 +51,6 @@ public class CreateVehicle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); 
-	  	String type = request.getParameter("submit");
-	    System.out.println("Im"+ type);
 	    AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
 	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
@@ -72,16 +68,15 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true); 
-		String submit = (String) request.getParameter("submit");
+		HttpSession session = request.getSession(); 
+		String submit = (String) request.getParameter("create");
 		if(submit != null) {
 			System.out.println("Im"+submit);
 		}
-		
 		try {
 			String user = (String)session.getAttribute("currentSessionUser");
 			if(user.equals("admin") && user != null){
-			String vehicleType = (String) request.getParameter("vehicleType");
+			String vehicleType = request.getParameter("vehicleType");
 			System.out.println(vehicleType);
 				if(vehicleType != null) {
 				String plate = request.getParameter("plate");
@@ -113,7 +108,7 @@ public class CreateVehicle extends HttpServlet {
 										VehicleDAO car = Proxy.getInstance().getVehicleDAO();
 								    	car.addCar(plate, color, model, manufacturer, accessory, mileage, year, active, doors, pass_limit);
 								    	response.sendRedirect("ListVehicle.jsp");
-								    	return;
+								    
 									}
 									else {
 										String length1 = request.getParameter("length");
@@ -125,7 +120,7 @@ public class CreateVehicle extends HttpServlet {
 										VehicleDAO truck =Proxy.getInstance().getVehicleDAO();
 								    	truck.addTruck(plate, color, model, manufacturer, accessory, mileage, year, active, length, height, load_limit);
 								    	response.sendRedirect("ListVehicle.jsp");
-								    	return;
+								    	
 									}
 									
 								}
@@ -140,10 +135,10 @@ public class CreateVehicle extends HttpServlet {
 				}
 			}catch(Exception e) {
 				response.sendRedirect("Homepage.jsp");
-				return;
+				
 			}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-	    dispatcher.forward(request, response);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
+	    //dispatcher.forward(request, response);
 			
 	}
 }

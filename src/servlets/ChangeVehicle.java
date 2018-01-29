@@ -42,31 +42,20 @@ public class ChangeVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true); 
-		String user = (String)session.getAttribute("currentSessionUser");
-		if(user.equals("admin") && user != null){
-		/*AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
+		HttpSession session = request.getSession(); 
+		AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
 	 	ManufacturerDAO man = Proxy.getInstance().getManufacturerDAO();
 	 	ColorDAO col = Proxy.getInstance().getColorDAO();
-		VehicleDAO vehi = Proxy.getInstance().getVehicleDAO();*/
-		cid = (String)session.getValue("edit");
-		System.out.println("I AM" + cid);
-	    AccessoryDAOI acc = new AccessoryDAOI();
-	 	ModelDAOI mod = new ModelDAOI();
-	 	ManufacturerDAOI man = new ManufacturerDAOI();
-	 	ColorDAOI col = new ColorDAOI();
-	 	VehicleDAOI vehi = new VehicleDAOI();
-	 	int changeId = Integer.parseInt(cid);
+		VehicleDAO vehi = Proxy.getInstance().getVehicleDAO();
+		cid = (String) request.getParameter("id");
+		int changeId = Integer.parseInt(cid);
 		System.out.println("My id" + cid);
 		session.setAttribute("changeList",vehi.getVehicleById(changeId));
         session.setAttribute("colorList",col.getColorList());
    	    session.setAttribute("modelList",mod.getModelList());
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
    	    session.setAttribute("accessoryList",acc.getAccessoryList());
-   	    }else {
-   	    	
-   	    }
    	    RequestDispatcher dispatcher = request.getRequestDispatcher("ChangeVehicle.jsp");
    	    dispatcher.forward(request, response);		
 	}
@@ -75,13 +64,13 @@ public class ChangeVehicle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		HttpSession session = request.getSession(true); 
+		
+		HttpSession session = request.getSession(); 
 		cid = (String)session.getAttribute("edit");
+		System.out.println("Im in post");
 		int changeId = Integer.parseInt(cid);
 		VehicleDAO chVe = Proxy.getInstance().getVehicleDAO();
 		try {
-			
 			String user = (String)session.getAttribute("currentSessionUser");
 			if(user.equals("admin") && user != null){
 				String vehicleType = (String) request.getParameter("changeVehicle");

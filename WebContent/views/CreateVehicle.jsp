@@ -41,10 +41,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </div>
 
 <div class="w3-container w3-white w3-padding-16">
-<div class="w3-container w3-card-4 w3-light-grey">
+<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="POST" class="w3-container w3-card-4 w3-light-grey">
 <div><h3>Create Vehicle</h3></div>
-
-<form id="CreateVehicle" action="${pageContext.request.contextPath}/CreateVehicle" method="POST"> 
+ 		
            <select name="vehicleType" class="w3-select" style="width:30%">
            		<option value="null">Select a vehicle type</option>
          		<option value="CAR">Car</option>
@@ -158,10 +157,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         		<h2></h2>
         	<%}%>
         <div>
-      	<p><button type=submit name="submit" class="w3-button w3-dark-grey" value="<%=type%>">Create Vehicle</button></p>
+      	<p><button type=submit name="create" class="w3-button w3-dark-grey" value="<%=type%>">Create Vehicle</button></p>
        	</div> 
-       	</form>
-</div>
+</form>
 </div>
 </body>
 </html>
