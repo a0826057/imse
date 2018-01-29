@@ -642,7 +642,10 @@ public class VehicleDAOI implements VehicleDAO{
 	
 	public List<Vehicle> searchVehicle(int color, int model, int manufacturer, int accessory){
 		Connection con = null;
-		
+		ColorDAOI col = new ColorDAOI();
+		ModelDAOI mod = new ModelDAOI();
+		AccessoryDAOI acc = new AccessoryDAOI();
+		ManufacturerDAOI man = new ManufacturerDAOI();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
@@ -689,7 +692,7 @@ public class VehicleDAOI implements VehicleDAO{
 				prepared.setInt(++counter, accessory);
 			}
 			ResultSet result = prepared.executeQuery(raw_query);
-			List<Vehicle> vehicles = vehicles = new ArrayList<Vehicle>();
+			List<Vehicle> vehicles = new ArrayList<Vehicle>();
 			while(result.next()){
 				Color c = col.getColorById(result.getInt("color_ID"));
 				List<Accessory> a= acc.getHasAccessory(result.getInt("vehicle_ID")); 

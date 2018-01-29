@@ -52,8 +52,8 @@ public class CreateVehicle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*HttpSession session = request.getSession(); 
-	  	type = request.getParameter("vehicleType");
+		HttpSession session = request.getSession(); 
+	  	String type = request.getParameter("submit");
 	    System.out.println("Im"+ type);
 	    AccessoryDAO acc = Proxy.getInstance().getAccessoryDAO();
 	 	ModelDAO mod = Proxy.getInstance().getModelDAO();
@@ -64,7 +64,7 @@ public class CreateVehicle extends HttpServlet {
    	    session.setAttribute("manufacturerList",man.getManufacturerList());
    	    session.setAttribute("accessoryList",acc.getAccessoryList());
    	    RequestDispatcher dispatcher = request.getRequestDispatcher("CreateVehicle.jsp");
-   	    dispatcher.forward(request, response);		*/
+   	    dispatcher.forward(request, response);		
 	}
 	
 
