@@ -1,6 +1,5 @@
 DROP TABLE has_accessory;
-DROP TABLE rents;
-DROP TABLE accessory;
+DROP TABLE rental;
 DROP TABLE car;
 DROP TABLE truck;
 DROP TABLE vehicle;
@@ -8,4 +7,5 @@ DROP TABLE model;
 DROP TABLE manufacturer;
 DROP TABLE color;
 DROP TABLE employee;
-DROP TABLE customer;
+DROP TABLE costumer;
+DROP TABLE accessory;
