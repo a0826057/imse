@@ -66,7 +66,7 @@ public class EmployeeGenerator {
 			empl.addEmployee(e);
 		}
 
-	    for(int i = 1; i <= 50; i++) {
+	    for(int i = 1; i <= numEmployees; i++) {
 	    	fi = new Random().nextInt(numEmployees);
 			Employee e = empl.getEmployeeById(i);
 			Employee ex = new Employee (e.getEmployee_number(), e.getFirst_name(), e.getLast_name(), fi, e.isActive());

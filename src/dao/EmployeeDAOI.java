@@ -59,13 +59,42 @@ public class EmployeeDAOI implements EmployeeDAO {
 
 	@Override
 	public Employee getEmployeeById(int ID) {
-		refresh();
-		Employee res = null;
-		for(Employee e: this.allEmployee){
-			if(e.getEmployee_number()==ID)
-				res = e;
+		Employee e1 = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/myimsedb?useSSL=false","root","MySQLrp");
+
+			Statement stmt = connection.createStatement();
+			stmt.setQueryTimeout(30);
+
+			ResultSet epl = stmt.executeQuery("SELECT * FROM employee WHERE employee_number=" + ID);
+			try {
+				//while(epl.next()){
+				epl.next();
+					e1 = new Employee(	epl.getInt("employee_number"),
+							epl.getString("first_name"),
+							epl.getString("last_name"),
+							epl.getInt("superior_ID"),
+							epl.getBoolean("active"));
+					//this.allEmployee.add(e1);
+				//}
+				stmt.close();
+			} catch (Exception e) {
+				System.err.println("Fehler beim Einfuegen des Datensatzes in Person: " + e.getMessage());
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}finally{
+			try{
+				if(this.connection != null)
+					connection.close();
+
+			}catch(SQLException e){
+				System.err.println(e);
+			}
 		}
-		return res;
+
+		return e1;
 	}
 
 	@Override

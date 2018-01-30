@@ -69,7 +69,7 @@ public class DataGeneratorM {
 		System.out.println("Model Migrated");
 		
 		for(Employee cc : empDAOI.getEmployeeList())
-			empDAOM.addEmployee(cc);
+			empDAOM.addEmployee(cc, empDAOI.getEmployeeById(cc.getSuperior_ID()));
 		System.out.println("Employee Migrated");
 		
 		for(Vehicle cc : vehDAOI.getVehicleListByType("car")){

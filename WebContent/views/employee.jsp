@@ -1,9 +1,13 @@
 <%@ page import="model.Employee" %>
 <%@ page import="java.util.List" %>
+<%@ page import="dao.Proxy" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
    	if(session.getAttribute("currentSessionUser") == null || (!session.getAttribute("currentSessionUser").equals("admin") && !session.getAttribute("currentSessionUserPassword").equals("admin"))) {
        response.sendRedirect("Homepage.jsp");
+    }
+    if(request.getAttribute("dbmode") == null) {
+        request.setAttribute("dbmode", Proxy.getDbmode());
     }
 %>
 <!DOCTYPE html>
